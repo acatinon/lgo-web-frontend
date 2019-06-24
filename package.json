@@ -1,0 +1,36 @@
+{
+  "name": "svelte-app",
+  "version": "1.0.0",
+  "devDependencies": {
+    "@babel/core": "^7.0.0-0",
+    "@babel/plugin-syntax-async-generators": "^7.2.0",
+    "@babel/plugin-transform-runtime": "^7.4.4",
+    "@babel/preset-env": "^7.4.5",
+    "babel-loader": "^8.0.6",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-regenerator": "^6.26.0",
+    "bip32": "^2.0.3",
+    "svelte": "^3.4.2",
+    "svelte-loader": "^2.13.4",
+    "ts-loader": "^6.0.1",
+    "typescript": "^3.4.5",
+    "webpack": "^4.32.2",
+    "webpack-cli": "^3.3.2",
+    "webpack-dev-server": "^3.4.1"
+  },
+  "scripts": {
+    "build": "webpack",
+    "start": "webpack-dev-server --open"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.4.4",
+    "@ledgerhq/hw-app-btc": "^4.56.0",
+    "@ledgerhq/hw-transport-u2f": "^4.56.0",
+    "babel-polyfill": "^6.26.0",
+    "bitcoinjs-lib": "^5.0.4",
+    "bs58": "^4.0.1",
+    "node-rsa": "^1.0.5",
+    "rxjs": "^6.5.2",
+    "ws": "^7.0.0"
+  }
+}
