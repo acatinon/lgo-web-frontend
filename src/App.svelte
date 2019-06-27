@@ -4,6 +4,8 @@
 	import { getPublicKey } from "./utils/path_finder";
 	import { Observable } from 'rxjs';
 
+	import OrderList from './components/OrderList.svelte';
+
 	let isLedgerReady = false;
 	let publicKey = null;
 /*
@@ -95,3 +97,4 @@
 {:else}
 <h1>Please connect and unlock your device...</h1>
 {/if}
+<OrderList />

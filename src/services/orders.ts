@@ -1,4 +1,4 @@
-import request, { RequestPromise } from 'request-promise-native';
+import superAgent, { SuperAgentRequest } from 'superagent';
 import { BaseUrl } from "../utils/constants";
 import { Type, Side } from "./common"
 
@@ -27,15 +27,9 @@ export enum OrderStatus {
     Closed = "CLOSED"
 }
 
-export function getOrders(productId: string): RequestPromise<OrderResponse> {
-    const options = {
-        uri: BaseUrl + "/orders",
-        qs: {
-            product_id: productId
-        },
-        headers: {},
-        json: true 
-    };
-
-    return request(options);
+export function getOrders(productId: string): SuperAgentRequest {
+    return superAgent
+    .get(BaseUrl + "/orders")
+    .withCredentials()
+    .query({ product_id: productId });
 }

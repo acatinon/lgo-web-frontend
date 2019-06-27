@@ -1,5 +1,11 @@
 const express = require('express');
+var cors = require('cors');
 const app = express();
+
+app.use(cors({
+  origin: 'https://localhost:9000',
+  credentials: true
+}));
 
 app.get('/', function (req, res) {
   res.send('Hello World!')
@@ -17,8 +23,8 @@ app.get('/orders', function (req, res) {
               "type": "L",
               "side": "B",
               "product_id": "BTC-USD",
-              "quantity": "1.00000000",
-              "price": "7000.0000",
+              "quantity": "1.20000000",
+              "price": "7024.0000",
               "creation_date": "2018-11-13T12:41:36.739"
             },
             {
@@ -29,8 +35,8 @@ app.get('/orders', function (req, res) {
               "type": "L",
               "side": "B",
               "product_id": "BTC-USD",
-              "quantity": "1.00000000",
-              "price": "7000.0000",
+              "quantity": "2.70000000",
+              "price": "7045.0000",
               "creation_date": "2018-11-13T12:41:33.738"
             }
           ]
@@ -38,9 +44,9 @@ app.get('/orders', function (req, res) {
         "nextPage": "aGVsbG8="
       };
 
-      res.send(response);
+      res.json(response);
 });
 
-app.listen(3000, function () {
-  console.log('Example app listening on port 3000!')
+app.listen(3200, function () {
+  console.log('Example app listening on port 3200!')
 });
