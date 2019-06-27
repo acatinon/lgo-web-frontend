@@ -1,5 +1,6 @@
 <script>
 import { getOrders } from "../services/orders";
+import Date from './Date.svelte';
 
 let orders = getOrders("BTC-USD");
 </script>
@@ -9,8 +10,8 @@ let orders = getOrders("BTC-USD");
     <p>Loading...</p>
 {:then response}
     <ul>
-    {#each response.body.result.orders as { quantity, price }, i}
-        <li>{quantity}: {price}</li>
+    {#each response.body.result.orders as { quantity, price, creation_date }, i}
+        <li><Date value={creation_date}></Date> {quantity}: {price}</li>
     {/each}
     </ul>
 {:catch error}
