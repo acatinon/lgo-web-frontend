@@ -30,6 +30,5 @@ export enum OrderStatus {
 export function getOrders(productId: string): SuperAgentRequest {
     return superAgent
     .get(BaseUrl + "/orders")
-    .withCredentials()
     .query({ product_id: productId });
 }
