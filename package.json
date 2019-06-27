@@ -20,7 +20,8 @@
   },
   "scripts": {
     "build": "webpack",
-    "start": "webpack-dev-server --open"
+    "start": "webpack-dev-server --open",
+    "simulator": "node src/simulator.js"
   },
   "dependencies": {
     "@babel/runtime": "^7.4.4",
