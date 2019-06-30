@@ -1,21 +1,16 @@
 <script>
-import { getOrders } from "../services/orders";
+import { orders } from "../stores/orders";
 import Date from './Date.svelte';
+import { get } from 'svelte/store';
 
-let orders = getOrders("BTC-USD");
+let v = get(orders);
 </script>
-
 <div>
-{#await orders}
-    <p>Loading...</p>
-{:then response}
+
+    {@debug orders}
     <ul>
-    {#each response.body.result.orders as { quantity, price, creation_date }, i}
+    {#each Object.values($orders.openOrders) as { quantity, price, creation_date }, i}
         <li><Date value={creation_date}></Date> {quantity}: {price}</li>
     {/each}
     </ul>
-{:catch error}
-	<!-- promise was rejected -->
-	<p>Something went wrong: {error.message}</p>
-{/await}
 </div>

@@ -1,14 +1,17 @@
 const express = require('express');
 var cors = require('cors');
-const app = express();
+const wsApp = express();
+require('express-ws')(wsApp);
 
-app.use(cors());
+const httpApp = express();
 
-app.get('/', function (req, res) {
+httpApp.use(cors());
+
+httpApp.get('/', function (req, res) {
   res.send('Hello World!')
 });
 
-app.get('/orders', function (req, res) {
+httpApp.get('/orders', function (req, res) {
     let response = {
         "result": {
           "orders": [
@@ -44,6 +47,18 @@ app.get('/orders', function (req, res) {
       res.json(response);
 });
 
-app.listen(3200, function () {
+httpApp.listen(3200, function () {
   console.log('Example app listening on port 3200!')
+});
+
+
+wsApp.ws('/', function(ws, req) {
+  ws.on('message', function(msg) {
+    console.log(msg);
+  });
+});
+
+
+wsApp.listen(3002, function () {
+  console.log('Example app listening on port 3002!')
 });

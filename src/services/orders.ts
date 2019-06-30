@@ -1,5 +1,4 @@
-import superAgent, { SuperAgentRequest } from 'superagent';
-import { BaseUrl } from "../utils/constants";
+
 import { Type, Side } from "./common"
 
 export interface OrderResponse {
@@ -27,8 +26,3 @@ export enum OrderStatus {
     Closed = "CLOSED"
 }
 
-export function getOrders(productId: string): SuperAgentRequest {
-    return superAgent
-    .get(BaseUrl + "/orders")
-    .query({ product_id: productId });
-}
