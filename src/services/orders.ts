@@ -1,28 +1,17 @@
+import superAgent from 'superagent';
+import { OrderType, Side } from "../domain/order"
+import { BaseUrl } from "../utils/constants";
 
-import { Type, Side } from "./common"
-
-export interface OrderResponse {
-    result: {
-        orders: Order[]
-    },
-    nextPage: string
+export function placeOrder(productId: string, type: OrderType, side: Side, quantity: number, price: number) {
+    superAgent
+        .post(BaseUrl + "/orders")
+        .set('Content-Type', 'application/json')
+        .send({
+            type: type,
+            side: side,
+            product_id: productId,
+            quantity: quantity.toString(),
+            price: price.toString()
+        })
+        .end();
 }
-
-export interface Order {
-    remaining_quantity: string;
-    status: OrderStatus,
-    id: string;
-    batch_id: string;
-    type: Type,
-    side: Side,
-    product_id: string;
-    quantity: string;
-    price: string;
-    creation_date: string;
-}
-
-export enum OrderStatus {
-    Open = "OPEN",
-    Closed = "CLOSED"
-}
-

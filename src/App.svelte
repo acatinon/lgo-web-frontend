@@ -5,6 +5,7 @@
 	import { Observable } from 'rxjs';
 
 	import OrderList from './components/OrderList.svelte';
+	import PlaceOrder from './components/PlaceOrder.svelte';
 
 	let isLedgerReady = false;
 	let publicKey = null;
@@ -29,42 +30,6 @@
 		error: error => {alert(error)}
 	});
 */
-	const socket = new WebSocket("ws://localhost:3002");
-
-	socket.onopen =  function socketOpen() {
-		const message = {
-			type: 'subscribe',
-			channels: [
-				{
-					name: 'user',
-					product_id: 'BTC-USD'
-				},
-				{
-					name: 'afr'
-				},
-				{
-					name: 'balance'
-				},
-				{
-					name: 'level2',
-					product_id: 'BTC-USD'
-				},
-				{
-					name: 'trades',
-					product_id: 'BTC-USD'
-				}
-			]
-		};
-		socket.send(JSON.stringify(message));
-	}
-
-	socket.onmessage = function (event) {
-		console.log(event.data);
-	}
-
-	socket.onerror = function (event) {
-		console.error("WebSocket error observed:", event);
-	};
 
 /*
 	Observable.create(TransportU2F.listen).subscribe({
@@ -98,3 +63,5 @@
 <h1>Please connect and unlock your device...</h1>
 {/if}
 <OrderList />
+<br />
+<PlaceOrder />

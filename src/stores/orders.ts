@@ -1,23 +1,18 @@
 import superAgent, { SuperAgentRequest } from 'superagent';
 import { readable } from 'svelte/store';
-import { ws, Type, Side } from "../services/common"
+import { ws } from "../services/common";
+import { OrderType, OrderStatus, Side } from "../domain/order";
 import { BaseUrl } from "../utils/constants";
 
 export interface Order {
     id: string;
-    type: Type;
+    type: OrderType;
     side: Side;
     quantity: string;
     remaining_quantity: string;
     price: string;
     creation_date: string;
     status: OrderStatus;
-}
-
-export enum OrderStatus {
-    Open = "OPEN",
-    Closed = "CLOSED",
-    Pending = "PENDING"
 }
 
 class Orders {
@@ -107,10 +102,10 @@ export const orders = readable(internal,
                         set(internal);
                     }
                 });
+
+                ws.open();
             });
 
-        return function stop() {
-
-        }
+        return function stop() {}
     }
 );
