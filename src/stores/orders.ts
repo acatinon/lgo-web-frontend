@@ -18,7 +18,7 @@ export interface Order {
 class Orders {
 
     openOrders: { [key: string]: Order } = {};
-    closedOredes: { [key: string]: Order } = {};
+    closedOrders: { [key: string]: Order } = {};
 
     clear() {
         this.openOrders = {};
@@ -51,10 +51,21 @@ class Orders {
                 matchingOrder.remaining_quantity = order.remaining_quantity;
                 break;
             case "done":
+                switch (order.reason) {
+                    case 'canceled':
+                    case 'filled':
+                        let ordertoUpdate = this.openOrders[order.order_id];
+
+                        ordertoUpdate.status = order.reason;
+                        this.closedOrders[order.order_id] = ordertoUpdate;
+                        delete this.openOrders[order.order_id];
+
+                }
+
                 break;
             default: // Open orders from snapshot
                 const newOpenOrder: Order = {
-                    id: order.order_id,
+                    id: order.id || order.order_id,
                     type: order.order_type,
                     side: order.side,
                     quantity: order.quantity,

@@ -10,7 +10,8 @@ export enum OrderType {
 }
 
 export enum OrderStatus {
-    Open = "OPEN",
-    Closed = "CLOSED",
-    Pending = "PENDING"
+    Open = "open",
+    Pending = "pending",
+    Cancelled = "cancelled",
+    Filled = "filled"
 }

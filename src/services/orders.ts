@@ -15,3 +15,9 @@ export function placeOrder(productId: string, type: OrderType, side: Side, quant
         })
         .end();
 }
+
+export function cancelOrder(orderId: string) {
+    superAgent
+        .delete(BaseUrl + "/orders/" + orderId)
+        .end();
+}

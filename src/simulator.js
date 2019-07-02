@@ -53,7 +53,12 @@ httpApp.get('/orders', function (req, res) {
 
 httpApp.post('/orders', function (request, response) {
   event.emit("placeOrder", request.body);
-  response.send('Hello World!')
+  response.status(200).end();
+});
+
+httpApp.delete('/orders/:id', function (request, response) {
+  event.emit("cancelOrder", request.params.id);
+  response.status(200).end();
 });
 
 httpApp.listen(3200, function () {
@@ -69,7 +74,7 @@ wsApp.ws('/', function (ws, req) {
           "quantity": body.quantity,
           "time": "2018-11-12T10:24:54.091Z",
           "side": body.side,
-          "order_id": "154201829409100001",
+          "order_id": Date.now(),
           "type": "pending",
           "order_type": body.type,
           "price": body.price
@@ -82,12 +87,33 @@ wsApp.ws('/', function (ws, req) {
     };
 
     ws.send(JSON.stringify(response));
-  }
+  };
 
   event.on("placeOrder", placeOrderListener);
 
+  const cancelOrderListener = function (orderId) {
+    const response = {
+      "payload": [
+        {
+          "time": "2019-06-07T15:02:21.971Z",
+          "reason": "canceled",
+          "type": "done",
+          "order_id": orderId
+        }
+      ],
+      "batch_id": 4075955,
+      "type": "update",
+      "channel": "user",
+      "product_id": "BTC-USD"
+    };
+
+    ws.send(JSON.stringify(response));
+  };
+
+  event.on("cancelOrder", cancelOrderListener);
+
   ws.on('close', function (code, reason) {
-    console.log("Close: " + reason);
+    event.off("cancelOrder", cancelOrderListener);
     event.off("placeOrder", placeOrderListener);
   });
 });
