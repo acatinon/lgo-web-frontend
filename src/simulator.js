@@ -96,7 +96,7 @@ wsApp.ws('/', function (ws, req) {
       "payload": [
         {
           "time": "2019-06-07T15:02:21.971Z",
-          "reason": "canceled",
+          "reason": "cancelled",
           "type": "done",
           "order_id": orderId
         }

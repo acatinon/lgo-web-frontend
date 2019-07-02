@@ -15,7 +15,7 @@ function submitOrderCancellation(orderId) {
     <table>
     {#each Object.values($orders.openOrders) as order (order.id)}
         <tr>
-            <td>{order.creation_date}</td>
+            <td><Date value={order.creation_date} /></td>
             <td>{order.quantity}</td>
             <td>{order.price}</td>
             <td><button on:click|once={e => submitOrderCancellation(order.id)}>Cancel</button></td>
@@ -28,7 +28,7 @@ function submitOrderCancellation(orderId) {
     <table>
     {#each Object.values($orders.closedOrders) as order (order.id)}
         <tr>
-            <td>{order.creation_date}</td>
+            <td><Date value={order.creation_date} /></td>
             <td>{order.quantity}</td>
             <td>{order.price}</td>
             <td>{order.status}</td>
