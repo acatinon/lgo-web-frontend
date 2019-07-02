@@ -58,6 +58,7 @@ httpApp.post('/orders', function (request, response) {
 
 httpApp.delete('/orders/:id', function (request, response) {
   event.emit("cancelOrder", request.params.id);
+  console.log("cancel");
   response.status(200).end();
 });
 
@@ -67,6 +68,34 @@ httpApp.listen(3200, function () {
 
 
 wsApp.ws('/', function (ws, req) {
+
+  ws.on('message', function(msg) {
+    const trades = {
+      "payload": [
+        {
+          "quantity": "2.00000000",
+          "side": "B",
+          "price": "120.0000",
+          "trade_id": "223",
+          "trade_creation_time": "2018-11-22T14:27:23.735Z"
+        },
+        {
+          "quantity": "0.50000000",
+          "side": "S",
+          "price": "153.0000",
+          "trade_id": "224",
+          "trade_creation_time": "2018-11-22T14:27:23.835Z"
+        }
+      ],
+      "batch_id": 777,
+      "type": "snapshot",
+      "channel": "trades",
+      "product_id": "BTC-USD"
+    };
+
+    ws.send(JSON.stringify(trades));
+  });
+
   const placeOrderListener = function (body) {
     const response = {
       "payload": [

@@ -4,7 +4,7 @@ import { ws } from "../services/common";
 import { OrderType, OrderStatus, Side } from "../domain/order";
 import { BaseUrl } from "../utils/constants";
 
-export interface Order {
+interface Order {
     id: string;
     type: OrderType;
     side: Side;
@@ -52,7 +52,7 @@ class Orders {
                 break;
             case "done":
                 switch (order.reason) {
-                    case 'canceled':
+                    case 'cancelled':
                     case 'filled':
                         let ordertoUpdate = this.openOrders[order.order_id];
 
@@ -90,7 +90,6 @@ const internal = new Orders();
 
 export const orders = readable(internal,
     function start(set) {
-
         // TODO: Handle product id and pages
         getOrders("BTC-USD")
             .then(response => {
@@ -110,11 +109,10 @@ export const orders = readable(internal,
                             internal.update(order);
                         }
 
+                        console.log("updating orders");
                         set(internal);
                     }
                 });
-
-                ws.open();
             });
 
         return function stop() {}

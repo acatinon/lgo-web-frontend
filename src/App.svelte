@@ -1,15 +1,32 @@
 <script>
-	import TransportU2F from "@ledgerhq/hw-transport-u2f";
-	import Btc from "@ledgerhq/hw-app-btc";
-	import { getPublicKey } from "./utils/path_finder";
-	import { Observable } from 'rxjs';
+  import TransportU2F from "@ledgerhq/hw-transport-u2f";
+  import Btc from "@ledgerhq/hw-app-btc";
+  import { getPublicKey } from "./utils/path_finder";
+  import { Observable } from "rxjs";
+  import { onMount } from "svelte";
+  import { ws } from "./services/common";
 
-	import OrderList from './components/OrderList.svelte';
-	import PlaceOrder from './components/PlaceOrder.svelte';
+  import TradeList from "./components/TradeList.svelte";
+  import OrderList from "./components/OrderList.svelte";
+  import PlaceOrder from "./components/PlaceOrder.svelte";
 
-	let isLedgerReady = false;
-	let publicKey = null;
-/*
+  onMount(async () => {
+    ws.open().then(() => {
+      ws.sendPacked({
+        type: "subscribe",
+        channels: [
+          {
+            name: "user",
+            product_id: "BTC-USD"
+          }
+        ]
+      });
+	});
+  });
+
+  let isLedgerReady = false;
+  let publicKey = null;
+  /*
 	TransportU2F.listen({
 		next: async e => {
     		if (e.type === "add" && e.descriptor !== null) {
@@ -31,7 +48,7 @@
 	});
 */
 
-/*
+  /*
 	Observable.create(TransportU2F.listen).subscribe({
 		next: async e => {
     		if (e.type === "add") {
@@ -49,19 +66,19 @@
     		}
     	}
 	});*/
-
 </script>
 
 {#if isLedgerReady}
-{#if publicKey}
-<h1>Connected !</h1>
-<pre>{publicKey}</pre>
+  {#if publicKey}
+    <h1>Connected !</h1>
+    <pre>{publicKey}</pre>
+  {:else}
+    <h1>Waiting for device...</h1>
+  {/if}
 {:else}
-<h1>Waiting for device...</h1>
+  <h1>Please connect and unlock your device...</h1>
 {/if}
-{:else}
-<h1>Please connect and unlock your device...</h1>
-{/if}
+<TradeList />
 <OrderList />
 <br />
 <PlaceOrder />

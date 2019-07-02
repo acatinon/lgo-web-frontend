@@ -2,7 +2,6 @@
 import { orders } from "../stores/orders";
 import { cancelOrder } from "../services/orders";
 import Date from './Date.svelte';
-import { get } from 'svelte/store';
 
 function submitOrderCancellation(orderId) {
     cancelOrder(orderId);
