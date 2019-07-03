@@ -1,6 +1,6 @@
 
 import { readable } from 'svelte/store';
-import { ws } from "../services/common";
+import { addListener } from "../services/common";
 import { Side } from "../domain/order";
 
 interface Trade {
@@ -15,7 +15,7 @@ const internal: Trade[] = [];
 
 export const trades = readable(internal,
     function start(set) {
-        ws.onUnpackedMessage.addListener(data => {
+        addListener(data => {
             if (data.channel === "trades") {
                 if (data.type === "snapshot") {
                     internal.length = 0;

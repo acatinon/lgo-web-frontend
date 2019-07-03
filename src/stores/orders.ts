@@ -1,6 +1,6 @@
 import superAgent, { SuperAgentRequest } from 'superagent';
 import { readable } from 'svelte/store';
-import { ws } from "../services/common";
+import { addListener } from "../services/common";
 import { OrderType, OrderStatus, Side } from "../domain/order";
 import { BaseUrl } from "../utils/constants";
 
@@ -22,6 +22,7 @@ class Orders {
 
     clear() {
         this.openOrders = {};
+        this.closedOrders = {};
     }
 
     update(order: any) {
@@ -99,7 +100,7 @@ export const orders = readable(internal,
 
                 set(internal);
 
-                ws.onUnpackedMessage.addListener(data => {
+                addListener(data => {
                     if (data.channel === "user") {
                         if (data.type === "snapshot") {
                             internal.clear();

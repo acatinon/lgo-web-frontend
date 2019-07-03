@@ -4,7 +4,7 @@
   import { getPublicKey } from "./utils/path_finder";
   import { Observable } from "rxjs";
   import { onMount } from "svelte";
-  import { ws } from "./services/common";
+  import { open, subscribe, unsubscribe } from "./services/common";
   import { products, currentProduct } from "./stores/products";
 
   import TradeList from "./components/TradeList.svelte";
@@ -12,39 +12,11 @@
   import PlaceOrder from "./components/PlaceOrder.svelte";
 
   onMount(async () => {
-    ws.open().then(() => {
-      ws.sendPacked({
-        type: "subscribe",
-        channels: [
-          {
-            name: "user",
-            product_id: currentProduct.id
-          }
-        ]
-      });
-    });
+    open().then(() => subscribe(currentProduct.id));
 
     currentProduct.subscribe(product => {
-      ws.sendPacked({
-        type: "unsubscribe",
-        channels: [
-          {
-            name: "user",
-            product_id: currentProduct.getPreviousValue().id
-          }
-        ]
-      });
-
-      ws.sendPacked({
-        type: "subscribe",
-        channels: [
-          {
-            name: "user",
-            product_id: product.id
-          }
-        ]
-      });
-    });
+      unsubscribe(currentProduct.getPreviousValue().id)
+      subscribe(product.id)
   });
 
   let isLedgerReady = false;
