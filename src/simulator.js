@@ -62,6 +62,39 @@ httpApp.delete('/orders/:id', function (request, response) {
   response.status(200).end();
 });
 
+httpApp.get('/products', function (req, res) {
+  let response = {
+    "products": [
+      {
+        "id": "BTC-USD",
+        "total": {
+          "limits": {
+            "min": "10",
+            "max": "50000000"
+          }
+        },
+        "base": {
+          "id": "BTC",
+          "limits": {
+            "min": "0.001",
+            "max": "1000"
+          }
+        },
+        "quote": {
+          "id": "USD",
+          "increment": "0.10",
+          "limits": {
+            "min": "10",
+            "max": "1000000"
+          }
+        }
+      }
+    ]
+  };
+
+  res.json(response);
+});
+
 httpApp.listen(3200, function () {
   console.log('Example app listening on port 3200!')
 });
@@ -69,7 +102,7 @@ httpApp.listen(3200, function () {
 
 wsApp.ws('/', function (ws, req) {
 
-  ws.on('message', function(msg) {
+  ws.on('message', function (msg) {
     const trades = {
       "payload": [
         {

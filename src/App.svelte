@@ -5,6 +5,7 @@
   import { Observable } from "rxjs";
   import { onMount } from "svelte";
   import { ws } from "./services/common";
+  import { products, currentProduct } from "./stores/products";
 
   import TradeList from "./components/TradeList.svelte";
   import OrderList from "./components/OrderList.svelte";
@@ -17,11 +18,33 @@
         channels: [
           {
             name: "user",
-            product_id: "BTC-USD"
+            product_id: currentProduct.id
           }
         ]
       });
-	});
+    });
+
+    currentProduct.subscribe(product => {
+      ws.sendPacked({
+        type: "unsubscribe",
+        channels: [
+          {
+            name: "user",
+            product_id: currentProduct.getPreviousValue().id
+          }
+        ]
+      });
+
+      ws.sendPacked({
+        type: "subscribe",
+        channels: [
+          {
+            name: "user",
+            product_id: product.id
+          }
+        ]
+      });
+    });
   });
 
   let isLedgerReady = false;
@@ -78,6 +101,12 @@
 {:else}
   <h1>Please connect and unlock your device...</h1>
 {/if}
+
+<select bind:value={$currentProduct}>
+  {#each $products as product}
+    <option value={product}>{product.id}</option>
+  {/each}
+</select>
 <TradeList />
 <OrderList />
 <br />
