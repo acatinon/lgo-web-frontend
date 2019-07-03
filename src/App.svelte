@@ -5,7 +5,7 @@
   import { Observable } from "rxjs";
   import { onMount } from "svelte";
   import { open, subscribe, unsubscribe } from "./services/common";
-  import { products, currentProduct } from "./stores/products";
+  import { currentProduct } from "./stores/products";
 
   import TradeList from "./components/TradeList.svelte";
   import OrderList from "./components/OrderList.svelte";
@@ -15,8 +15,9 @@
     open().then(() => subscribe(currentProduct.id));
 
     currentProduct.subscribe(product => {
-      unsubscribe(currentProduct.getPreviousValue().id)
-      subscribe(product.id)
+      unsubscribe(currentProduct.getPreviousValue().id);
+      subscribe(product.id);
+    });
   });
 
   let isLedgerReady = false;
@@ -74,11 +75,6 @@
   <h1>Please connect and unlock your device...</h1>
 {/if}
 
-<select bind:value={$currentProduct}>
-  {#each $products as product}
-    <option value={product}>{product.id}</option>
-  {/each}
-</select>
 <TradeList />
 <OrderList />
 <br />

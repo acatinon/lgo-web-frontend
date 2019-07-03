@@ -110,7 +110,6 @@ export const orders = readable(internal,
                             internal.update(order);
                         }
 
-                        console.log("updating orders");
                         set(internal);
                     }
                 });
