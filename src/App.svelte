@@ -10,6 +10,8 @@
   import TradeList from "./components/TradeList.svelte";
   import OrderList from "./components/OrderList.svelte";
   import PlaceOrder from "./components/PlaceOrder.svelte";
+  import Product from "./components/Product.svelte";
+  import OrderBook from "./components/OrderBook.svelte";
 
   onMount(async () => {
     open().then(() => subscribe(currentProduct.id));
@@ -75,6 +77,8 @@
   <h1>Please connect and unlock your device...</h1>
 {/if}
 
+<Product />
+<OrderBook />
 <TradeList />
 <OrderList />
 <br />
