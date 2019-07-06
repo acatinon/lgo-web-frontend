@@ -1,5 +1,5 @@
 <script>
-  import { orderBook } from "./stores/order_book";
+  import { orderBook } from "../stores/order_book";
   import { derived } from "svelte/store";
 
   const sortedPrices = derived(

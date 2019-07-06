@@ -1,6 +1,6 @@
 <script>
-  import { products, currentProduct } from "./stores/products";
-  import { balances } from "./stores/balances";
+  import { products, currentProduct } from "../stores/products";
+  import { balances } from "../stores/balances";
   import { derived } from "svelte/store";
 
   const baseAmount = derived(
