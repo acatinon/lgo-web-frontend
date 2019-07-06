@@ -46,8 +46,8 @@ export const products = readable(internal,
     }
 );
 
-function createCurrentProduct(product: Product) {
-    const { subscribe, update } = writable(product);
+function createCurrentProduct() {
+    const { subscribe, update } = writable(undefined);
     let previousValue: Product;
 
     return {
@@ -61,4 +61,4 @@ function createCurrentProduct(product: Product) {
         getPreviousValue: () => previousValue
     }
 }
-export const currentProduct = createCurrentProduct(get(products)[0]);
+export const currentProduct = createCurrentProduct();
