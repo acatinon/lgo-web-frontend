@@ -5,12 +5,13 @@
 
   const baseAmount = derived(
     [currentProduct, balances],
-    ([$currentProduct, $balances]) => $balances[$currentProduct.base.id] || 0
+    ([$currentProduct, $balances]) => $currentProduct ? $balances[$currentProduct.base.id] : 0
   );
   const quoteAmount = derived(
     [currentProduct, balances],
-    ([$currentProduct, $balances]) => $balances[$currentProduct.quote.id] || 0
+    ([$currentProduct, $balances]) => $currentProduct ? $balances[$currentProduct.quote.id] : 0
   );
+
 </script>
 
 <div>
@@ -20,5 +21,9 @@
     {/each}
   </select>
 </div>
-<div>Base amount: {baseAmount}</div>
-<div>Quote amount: {quoteAmount}</div>
+{#if $baseAmount}
+<div>Base amount: {$baseAmount.available}</div>
+{/if}
+{#if $quoteAmount}
+<div>Quote amount: {$quoteAmount.available}</div>
+{/if}
