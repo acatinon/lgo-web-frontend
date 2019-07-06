@@ -1,5 +1,5 @@
 import superAgent, { SuperAgentRequest } from 'superagent';
-import { readable, writable, get } from 'svelte/store';
+import { readable, writable, Writable } from 'svelte/store';
 import { BaseUrl } from "../utils/constants";
 
 export function getProducts(): SuperAgentRequest {
@@ -28,23 +28,7 @@ class Limits {
     max: number;
 }
 
-const internal: Product[] = [];
-
-export const products = readable(internal,
-    function start(set) {
-
-        getProducts()
-            .then(response => {
-                for (let product of response.body.products) {
-                    internal.push(product);
-                }
-
-                set(internal);
-            });
-
-        return function stop() { }
-    }
-);
+export const currentProduct = createCurrentProduct();
 
 function createCurrentProduct() {
     const { subscribe, update } = writable(undefined);
@@ -61,4 +45,23 @@ function createCurrentProduct() {
         getPreviousValue: () => previousValue
     }
 }
-export const currentProduct = createCurrentProduct();
+
+const internal: Product[] = [];
+
+export const products = readable(internal,
+    function start(set) {
+
+        getProducts()
+            .then(response => {
+                for (let product of response.body.products) {
+                    internal.push(product);
+                }
+
+                set(internal);
+                currentProduct.set(internal[0]);
+            });
+
+        return function stop() { }
+    }
+);
+

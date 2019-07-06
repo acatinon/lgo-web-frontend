@@ -6,8 +6,16 @@ const ws = new WebSocketAsPromised('ws://localhost:3002', {
 });
 
 
-export function  open() {
+export function open() {
   return ws.open();
+}
+
+export function isOpened() {
+  return ws.isOpened;
+}
+
+export function  isOpening() {
+  return ws.isOpening;
 }
 
 export function subscribe(productId: string) {
@@ -15,7 +23,14 @@ export function subscribe(productId: string) {
     type: "subscribe",
     channels: [
       {
+        name: "balance"
+      },
+      {
         name: "user",
+        product_id: productId
+      },
+      {
+        name: "trades",
         product_id: productId
       }
     ]
@@ -28,6 +43,10 @@ export function unsubscribe(productId: string) {
     channels: [
       {
         name: "user",
+        product_id: productId
+      },
+      {
+        name: "trades",
         product_id: productId
       }
     ]

@@ -4,7 +4,7 @@
   import { getPublicKey } from "./utils/path_finder";
   import { Observable } from "rxjs";
   import { onMount } from "svelte";
-  import { open, subscribe, unsubscribe } from "./services/common";
+  import { open, isOpened, isOpening, subscribe, unsubscribe } from "./services/common";
   import { currentProduct } from "./stores/products";
 
   import TradeList from "./components/TradeList.svelte";
@@ -14,11 +14,18 @@
   import OrderBook from "./components/OrderBook.svelte";
 
   onMount(async () => {
-    open().then(() => subscribe(currentProduct.id));
-
     currentProduct.subscribe(product => {
-      unsubscribe(currentProduct.getPreviousValue().id);
-      subscribe(product.id);
+      if (product !== undefined) {
+        if (isOpened()) {
+          const previousValue = currentProduct.getPreviousValue();
+          if (previousValue !== undefined) {
+            unsubscribe(previousValue.id);
+          }
+          subscribe(product.id);
+        } else if (!isOpening()) {
+          open().then(() => subscribe(product.id));
+        }
+      }
     });
   });
 
