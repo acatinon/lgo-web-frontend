@@ -23,9 +23,9 @@ function submitOrderCancellation(orderId) {
     </table>
 </div>
 <div>
-    <h3>Closed orders</h3>
+    <h3>Filled orders</h3>
     <table>
-    {#each Object.values($orders.closedOrders) as order (order.id)}
+    {#each Object.values($orders.filledOrders) as order (order.id)}
         <tr>
             <td><Date value={order.creation_date} /></td>
             <td>{order.quantity}</td>

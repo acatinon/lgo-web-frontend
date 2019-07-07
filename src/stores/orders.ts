@@ -18,11 +18,11 @@ interface Order {
 class Orders {
 
     openOrders: { [key: string]: Order } = {};
-    closedOrders: { [key: string]: Order } = {};
+    filledOrders: { [key: string]: Order } = {};
 
     clear() {
         this.openOrders = {};
-        this.closedOrders = {};
+        this.filledOrders = {};
     }
 
     update(order: any) {
@@ -54,20 +54,19 @@ class Orders {
             case "done":
                 switch (order.reason) {
                     case 'cancelled':
+                    case 'canceledbyadministrator':
                     case 'filled':
                         let ordertoUpdate = this.openOrders[order.order_id];
-
                         ordertoUpdate.status = order.reason;
-                        this.closedOrders[order.order_id] = ordertoUpdate;
+                        this.filledOrders[order.order_id] = ordertoUpdate;
                         delete this.openOrders[order.order_id];
-
                 }
 
                 break;
             default: // Open orders from snapshot
                 const newOpenOrder: Order = {
                     id: order.id || order.order_id,
-                    type: order.order_type,
+                    type: order.type,
                     side: order.side,
                     quantity: order.quantity,
                     price: order.price,
@@ -78,6 +77,19 @@ class Orders {
 
                 this.openOrders[order.id || order.order_id] = newOpenOrder;
         }
+    }
+
+    addClosed(order: any) {
+        this.filledOrders[order.id] = {
+            id: order.id,
+            type: order.order_type,
+            side: order.side,
+            quantity: order.quantity,
+            price: order.price,
+            remaining_quantity: order.remaining_quantity,
+            status: order.status_reason.toLowerCase(),
+            creation_date: order.creation_date
+        };
     }
 }
 
@@ -95,16 +107,15 @@ export const orders = readable(internal,
         getOrders("BTC-USD")
             .then(response => {
                 for (let order of response.body.result.orders) {
-                    internal.update(order);
+                    if (order.status === "DONE" && order.status_reason === "Filled") {
+                        internal.addClosed(order);
+                    }
                 }
 
                 set(internal);
 
                 addListener(data => {
                     if (data.channel === "user") {
-                        if (data.type === "snapshot") {
-                            internal.clear();
-                        }
 
                         for (let order of data.payload) {
                             internal.update(order);

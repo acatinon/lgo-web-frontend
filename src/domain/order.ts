@@ -13,5 +13,7 @@ export enum OrderStatus {
     Open = "open",
     Pending = "pending",
     Cancelled = "cancelled",
-    Filled = "filled"
+    Filled = "filled",
+    CanceledByAdministrator = "canceledbyadministrator",
+    CanceledByOwner = "canceledbyowner"    
 }
