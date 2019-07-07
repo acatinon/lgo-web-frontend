@@ -1,12 +1,32 @@
+const path = require('path');
+const glob = require('glob')
 const mode = process.env.NODE_ENV || 'development';
 const prod = mode === 'production';
+
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const PurgecssPlugin = require('purgecss-webpack-plugin')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+
+const PATHS = {
+	src: path.join(__dirname, 'src')
+}
 
 module.exports = {
 	entry: {
 		bundle: ["babel-polyfill", './src/main.js']
 	},
 	resolve: {
-		extensions: ['.mjs', '.js', '.ts', '.svelte']
+		extensions: ['.mjs', '.js', '.ts', '.svelte'],
+		alias: {
+			"../../theme.config$": path.join(__dirname, "/semantic-ui/theme.config"),
+			"../semantic-ui/site": path.join(__dirname, "/semantic-ui/site")
+		}
+	},
+	devServer: {
+		contentBase: './docs',
+		writeToDisk: true
 	},
 	output: {
 		path: __dirname + '/docs',
@@ -17,7 +37,7 @@ module.exports = {
 		contentBase: __dirname + '/docs',
 		compress: true,
 		port: 9000,
-		https:true
+		https: true
 	},
 	module: {
 		rules: [
@@ -25,10 +45,10 @@ module.exports = {
 				test: /\.m?js$/,
 				exclude: /(node_modules)/,
 				use: {
-				  loader: 'babel-loader',
-				  options: {
-					presets: ['@babel/preset-env']
-				  }
+					loader: 'babel-loader',
+					options: {
+						presets: ['@babel/preset-env']
+					}
 				}
 			},
 			{
@@ -48,18 +68,64 @@ module.exports = {
 				}
 			},
 			{
-				test: /\.css$/,
+				test: /\.less$/,
 				use: [
-					/**
-					 * MiniCssExtractPlugin doesn't support HMR.
-					 * For developing, use 'style-loader' instead.
-					 * */
-					prod ? MiniCssExtractPlugin.loader : 'style-loader',
-					'css-loader'
+					{
+						loader: MiniCssExtractPlugin.loader,
+						options: {
+							outputPath: 'css'
+						}
+					},
+					'css-loader',
+					'less-loader'
+				]
+			},
+			{
+				test: /\.(a?png|svg)$/,
+				use: [
+					{
+						loader: 'url-loader',
+						options: {
+							limit: 10000,
+							outputPath: 'images'
+						}
+					}
+				]
+			},
+			{
+				test: /\.(jpe?g|gif|bmp|mp3|mp4|ogg|wav)$/,
+				use: 'file-loader'
+			},
+			{
+				test: /\.(eot|ttf|woff|woff2)$/,
+				use: [
+					{
+						loader: 'file-loader',
+						options: {
+							outputPath: 'fonts'
+						}
+					}
 				]
 			}
 		]
 	},
-	mode,
-	devtool: prod ? false: 'source-map'
+	plugins: [
+		new HtmlWebpackPlugin(),
+		new CleanWebpackPlugin({
+			cleanOnceBeforeBuildPatterns: ['**/*', "!CNAME"]
+		}),
+		new OptimizeCssAssetsPlugin(),
+		new MiniCssExtractPlugin({
+			// Options similar to the same options in webpackOptions.output
+			// both options are optional
+			filename: '[name].css',
+			chunkFilename: '[id].css',
+		}),
+		new PurgecssPlugin({
+			paths: glob.sync(`${PATHS.src}/**/*`, { nodir: true }),
+			rejected: true
+		})
+	],
+	mode: mode,
+	devtool: prod ? false : 'source-map'
 };
