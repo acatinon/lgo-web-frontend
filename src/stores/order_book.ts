@@ -5,10 +5,6 @@ class OrderBook {
     bids: { [key: string]: number } = {};
     asks: { [key: string]: number } = {};
 
-    getSorted() {
-        return { ...sort(this.bids), ...sort(this.asks) };
-    }
-
     clear() {
         this.bids = {};
         this.asks = {};
@@ -41,14 +37,6 @@ export const orderBook = readable(internal,
         return function stop() { }
     }
 );
-
-function sort(side: { [key: string]: number }): { [key: string]: number } {
-    const ordered: { [key: string]: number } = {};
-    Object.keys(side).sort().forEach(function (key) {
-        ordered[key] = side[key];
-    });
-    return ordered;
-}
 
 function update(side: { [key: string]: number }, item: Array<string>) {
     let amount = parseFloat(item[1]);

@@ -16,7 +16,7 @@
 
 <div>
     <ul>
-    {#each sortedPrices as price}
+    {#each $sortedPrices as price}
         <li>{price}: {$combined[price]}</li>
     {/each}
     </ul>

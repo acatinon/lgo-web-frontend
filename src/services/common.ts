@@ -32,6 +32,10 @@ export function subscribe(productId: string) {
       {
         name: "trades",
         product_id: productId
+      },
+      {
+        name: "level2",
+        product_id: productId
       }
     ]
   });
@@ -47,6 +51,10 @@ export function unsubscribe(productId: string) {
       },
       {
         name: "trades",
+        product_id: productId
+      },
+      {
+        name: "level2",
         product_id: productId
       }
     ]
