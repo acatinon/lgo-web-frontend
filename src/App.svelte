@@ -1,11 +1,17 @@
 <script>
-  import './css/main.less'
+  import "./css/main.less";
   import TransportU2F from "@ledgerhq/hw-transport-u2f";
   import Btc from "@ledgerhq/hw-app-btc";
   import { getPublicKey } from "./utils/path_finder";
   import { Observable } from "rxjs";
   import { onMount } from "svelte";
-  import { open, isOpened, isOpening, subscribe, unsubscribe } from "./services/common";
+  import {
+    open,
+    isOpened,
+    isOpening,
+    subscribe,
+    unsubscribe
+  } from "./services/common";
   import { currentProduct } from "./stores/products";
 
   import TradeList from "./components/TradeList.svelte";
@@ -74,20 +80,34 @@
 	});*/
 </script>
 
-{#if isLedgerReady}
-  {#if publicKey}
-    <h1>Connected !</h1>
-    <pre>{publicKey}</pre>
-  {:else}
-    <h1>Waiting for device...</h1>
-  {/if}
-{:else}
-  <h1>Please connect and unlock your device...</h1>
-{/if}
+<div class="ui visible left very thin sidebar vertical menu">
+  <a class="item">1</a>
+  <a class="item">2</a>
+  <a class="item">3</a>
+</div>
+<div class="pusher">
+  <div class="ui equal width grid">
+    <div class="column">
+      <Product />
+      <PlaceOrder />
+    </div>
+    <div class="column">
+      <OrderBook />
+    </div>
+    <div class="twelve wide column">
+      {#if isLedgerReady}
+        {#if publicKey}
+          <h1>Connected !</h1>
+          <pre>{publicKey}</pre>
+        {:else}
+          <h1>Waiting for device...</h1>
+        {/if}
+      {:else}
+        <h1>Please connect and unlock your device...</h1>
+      {/if}
 
-<Product />
-<OrderBook />
-<TradeList />
-<OrderList />
-<br />
-<PlaceOrder />
+      <TradeList />
+      <OrderList />
+    </div>
+  </div>
+</div>
