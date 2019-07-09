@@ -86,7 +86,7 @@
   <a class="item">3</a>
 </div>
 <div class="pusher">
-  <div class="ui equal width grid">
+  <div class="ui padded equal width grid">
     <div class="column">
       <Product />
       <PlaceOrder />
