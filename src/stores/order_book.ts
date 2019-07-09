@@ -2,8 +2,11 @@ import { readable } from 'svelte/store';
 import { addListener } from "../services/common";
 
 class OrderBook {
-    bids: { [key: string]: number } = {};
-    asks: { [key: string]: number } = {};
+    bids: { [key: number]: number } = {};
+    asks: { [key: number]: number } = {};
+
+    minAsk: number = Infinity;
+    maxBid: number = 0;
 
     clear() {
         this.bids = {};
@@ -23,11 +26,13 @@ export const orderBook = readable(internal,
                 }
 
                 for (let item of data.payload.bids) {
-                    update(internal.bids, item);
+                    const price = update(internal.bids, item);
+                    internal.maxBid = Math.max(price, internal.maxBid);
                 }
 
                 for (let item of data.payload.asks) {
-                    update(internal.asks, item);
+                    const price = update(internal.asks, item);
+                    internal.minAsk = Math.min(price, internal.minAsk);
                 }
 
                 set(internal);
@@ -38,12 +43,15 @@ export const orderBook = readable(internal,
     }
 );
 
-function update(side: { [key: string]: number }, item: Array<string>) {
+function update(side: { [key: string]: number }, item: Array<string>): number {
+    let price = parseFloat(item[0]);
     let amount = parseFloat(item[1]);
     if (amount === 0) {
-        delete side[item[0]];
+        delete side[price];
     }
     else {
-        side[item[0]] = amount;
+        side[price] = amount;
     }
+
+    return price;
 }
