@@ -2,33 +2,14 @@
          Site Overrides
 *******************************/
 
-#header {
-    h1 {
-        font-size: 3em;
+#orderbook {
+
+    > table {
+        padding-right: 15px;
+        margin: 0;
     }
-
-    #wp {
-        font-size: 1.3em;
-
-        a {
-            color: #fff;
-            text-decoration: underline;
-        }
+    div {
+        overflow-y: scroll;
+        height: 500px;
     }
-}
-
-#fork {
-    position: absolute;
-    top: 0;
-    right: 0;
-}
-
-#roi .loader {
-    font-size: 1.5em !important;
-    margin: 0.5em 0;
-}
-
-.ui.emphasised.text {
-    color: @primaryColor;
-    border-bottom: 1px dotted @primaryColor;
 }

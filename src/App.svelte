@@ -91,7 +91,7 @@
       <Product />
       <PlaceOrder />
     </div>
-    <div class="column">
+    <div id="orderbook" class="column">
       <OrderBook />
     </div>
     <div class="twelve wide column">
