@@ -85,16 +85,17 @@
   <a class="item">2</a>
   <a class="item">3</a>
 </div>
-<div class="pusher">
-  <div class="ui padded equal width grid">
-    <div class="column">
-      <Product />
-      <PlaceOrder />
-    </div>
-    <div id="orderbook" class="column">
-      <OrderBook />
-    </div>
-    <div class="twelve wide column">
+<div id="main" class="pusher">
+  <div id="product">
+    <Product />
+    <PlaceOrder />
+  </div>
+  <div id="orderbook">
+    <OrderBook />
+  </div>
+  <div id="trading">
+
+    <div id="chart">
       {#if isLedgerReady}
         {#if publicKey}
           <h1>Connected !</h1>
@@ -105,9 +106,16 @@
       {:else}
         <h1>Please connect and unlock your device...</h1>
       {/if}
-
-      <TradeList />
-      <OrderList />
     </div>
+
+    <div id="meta">
+      <div id="orders">
+        <OrderList />
+      </div>
+      <div id="trades">
+        <TradeList />
+      </div>
+    </div>
+
   </div>
 </div>
