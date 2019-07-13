@@ -1,5 +1,6 @@
 <script>
   import "./css/main.less";
+  import "./js/semantic.js";
   import TransportU2F from "@ledgerhq/hw-transport-u2f";
   import Btc from "@ledgerhq/hw-app-btc";
   import { getPublicKey } from "./utils/path_finder";

@@ -1,7 +1,6 @@
 <script>
   import { orderBook } from "../stores/order_book";
   import { derived } from "svelte/store";
-  import { onMount } from "svelte";
 
   const sortNumber = (a, b) => b - a;
 

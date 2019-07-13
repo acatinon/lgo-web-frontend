@@ -1,5 +1,6 @@
 const path = require('path');
-const glob = require('glob')
+const glob = require('glob');
+const webpack = require('webpack');
 const mode = process.env.NODE_ENV || 'development';
 const prod = mode === 'production';
 
@@ -124,6 +125,9 @@ module.exports = {
 		new PurgecssPlugin({
 			paths: glob.sync(`${PATHS.src}/**/*`, { nodir: true }),
 			rejected: true
+		}),
+		new webpack.ProvidePlugin({
+			jQuery: 'jquery'
 		})
 	],
 	mode: mode,
