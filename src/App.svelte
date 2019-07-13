@@ -82,9 +82,9 @@
 </script>
 
 <div class="ui visible left very thin sidebar vertical menu">
-  <a class="item">1</a>
-  <a class="item">2</a>
-  <a class="item">3</a>
+  <span class="item">1</span>
+  <span class="item">2</span>
+  <span class="item">3</span>
 </div>
 <div id="main" class="pusher">
   <div id="product">

@@ -9,13 +9,13 @@
   }
 
   onMount(async () => {
-    jQuery(".menu .item").tab();
+    jQuery("#orders .menu .item").tab();
   });
 </script>
 
 <div class="ui top attached tabular menu">
-  <a class="active item" data-tab="open">Open orders</a>
-  <a class="item" data-tab="filled">Filled orders</a>
+  <span class="active item" data-tab="open">Open orders</span>
+  <span class="item" data-tab="filled">Filled orders</span>
 </div>
 <div class="ui bottom attached active tab" data-tab="open">
   <table>
