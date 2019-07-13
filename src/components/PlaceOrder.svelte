@@ -46,20 +46,20 @@
 
   <div class="field">
     <div class="ui top attached tabular menu">
-      <a id="buy-tab" href="#" class="active item" on:click={selectBuy}>Buy</a>
-      <a id="sell-tab" href="#" class="item" on:click={selectSell}>Sell</a>
+      <span id="buy-tab" class="active item" on:click={selectBuy}>Buy</span>
+      <span id="sell-tab" class="item" on:click={selectSell}>Sell</span>
     </div>
   </div>
 
   <div class="field">
     <div class="ui fluid buttons">
-      <button id="market-button" class="ui button" on:click={selectMarket}>
+      <button id="market-button" class="ui button" on:click|preventDefault={selectMarket}>
         Market
       </button>
       <button
         id="limit-button"
         class="ui active blue button"
-        on:click={selectLimit}>
+        on:click|preventDefault={selectLimit}>
         Limit
       </button>
     </div>
