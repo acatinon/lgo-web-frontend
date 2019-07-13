@@ -1,6 +1,7 @@
 <script>
   import { orderBook } from "../stores/order_book";
   import { derived } from "svelte/store";
+  import { onMount } from "svelte";
 
   const sortNumber = (a, b) => b - a;
 
@@ -36,9 +37,6 @@
       <th>Price</th>
     </tr>
   </thead>
-</table>
-<div>
-<table class="ui very compact very basic fixed small table">
   <tbody>
     {#each $sortedPrices as price}
       <tr>
@@ -50,4 +48,3 @@
     {/each}
   </tbody>
 </table>
-</div>
