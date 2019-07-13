@@ -103,6 +103,17 @@ const internal = new Orders();
 
 export const orders = readable(internal,
     function start(set) {
+        addListener(data => {
+            if (data.channel === "user") {
+
+                for (let order of data.payload) {
+                    internal.update(order);
+                }
+
+                set(internal);
+            }
+        });
+
         // TODO: Handle product id and pages
         getOrders("BTC-USD")
             .then(response => {
@@ -113,17 +124,6 @@ export const orders = readable(internal,
                 }
 
                 set(internal);
-
-                addListener(data => {
-                    if (data.channel === "user") {
-
-                        for (let order of data.payload) {
-                            internal.update(order);
-                        }
-
-                        set(internal);
-                    }
-                });
             });
 
         return function stop() {}
