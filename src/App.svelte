@@ -22,16 +22,16 @@
   import OrderBook from "./components/OrderBook.svelte";
 
   onMount(async () => {
-    currentProduct.subscribe(product => {
-      if (product !== undefined) {
+    currentProduct.subscribe(productId => {
+      if (productId !== undefined) {
         if (isOpened()) {
           const previousValue = currentProduct.getPreviousValue();
           if (previousValue !== undefined) {
-            unsubscribe(previousValue.id);
+            unsubscribe(previousValue);
           }
-          subscribe(product.id);
+          subscribe(productId);
         } else if (!isOpening()) {
-          open().then(() => subscribe(product.id));
+          open().then(() => subscribe(productId));
         }
       }
     });

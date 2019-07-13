@@ -1,27 +1,85 @@
 <script>
-import { placeOrder } from "../services/orders";
-import { Side, OrderType } from "../domain/order";
+  import { placeOrder } from "../services/orders";
+  import { Side, OrderType } from "../domain/order";
 
-let side;
-let type;
-let quantity;
-let price;
+  let side;
+  let type;
+  let quantity;
+  let price;
 
-function submitOrder() {
+  function selectBuy() {
+    jQuery("#buy-tab").addClass("active");
+    jQuery("#sell-tab").removeClass("active");
+    jQuery("#submit-order")
+      .addClass("green")
+      .removeClass("red")
+      .text("Buy");
+  }
+
+  function selectSell() {
+    jQuery("#sell-tab").addClass("active");
+    jQuery("#buy-tab").removeClass("active");
+    jQuery("#submit-order")
+      .addClass("red")
+      .removeClass("green")
+      .text("Sell");
+  }
+
+  function selectMarket() {
+    jQuery("#market-button").addClass("active blue");
+    jQuery("#limit-button").removeClass("active blue");
+    jQuery("#quantity-field").hide();
+  }
+
+  function selectLimit() {
+    jQuery("#limit-button").addClass("active blue");
+    jQuery("#market-button").removeClass("active blue");
+    jQuery("#quantity-field").show();
+  }
+
+  function submitOrder() {
     placeOrder("BTC-USD", type, side, quantity, price);
-}
+  }
 </script>
 
-<form on:submit|preventDefault={submitOrder}>
+<form class="ui form" on:submit|preventDefault={submitOrder}>
 
-    <select name="type" bind:value="{type}">
-        <option value="M">Market</option>
-        <option value="L">Limit</option>
-    </select>
+  <div class="field">
+    <div class="ui top attached tabular menu">
+      <a id="buy-tab" href="#" class="active item" on:click={selectBuy}>Buy</a>
+      <a id="sell-tab" href="#" class="item" on:click={selectSell}>Sell</a>
+    </div>
+  </div>
 
-    <input name="quantity" type="number" min="0" bind:value="{quantity}" />
+  <div class="field">
+    <div class="ui fluid buttons">
+      <button id="market-button" class="ui button" on:click={selectMarket}>
+        Market
+      </button>
+      <button
+        id="limit-button"
+        class="ui active blue button"
+        on:click={selectLimit}>
+        Limit
+      </button>
+    </div>
+  </div>
+
+  <div id="quantity-field" class="field">
+    <label>Quantity</label>
+    <div class="ui fluid labeled input">
+      <div class="ui basic label"><span class="ui grey text">BTC</span></div>
+      <input name="quantity" type="number" min="0" bind:value={quantity} />
+    </div>
+  </div>
+
+  <div class="field">
+    <label>Price</label>
+    <div class="ui fluid labeled input">
+      <div class="ui  basic label"><span class="ui grey text">USD</span></div>
+      <input name="price" type="number" min="0" bind:value={price} />
+    </div>
     
-    <input name="price" type="number" min="0" bind:value="{price}" />
-
-    <input type="submit" />
+  </div>
+  <button id="submit-order" class="ui fluid green button" type="submit">Buy</button>
 </form>
