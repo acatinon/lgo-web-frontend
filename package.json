@@ -45,6 +45,7 @@
     "html-webpack-plugin": "^3.2.0",
     "less": "^3.9.0",
     "less-loader": "^5.0.0",
+    "lightweight-charts": "^1.0.1",
     "mini-css-extract-plugin": "^0.7.0",
     "moment": "^2.24.0",
     "node-rsa": "^1.0.5",

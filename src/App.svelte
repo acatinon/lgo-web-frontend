@@ -20,6 +20,7 @@
   import PlaceOrder from "./components/PlaceOrder.svelte";
   import Product from "./components/Product.svelte";
   import OrderBook from "./components/OrderBook.svelte";
+  import Chart from "./components/Chart.svelte";
 
   onMount(async () => {
     currentProduct.subscribe(productId => {
@@ -97,6 +98,7 @@
   <div id="trading">
 
     <div id="chart">
+      <Chart />
       {#if isLedgerReady}
         {#if publicKey}
           <h1>Connected !</h1>
