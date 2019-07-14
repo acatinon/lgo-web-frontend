@@ -66,7 +66,7 @@ class Orders {
             default: // Open orders from snapshot
                 const newOpenOrder: Order = {
                     id: order.id || order.order_id,
-                    type: order.type,
+                    type: OrderType.Limit,
                     side: order.side,
                     quantity: order.quantity,
                     price: order.price,

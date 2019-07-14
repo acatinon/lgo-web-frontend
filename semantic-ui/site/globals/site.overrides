@@ -39,7 +39,7 @@
 }
 
 #orders {
-    flex-grow: 2;
+    flex-grow: 1;
 
     .menu {
         top: 0;
@@ -48,7 +48,8 @@
 }
 
 #trades {
-    flex-grow: 1;
+    width: 33%;
+    flex-grow: 0;
 
     h3 {
         top: 0;
@@ -61,7 +62,7 @@
 }
 
 #meta {
-    height: 20rem;
+    height: 30rem;
     display: flex;
     justify-content: space-around;
     padding-right:60px;
