@@ -59,6 +59,11 @@
 
 #chart {
     flex-grow: 2;
+
+    #chart-content {
+        width: 100%;
+        height: 100%;
+    }
 }
 
 #meta {
