@@ -2,8 +2,8 @@
   import { placeOrder } from "../services/orders";
   import { Side, OrderType } from "../domain/order";
 
-  let side;
-  let type;
+  let side = Side.Buy;
+  let type = OrderType.Limit;
   let quantity;
   let price;
 
@@ -14,6 +14,8 @@
       .addClass("green")
       .removeClass("red")
       .text("Buy");
+
+    side = Side.Buy;
   }
 
   function selectSell() {
@@ -23,18 +25,24 @@
       .addClass("red")
       .removeClass("green")
       .text("Sell");
+
+    side = Side.Sell;
   }
 
   function selectMarket() {
     jQuery("#market-button").addClass("active blue");
     jQuery("#limit-button").removeClass("active blue");
     jQuery("#quantity-field").hide();
+
+    type = OrderType.Market;
   }
 
   function selectLimit() {
     jQuery("#limit-button").addClass("active blue");
     jQuery("#market-button").removeClass("active blue");
     jQuery("#quantity-field").show();
+
+    type = OrderType.Limit;
   }
 
   function submitOrder() {
