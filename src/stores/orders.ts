@@ -53,7 +53,7 @@ class Orders {
                 break;
             case "done":
                 switch (order.reason) {
-                    case 'cancelled':
+                    case 'canceled':
                     case 'canceledbyadministrator':
                     case 'filled':
                         let ordertoUpdate = this.openOrders[order.order_id];
