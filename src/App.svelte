@@ -11,7 +11,8 @@
     isOpened,
     isOpening,
     subscribe,
-    unsubscribe
+    unsubscribe,
+    addListener
   } from "./services/common";
   import { currentProduct } from "./stores/products";
 
@@ -22,7 +23,36 @@
   import OrderBook from "./components/OrderBook.svelte";
   import Chart from "./components/Chart.svelte";
 
+  function setUpToasts() {
+    addListener(data => {
+      if (data.channel === "user" && data.type === "update") {
+        for (let p of data.payload) {
+          switch (p.type) {
+            case "done":
+              switch (p.reason) {
+                case "canceled":
+                  jQuery("body").toast({
+                    class: "success",
+                    message: "Order cancelled"
+                  });
+                  break;
+              }
+              break;
+            case "open":
+              jQuery("body").toast({
+                class: "success",
+                message: "Order created"
+              });
+              break;
+          }
+        }
+      }
+    });
+  }
+
   onMount(async () => {
+    setUpToasts();
+
     currentProduct.subscribe(productId => {
       if (productId !== undefined) {
         if (isOpened()) {
