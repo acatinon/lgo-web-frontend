@@ -25,10 +25,13 @@ export const trades = readable(internal,
                     internal.unshift(trade);
                 }
 
+                if (internal.length > 200)
+                    internal.length = 200;
+
                 set(internal);
             }
         });
 
-        return function stop() {}
+        return function stop() { }
     }
 );
