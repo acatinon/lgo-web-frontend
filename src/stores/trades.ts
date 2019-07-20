@@ -22,7 +22,7 @@ export const trades = readable(internal,
                 }
 
                 for (let trade of data.payload) {
-                    internal.push(trade);
+                    internal.unshift(trade);
                 }
 
                 set(internal);
