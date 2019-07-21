@@ -3,7 +3,7 @@ import { writable, derived } from 'svelte/store';
 import { BaseUrl } from "../utils/constants";
 import moment from "moment";
 
-interface Candle {
+export interface Candle {
     date: moment.Moment
     low: number
     high: number,

@@ -4,7 +4,7 @@
     granularity,
     Granularity
   } from "../stores/price_history";
-  import { createChart } from "lightweight-charts";
+  import { initChart, updateChart, applyOptions } from "../utils/chart";
   import { onMount } from "svelte";
   import { get, writable } from "svelte/store";
 
@@ -44,67 +44,26 @@
         granularity.set(value);
       }
     });
-    
-    const chart = createChart("chart-content", {
-      width: $w - 60,
-      height: $h,
-      priceScale: {
-        scaleMargins: {
-          top: 0.2,
-          bottom: 0.2
-        }
-      }
-    });
-    const candlestickSeries = chart.addCandlestickSeries();
-    var volumeSeries = chart.addHistogramSeries({
-      priceFormat: {
-        type: "volume"
-      },
-      overlay: true,
-      scaleMargins: {
-        top: 0.85,
-        bottom: 0
-      }
-    });
+
+    initChart($w, $h);
 
     const candles = get(priceHistory);
 
-    update(candles, candlestickSeries, volumeSeries);
+    updateChart(candles);
 
     priceHistory.subscribe(candles => {
-      update(candles, candlestickSeries, volumeSeries);
+      updateChart(candles);
     });
 
     w.subscribe(newValue => {
-      chart.applyOptions({ width: newValue - 60 });
+      applyOptions({ width: newValue - 60 });
     });
 
     h.subscribe(newValue => {
-      chart.applyOptions({ height: newValue });
+      applyOptions({ height: newValue });
     });
   });
 
-  function update(candles, candlestickSeries, volumeSeries) {
-    const data = [];
-    const volume = [];
-    for (let candle of candles) {
-      data.push({
-        time: candle.date.unix(),
-        open: candle.open,
-        high: candle.high,
-        low: candle.low,
-        close: candle.close
-      });
-
-      volume.push({
-        time: candle.date.unix(),
-        value: candle.volume
-      });
-    }
-
-    candlestickSeries.setData(data);
-    volumeSeries.setData(volume);
-  }
 </script>
 
 <div id="chart-header" class="ui basic clearing vertical segment">
