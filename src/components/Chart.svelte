@@ -10,7 +10,7 @@
   onMount(async () => {
     const chart = createChart("chart-content", {
       width: $w - 60,
-      height: $h - 60,
+      height: $h,
       priceScale: {
         scaleMargins: {
           top: 0.2,
@@ -43,7 +43,7 @@
     });
 
     h.subscribe(newValue => {
-      chart.applyOptions({ height: newValue - 60 });
+      chart.applyOptions({ height: newValue });
     });
 
   });
@@ -70,5 +70,7 @@
     volumeSeries.setData(volume);
   }
 </script>
-
+<div id="chart-header" class="ui basic vertical segment">
+  <h5 class="ui dividing header">Chart</h5>
+</div>
 <div id="chart-content" bind:clientWidth={$w} bind:clientHeight={$h} />

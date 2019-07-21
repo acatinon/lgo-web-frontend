@@ -136,8 +136,6 @@
         {:else}
           <h1>Waiting for device...</h1>
         {/if}
-      {:else}
-        <h1>Please connect and unlock your device...</h1>
       {/if}
     </div>
 
