@@ -16,12 +16,12 @@
   );
 
   onMount(async () => {
-    jQuery(".dropdown").dropdown();
+    jQuery("#product-selector").dropdown();
   });
 </script>
 
 <div>
-  <div class="ui huge fluid selection dropdown">
+  <div id="product-selector" class="ui huge fluid selection dropdown">
     <input type="hidden" name="product" bind:value={$currentProduct} />
     <i class="dropdown icon" />
     <div class="text">{$currentProduct}</div>

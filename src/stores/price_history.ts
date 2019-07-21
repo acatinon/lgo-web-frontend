@@ -1,5 +1,5 @@
 import superAgent, { SuperAgentRequest } from 'superagent';
-import { readable } from 'svelte/store';
+import { writable, derived } from 'svelte/store';
 import { BaseUrl } from "../utils/constants";
 import moment from "moment";
 
@@ -12,12 +12,12 @@ interface Candle {
     volume: number
 }
 
-enum Granularity {
+export enum Granularity {
     OneMinute = 60,
     FiveMinutes = 300,
     FifteenMinutes = 900,
     OneHour = 3600,
-    SixHour = 21600,
+    SixHours = 21600,
     OneDay = 86400
 }
 
@@ -30,13 +30,16 @@ function getPriceHistory(productId: string, start: moment.Moment, end: moment.Mo
 
 const internal: Candle[] = [];
 
-export const priceHistory = readable(internal,
-    function start(set) {
-        const now = moment();
-        const sixMonthsAgo = moment().subtract(6, 'days');
+export const granularity = writable(Granularity.OneHour);
 
-        getPriceHistory("BTC-USD", sixMonthsAgo, now, Granularity.OneHour)
+export const priceHistory = derived(granularity,
+    ($granularity, set) => {
+        const now = moment();
+        const begin = moment().subtract($granularity * 400, 'seconds');
+
+        getPriceHistory("BTC-USD", begin, now, $granularity)
             .then(response => {
+                internal.length = 0;
                 for (let price of response.body.prices) {
                     let candle: Candle = {
                         date: moment(price[0]),
@@ -52,7 +55,6 @@ export const priceHistory = readable(internal,
 
                 set(internal);
             });
-
-        return function stop() { }
-    }
+    },
+    internal
 );
