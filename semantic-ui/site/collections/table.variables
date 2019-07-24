@@ -1,3 +1,7 @@
 /*******************************
     User Variable Overrides
 *******************************/
+
+@headerVerticalPadding: 0;
+@veryCompactVerticalPadding: 0.1em;
+@veryCompactHorizontalPadding: 0.1em;
