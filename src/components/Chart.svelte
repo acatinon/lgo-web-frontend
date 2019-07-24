@@ -4,7 +4,7 @@
     granularity,
     Granularity
   } from "../stores/price_history";
-  import { initChart, updateChart, applyOptions } from "../utils/chart";
+  import { initChart, feedChart, applyOptions } from "../utils/chart";
   import { onMount } from "svelte";
   import { get, writable } from "svelte/store";
 
@@ -41,7 +41,7 @@
         }
       ],
       onChange: function(value, text, $selectedItem) {
-        granularity.set(value);
+        granularity.set(parseInt(value, 10));
       }
     });
 
@@ -49,10 +49,10 @@
 
     const candles = get(priceHistory);
 
-    updateChart(candles);
+    feedChart(candles);
 
     priceHistory.subscribe(candles => {
-      updateChart(candles);
+      feedChart(candles);
     });
 
     w.subscribe(newValue => {
