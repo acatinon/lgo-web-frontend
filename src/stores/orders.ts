@@ -17,12 +17,16 @@ interface Order {
 
 class Orders {
 
-    openOrders: { [key: string]: Order } = {};
-    filledOrders: { [key: string]: Order } = {};
+    openOrders: Order[] = [];
+    filledOrders: Order[] = [];
 
     clear() {
-        this.openOrders = {};
-        this.filledOrders = {};
+        this.openOrders = [];
+        this.filledOrders = [];
+    }
+
+    find(array: Order[], id: string) {
+        return array.findIndex(o => o.id === id);
     }
 
     update(order: any) {
@@ -39,29 +43,37 @@ class Orders {
                     creation_date: order.time
                 }
 
-                this.openOrders[order.order_id] = newPendingOrder;
+                this.openOrders.push(newPendingOrder);
                 break;
             case "invalid":
                 break;
             case "open":
-                let openOrder = this.openOrders[order.order_id];
-                openOrder.status = OrderStatus.Open;
+                {
+                    const index = this.find(this.openOrders, order.order_id);
+                    let openOrder = this.openOrders[index];
+                    openOrder.status = OrderStatus.Open;
+                }
                 break;
             case "match":
-                let matchingOrder = this.openOrders[order.order_id];
-                matchingOrder.remaining_quantity = order.remaining_quantity;
+                {
+                    const index = this.find(this.openOrders, order.order_id);
+                    let matchingOrder = this.openOrders[index];
+                    matchingOrder.remaining_quantity = order.remaining_quantity;
+                }
                 break;
             case "done":
-                switch (order.reason) {
-                    case 'canceled':
-                    case 'canceledbyadministrator':
-                    case 'filled':
-                        let ordertoUpdate = this.openOrders[order.order_id];
-                        ordertoUpdate.status = order.reason;
-                        this.filledOrders[order.order_id] = ordertoUpdate;
-                        delete this.openOrders[order.order_id];
+                {
+                    switch (order.reason) {
+                        case 'canceled':
+                        case 'canceledbyadministrator':
+                        case 'filled':
+                            const index = this.find(this.openOrders, order.order_id);
+                            let ordertoUpdate = this.openOrders[index];
+                            ordertoUpdate.status = order.reason;
+                            this.filledOrders.unshift(ordertoUpdate);
+                            this.openOrders.splice(index, 1);
+                    }
                 }
-
                 break;
             default: // Open orders from snapshot
                 const newOpenOrder: Order = {
@@ -75,12 +87,12 @@ class Orders {
                     creation_date: order.creation_date || order.order_creation_time
                 };
 
-                this.openOrders[order.id || order.order_id] = newOpenOrder;
+                this.openOrders.push(newOpenOrder);
         }
     }
 
     addClosed(order: any) {
-        this.filledOrders[order.id] = {
+        this.filledOrders.push({
             id: order.id,
             type: order.order_type,
             side: order.side,
@@ -89,7 +101,7 @@ class Orders {
             remaining_quantity: order.remaining_quantity,
             status: order.status_reason.toLowerCase(),
             creation_date: order.creation_date
-        };
+        });
     }
 }
 
@@ -126,6 +138,6 @@ export const orders = readable(internal,
                 set(internal);
             });
 
-        return function stop() {}
+        return function stop() { }
     }
 );

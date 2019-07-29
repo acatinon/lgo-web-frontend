@@ -32,7 +32,7 @@
       </tr>
     </thead>
     <tbody>
-      {#each Object.values($orders.openOrders) as order (order.id)}
+      {#each $orders.openOrders as order (order.id)}
         <tr>
           <td><Side value={order.side} /></td>
           <td>{order.type}</td>
@@ -64,7 +64,7 @@
       </tr>
     </thead>
     <tbody>
-      {#each Object.values($orders.filledOrders) as order (order.id)}
+      {#each $orders.filledOrders as order (order.id)}
         <tr>
           <td><Side value={order.side} /></td>
           <td>{order.price}</td>
