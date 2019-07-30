@@ -1,16 +1,17 @@
 import { readable } from 'svelte/store';
 import { addListener } from "../services/common";
+import BigNumber from "bignumber.js"
 
 class OrderBook {
-    bids: { [key: number]: number } = {};
-    asks: { [key: number]: number } = {};
+    bids = new Map<BigNumber, BigNumber>();
+    asks = new Map<BigNumber, BigNumber>();
 
-    minAsk: number = Infinity;
-    maxBid: number = 0;
+    minAsk = new BigNumber(Infinity);
+    maxBid = new BigNumber(0);
 
     clear() {
-        this.bids = {};
-        this.asks = {};
+        this.bids = new Map<BigNumber, BigNumber>();
+        this.asks = new Map<BigNumber, BigNumber>();
     }
 }
 
@@ -27,12 +28,17 @@ export const orderBook = readable(internal,
 
                 for (let item of data.payload.bids) {
                     const price = update(internal.bids, item);
-                    internal.maxBid = Math.max(price, internal.maxBid);
+                    if (price !== undefined) {
+                        internal.maxBid = BigNumber.max(price, internal.maxBid);
+                    }
                 }
 
                 for (let item of data.payload.asks) {
                     const price = update(internal.asks, item);
-                    internal.minAsk = Math.min(price, internal.minAsk);
+                    if (price !== undefined) {
+                        internal.minAsk = BigNumber.min(price, internal.minAsk);
+                    }
+
                 }
 
                 set(internal);
@@ -43,15 +49,32 @@ export const orderBook = readable(internal,
     }
 );
 
-function update(side: { [key: string]: number }, item: Array<string>): number {
-    let price = parseFloat(item[0]);
-    let amount = parseFloat(item[1]);
-    if (amount === 0) {
-        delete side[price];
-    }
-    else {
-        side[price] = amount;
+function update(side: Map<BigNumber, BigNumber>, item: Array<string>): BigNumber {
+    let price = null;
+    let amount = new BigNumber(item[1]);
+    let it = side.keys();
+    let result = it.next();
+
+    while (!result.done && price === null) {
+        if (result.value.isEqualTo(item[0])) {
+            price = result.value;
+            break;
+        }
+        result = it.next();
     }
 
-    return price;
+    if (price === null) {
+        price = new BigNumber(item[0]);
+    }
+    
+    if (amount.isZero()) {
+        side.delete(price);
+        return undefined;
+    }
+    else {
+        side.set(price, amount);
+        return price;
+    }
+
+
 }

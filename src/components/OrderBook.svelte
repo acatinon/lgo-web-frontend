@@ -1,47 +1,46 @@
 <script>
   import { orderBook } from "../stores/order_book";
   import { derived } from "svelte/store";
+  import BigNumber from "bignumber.js";
 
-  const sortNumber = (a, b) => b - a;
+  let a = new BigNumber(12);
+  let b = new BigNumber(12);
+
+  const sortNumber = (a, b) => b.comparedTo(a);
 
   const sortedPrices = derived(orderBook, $orderBook => [
-    ...Object.keys($orderBook.asks)
-      .map(x => parseFloat(x))
-      .sort(sortNumber),
-    ...Object.keys($orderBook.bids)
-      .map(x => parseFloat(x))
-      .sort(sortNumber)
+    ...Array.from($orderBook.asks.keys()).sort(sortNumber),
+    ...Array.from($orderBook.bids.keys()).sort(sortNumber)
   ]);
 
   const combined = derived(orderBook, $orderBook => {
-    return { ...$orderBook.asks, ...$orderBook.bids };
+    return new Map([...$orderBook.asks, ...$orderBook.bids]);
   });
 
   function color(price) {
-    if (price > $orderBook.minAsk) {
+    if (price.isGreaterThanOrEqualTo($orderBook.minAsk)) {
       return "red";
-    } else if (price < $orderBook.maxBid) {
+    } else if (price.isLessThanOrEqualTo($orderBook.maxBid)) {
       return "green";
     } else {
       return "";
     }
   }
-
 </script>
 
 <table class="ui very compact very basic fixed small table">
   <thead>
     <tr>
-      <th>Quantity</th>
-      <th>Price</th>
+      <th class="right aligned">Quantity</th>
+      <th class="right aligned">Price</th>
     </tr>
   </thead>
   <tbody>
-    {#each $sortedPrices as price}
+    {#each $sortedPrices as price (price)}
       <tr>
-        <td>{$combined[price]}</td>
-        <td>
-          <span class="ui {color(price)} text">{price}</span>
+        <td class="right aligned">{$combined.get(price).toFormat(4)}</td>
+        <td class="right aligned">
+          <span class="ui {color(price)} text">{price.toFormat(8)}</span>
         </td>
       </tr>
     {/each}
