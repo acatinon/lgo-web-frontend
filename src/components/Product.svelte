@@ -7,12 +7,12 @@
   const baseAmount = derived(
     [currentProduct, balances],
     ([$currentProduct, $balances]) =>
-      $currentProduct ? $balances[currentProduct.getBase()] : 0
+      $currentProduct ? $balances[currentProduct.getBase()] : undefined
   );
   const quoteAmount = derived(
     [currentProduct, balances],
     ([$currentProduct, $balances]) =>
-      $currentProduct ? $balances[currentProduct.getQuote()] : 0
+      $currentProduct ? $balances[currentProduct.getQuote()] : undefined
   );
 
   onMount(async () => {
@@ -38,13 +38,13 @@
   {#if $baseAmount}
     <div class="item">
       <div class="ui basic blue horizontal label">BTC</div>
-      {$baseAmount.available}
+      {$baseAmount.available.toFormat()}
     </div>
   {/if}
   {#if $quoteAmount}
     <div class="item">
       <div class="ui basic blue horizontal label">USD</div>
-      {$quoteAmount.available}
+      {$quoteAmount.available.toFormat()}
     </div>
   {/if}
 </div>

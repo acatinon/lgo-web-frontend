@@ -1,9 +1,10 @@
 import { readable } from 'svelte/store';
 import { addListener } from "../services/common";
+import BigNumber from "bignumber.js"
 
 class Balance {
-    available: number;
-    escrowed: number;
+    available: BigNumber;
+    escrowed: BigNumber;
 }
 
 let internal: { [key: string]: Balance } = {};
@@ -28,8 +29,8 @@ export const balances = readable(internal,
                         balance = internal[currency];
                     }
 
-                    balance.available = parseFloat(item[1]);
-                    balance.escrowed = parseFloat(item[2]);
+                    balance.available = new BigNumber(item[1]);
+                    balance.escrowed = new BigNumber(item[2]);
                 }
 
                 set(internal);
