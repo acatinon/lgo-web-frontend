@@ -4,7 +4,6 @@
   import { onMount } from "svelte";
   import Date from "./Date.svelte";
   import Side from "./Side.svelte";
-  import FromNow from "./FromNow.svelte";
 
   function color(side) {
     return side === "B" ? "green" : "red";
@@ -21,24 +20,22 @@
     <span class="item" data-tab="my">My</span>
   </div>
   <div class="ui bottom attached active tab" data-tab="latest">
-    <table class="ui very compact very basic small table">
+    <table class="ui three column very compact very basic small table">
       <thead>
         <tr>
-          <th>Side</th>
-          <th>Quantity</th>
-          <th>Price</th>
-          <th>Time</th>
+          <th class="right aligned">Quantity</th>
+          <th class="right aligned">Price</th>
+          <th class="right aligned">Time</th>
         </tr>
       </thead>
       <tbody>
         {#each $trades as trade (trade.trade_id)}
           <tr>
-            <td>
-              <Side value={trade.side} />
+            <td class="right aligned">{trade.quantity}</td>
+            <td class="right aligned">
+              <span class="ui {color(trade.side)} text">{trade.price}</span>
             </td>
-            <td>{trade.quantity}</td>
-            <td>{trade.price}</td>
-            <td>
+            <td class="right aligned">
               <Date value={trade.trade_creation_time} />
             </td>
           </tr>
@@ -47,26 +44,23 @@
     </table>
   </div>
   <div class="ui bottom attached tab" data-tab="my">
-    <table class="ui very compact very basic small table">
+    <table class="ui three column very compact very basic small table">
       <thead>
         <tr>
-          <th>Side</th>
-          <th>Quantity</th>
-          <th>Price</th>
-          <th>Time</th>
-          <th />
+          <th class="right aligned">Quantity</th>
+          <th class="right aligned">Price</th>
+          <th class="right aligned">Time</th>
         </tr>
       </thead>
       <tbody>
         {#each $orders.filledOrders as order (order.id)}
           <tr>
-            <td>
-              <Side value={order.side} />
+            <td class="right aligned">{order.quantity}</td>
+            <td class="right aligned">
+              <span class="ui {color(order.side)} text">{order.price}</span>
             </td>
-            <td>{order.quantity}</td>
-            <td>{order.price}</td>
-            <td>
-              <FromNow value={order.creation_date} />
+            <td class="right aligned">
+              <Date value={order.creation_date} />
             </td>
           </tr>
         {/each}
