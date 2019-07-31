@@ -4,6 +4,7 @@
   import TransportU2F from "@ledgerhq/hw-transport-u2f";
   import Btc from "@ledgerhq/hw-app-btc";
   import { getPublicKey } from "./utils/path_finder";
+  import { addToast } from "./utils/toasts";
   import { Observable } from "rxjs";
   import { onMount } from "svelte";
   import {
@@ -31,18 +32,18 @@
             case "done":
               switch (p.reason) {
                 case "canceled":
-                  jQuery("body").toast({
-                    class: "success",
-                    message: "Order cancelled"
-                  });
+                  addToast(
+                    "Order canceled",
+                    "Your order has been successfully canceled"
+                  );
                   break;
               }
               break;
             case "open":
-              jQuery("body").toast({
-                class: "success",
-                message: "Order created"
-              });
+              addToast(
+                "Order created",
+                "Your order has been successfully created"
+              );
               break;
           }
         }

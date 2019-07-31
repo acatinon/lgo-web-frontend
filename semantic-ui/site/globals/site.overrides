@@ -78,3 +78,11 @@
     justify-content: space-around;
     padding-right:60px;
 }
+
+body .toast-container .compact {
+    width: 400px;
+
+    i.small.icon {
+        font-size: 2em !important;
+    }
+}
