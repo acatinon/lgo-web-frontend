@@ -1,5 +1,6 @@
 <script>
   import { orders } from "../stores/orders";
+  import { currentProduct } from "../stores/products";
   import { cancelOrder } from "../services/orders";
   import { color } from "../utils/ui"
   import Side from "./Side.svelte";
@@ -32,7 +33,7 @@
       </div>
       <div class="content">
          <div class="header">{formatType(order.type)} <span class="ui {color(order.side)} text">{formatSide(order.side)}</span> @ {order.price}</div> 
-         {order.remaining_quantity}
+         {order.remaining_quantity} {currentProduct.getBase()} / {order.remaining_quantity.multipliedBy(order.price)} {currentProduct.getQuote()}
         
       </div>
     </div>

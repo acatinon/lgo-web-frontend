@@ -3,14 +3,16 @@ import { readable } from 'svelte/store';
 import { addListener } from "../services/common";
 import { OrderType, OrderStatus, Side } from "../domain/order";
 import { BaseUrl } from "../utils/constants";
+import BigNumber from "bignumber.js"
+
 
 interface Order {
     id: string;
     type: OrderType;
     side: Side;
-    quantity: string;
-    remaining_quantity: string;
-    price: string;
+    quantity: BigNumber;
+    remaining_quantity: BigNumber;
+    price: BigNumber;
     creation_date: string;
     status: OrderStatus;
 }
@@ -36,9 +38,9 @@ class Orders {
                     id: order.order_id,
                     type: order.order_type,
                     side: order.side,
-                    quantity: order.quantity,
-                    price: order.price,
-                    remaining_quantity: order.quantity,
+                    quantity: new BigNumber(order.quantity),
+                    price: new BigNumber(order.price),
+                    remaining_quantity: new BigNumber(order.quantity),
                     status: OrderStatus.Pending,
                     creation_date: order.time
                 }
@@ -58,7 +60,7 @@ class Orders {
                 {
                     const index = this.find(this.openOrders, order.order_id);
                     let matchingOrder = this.openOrders[index];
-                    matchingOrder.remaining_quantity = order.remaining_quantity;
+                    matchingOrder.remaining_quantity = new BigNumber(order.remaining_quantity);
                 }
                 break;
             case "done":
@@ -80,9 +82,9 @@ class Orders {
                     id: order.id || order.order_id,
                     type: OrderType.Limit,
                     side: order.side,
-                    quantity: order.quantity,
-                    price: order.price,
-                    remaining_quantity: order.remaining_quantity,
+                    quantity: new BigNumber(order.quantity),
+                    price: new BigNumber(order.price),
+                    remaining_quantity: new BigNumber(order.remaining_quantity),
                     status: OrderStatus.Open,
                     creation_date: order.creation_date || order.order_creation_time
                 };
@@ -96,9 +98,9 @@ class Orders {
             id: order.id,
             type: order.order_type,
             side: order.side,
-            quantity: order.quantity,
-            price: order.price,
-            remaining_quantity: order.remaining_quantity,
+            quantity: new BigNumber(order.quantity),
+            price: new BigNumber(order.price),
+            remaining_quantity: new BigNumber(order.remaining_quantity),
             status: order.status_reason.toLowerCase(),
             creation_date: order.creation_date
         });
