@@ -7,7 +7,7 @@
   import Side from "./Side.svelte";
   import FromNow from "./FromNow.svelte";
 
-const sortbyCreationDate = (a, b) => a.creation_date.diff(b.creation_date);
+const sortbyCreationDate = (a, b) => b.creation_date.diff(a.creation_date);
 
   const sortedOrders = derived(orders, $orders => $orders.openOrders.sort(sortbyCreationDate));
 
@@ -29,7 +29,7 @@ const sortbyCreationDate = (a, b) => a.creation_date.diff(b.creation_date);
   {#each $sortedOrders as order (order.id)}
     <div class="item">
       <div class="right floated content">
-        <FromNow value={order.creation_date} />
+        <span class="ui small disabled text"><FromNow value={order.creation_date} /></span>
         <button
           class="ui tertiary icon button"
           on:click|once={e => submitOrderCancellation(order.id)}>
