@@ -22,18 +22,6 @@ export function initChart(w: number, h: number) {
         }
     });
 
-    candlestickSeries = chart.addCandlestickSeries();
-    volumeSeries = chart.addHistogramSeries({
-        priceFormat: {
-            type: "volume"
-        },
-        overlay: true,
-        scaleMargins: {
-            top: 0.85,
-            bottom: 0
-        }
-    });
-
     /*
     addListener(data => {
         if (data.channel === "trades") {
@@ -75,6 +63,18 @@ export function initChart(w: number, h: number) {
 }
 
 export function feedChart(candles: Candle[]) {
+    candlestickSeries = chart.addCandlestickSeries();
+    volumeSeries = chart.addHistogramSeries({
+        priceFormat: {
+            type: "volume"
+        },
+        overlay: true,
+        scaleMargins: {
+            top: 0.85,
+            bottom: 0
+        }
+    });
+
     const data: BarData[] = [];
     const volumes: HistogramData[] = [];
 
@@ -98,6 +98,13 @@ export function feedChart(candles: Candle[]) {
 
     candlestickSeries.setData(data);
     volumeSeries.setData(volumes);
+}
+
+export function resetChart() {
+    chart.removeSeries(candlestickSeries);
+    chart.removeSeries(volumeSeries);
+    candlestickSeries = null;
+    volumeSeries = null;
 }
 
 export function applyOptions(options: DeepPartial<ChartOptions>) {

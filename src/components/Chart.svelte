@@ -4,7 +4,7 @@
     granularity,
     Granularity
   } from "../stores/price_history";
-  import { initChart, feedChart, applyOptions } from "../utils/chart";
+  import { initChart, feedChart, resetChart, applyOptions } from "../utils/chart";
   import { onMount } from "svelte";
   import { get, writable } from "svelte/store";
 
@@ -52,6 +52,7 @@
     feedChart(candles);
 
     priceHistory.subscribe(candles => {
+      resetChart();
       feedChart(candles);
     });
 
