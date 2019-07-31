@@ -4,6 +4,7 @@ import { addListener } from "../services/common";
 import { OrderType, OrderStatus, Side } from "../domain/order";
 import { BaseUrl } from "../utils/constants";
 import BigNumber from "bignumber.js"
+import moment from "moment";
 
 
 interface Order {
@@ -13,7 +14,7 @@ interface Order {
     quantity: BigNumber;
     remaining_quantity: BigNumber;
     price: BigNumber;
-    creation_date: string;
+    creation_date: moment.Moment;
     status: OrderStatus;
 }
 
@@ -42,7 +43,7 @@ class Orders {
                     price: new BigNumber(order.price),
                     remaining_quantity: new BigNumber(order.quantity),
                     status: OrderStatus.Pending,
-                    creation_date: order.time
+                    creation_date: moment(order.time)
                 }
 
                 this.openOrders.push(newPendingOrder);
@@ -86,7 +87,7 @@ class Orders {
                     price: new BigNumber(order.price),
                     remaining_quantity: new BigNumber(order.remaining_quantity),
                     status: OrderStatus.Open,
-                    creation_date: order.creation_date || order.order_creation_time
+                    creation_date: moment(order.creation_date || order.order_creation_time)
                 };
 
                 this.openOrders.push(newOpenOrder);
@@ -102,7 +103,7 @@ class Orders {
             price: new BigNumber(order.price),
             remaining_quantity: new BigNumber(order.remaining_quantity),
             status: order.status_reason.toLowerCase(),
-            creation_date: order.creation_date
+            creation_date: moment.unix(order.creation_date)
         });
     }
 }
