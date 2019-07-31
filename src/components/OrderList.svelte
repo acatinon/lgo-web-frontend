@@ -1,6 +1,7 @@
 <script>
   import { orders } from "../stores/orders";
   import { cancelOrder } from "../services/orders";
+  import { color } from "../utils/ui"
   import Side from "./Side.svelte";
   import FromNow from "./FromNow.svelte";
 
@@ -8,40 +9,32 @@
     cancelOrder(orderId);
   }
 
+  function formatSide(side) {
+    return side === "B" ? "buy" : "sell";
+  }
+
+  function formatType(type) {
+    return type === "L" ? "Limit" : "Market";
+  }
 </script>
 
 <h5 class="ui dividing header">Open orders</h5>
-<table class="ui very compact very basic small table">
-  <thead>
-    <tr>
-      <th>Side</th>
-      <th>Type</th>
-      <th>Quantity (BTC)</th>
-      <th>Price (USD)</th>
-      <th>Remaining (BTC)</th>
-      <th>Time</th>
-      <th />
-    </tr>
-  </thead>
-  <tbody>
-    {#each $orders.openOrders as order (order.id)}
-      <tr>
-        <td>
-          <Side value={order.side} />
-        </td>
-        <td>{order.type}</td>
-        <td>{order.quantity}</td>
-        <td>{order.price}</td>
-        <td>{order.remaining_quantity}</td>
-        <td>
-          <FromNow value={order.creation_date} />
-        </td>
-        <td>
-          <a href="#" on:click|once={e => submitOrderCancellation(order.id)}>
-            <i class="red times icon" />
-          </a>
-        </td>
-      </tr>
-    {/each}
-  </tbody>
-</table>
+<div class="ui middle aligned divided list">
+  {#each $orders.openOrders as order (order.id)}
+    <div class="item">
+      <div class="right floated content">
+        <FromNow value={order.creation_date} />
+        <button
+          class="ui tertiary icon button"
+          on:click|once={e => submitOrderCancellation(order.id)}>
+          <i class="grey times icon" />
+        </button>
+      </div>
+      <div class="content">
+         <div class="header">{formatType(order.type)} <span class="ui {color(order.side)} text">{formatSide(order.side)}</span> @ {order.price}</div> 
+         {order.remaining_quantity}
+        
+      </div>
+    </div>
+  {/each}
+</div>

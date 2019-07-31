@@ -2,12 +2,9 @@
   import { trades } from "../stores/trades";
   import { orders } from "../stores/orders";
   import { onMount } from "svelte";
+  import { color } from "../utils/ui"
   import Date from "./Date.svelte";
   import Side from "./Side.svelte";
-
-  function color(side) {
-    return side === "B" ? "green" : "red";
-  }
 
   onMount(async () => {
     jQuery("#trades .menu .item").tab();
