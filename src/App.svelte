@@ -119,15 +119,12 @@
   <span class="item">3</span>
 </div>
 <div id="main" class="pusher">
-  <div id="product">
+  <div id="user">
     <Product />
     <PlaceOrder />
+    <OrderList />
   </div>
-  <div id="orderbook">
-    <OrderBook />
-  </div>
-  <div id="trading">
-
+  <div id="meta">
     <div id="chart">
       <Chart />
       {#if isLedgerReady}
@@ -139,15 +136,11 @@
         {/if}
       {/if}
     </div>
-
-    <div id="meta">
-      <div id="orders">
-        <OrderList />
-      </div>
-      <div id="trades">
-        <TradeList />
-      </div>
+    <div id="orderbook">
+      <OrderBook />
     </div>
-
+  </div>
+  <div id="trades">
+    <TradeList />
   </div>
 </div>

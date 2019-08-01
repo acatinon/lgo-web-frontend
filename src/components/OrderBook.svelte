@@ -28,7 +28,7 @@
   }
 </script>
 
-<table class="ui very compact very basic fixed small table">
+<table class="ui very compact very basic small table">
   <thead>
     <tr>
       <th class="right aligned">Quantity</th>

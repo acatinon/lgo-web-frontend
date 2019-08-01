@@ -3,13 +3,15 @@
   import { orders } from "../stores/orders";
   import { currentProduct } from "../stores/products";
   import { cancelOrder } from "../services/orders";
-  import { color } from "../utils/ui"
+  import { color } from "../utils/ui";
   import Side from "./Side.svelte";
   import FromNow from "./FromNow.svelte";
 
-const sortbyCreationDate = (a, b) => b.creation_date.diff(a.creation_date);
+  const sortbyCreationDate = (a, b) => b.creation_date.diff(a.creation_date);
 
-  const sortedOrders = derived(orders, $orders => $orders.openOrders.sort(sortbyCreationDate));
+  const sortedOrders = derived(orders, $orders =>
+    $orders.openOrders.sort(sortbyCreationDate)
+  );
 
   function submitOrderCancellation(orderId) {
     cancelOrder(orderId);
@@ -25,11 +27,10 @@ const sortbyCreationDate = (a, b) => b.creation_date.diff(a.creation_date);
 </script>
 
 <h5 class="ui dividing header">Open orders</h5>
-<div class="ui middle aligned divided list">
+<div id="orders" class="ui middle aligned divided list">
   {#each $sortedOrders as order (order.id)}
     <div class="item">
       <div class="right floated content">
-        <span class="ui small disabled text"><FromNow value={order.creation_date} /></span>
         <button
           class="ui tertiary icon button"
           on:click|once={e => submitOrderCancellation(order.id)}>
@@ -37,8 +38,20 @@ const sortbyCreationDate = (a, b) => b.creation_date.diff(a.creation_date);
         </button>
       </div>
       <div class="content">
-         <div class="header">{formatType(order.type)} <span class="ui {color(order.side)} text">{formatSide(order.side)}</span> @ {order.price}</div> 
-         {order.remaining_quantity} {currentProduct.getBase()} / {order.remaining_quantity.multipliedBy(order.price)} {currentProduct.getQuote()}
+        <div class="header">
+          {formatType(order.type)}
+          <span class="ui {color(order.side)} text">
+            {formatSide(order.side)}
+          </span>
+          @ {order.price}
+        </div>
+        {order.remaining_quantity} {currentProduct.getBase()} / {order.remaining_quantity.multipliedBy(order.price)}
+        {currentProduct.getQuote()}
+        <div class="extra">
+          <span class="ui small disabled text">
+            <FromNow value={order.creation_date} />
+          </span>
+        </div>
       </div>
     </div>
   {/each}

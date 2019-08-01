@@ -20,7 +20,7 @@
   });
 </script>
 
-<div>
+<div id="product">
   <div id="product-selector" class="ui huge fluid selection dropdown">
     <input type="hidden" name="product" bind:value={$currentProduct} />
     <i class="dropdown icon" />

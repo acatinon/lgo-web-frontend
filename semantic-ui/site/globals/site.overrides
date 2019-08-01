@@ -8,50 +8,43 @@
     height: 100vh;
 }
 
-#product,
-#orderbook {
+#user,
+#trades {
     width: 20rem;
     padding: 1rem;
 }
 
-#trading {
+#user {
+    display: flex;
+    flex-direction: column;
+    width: 20rem;
+    padding: 1rem;
+
+    #orders {
+        flex-grow: 1;
+        overflow-y: scroll;
+    }
+}
+
+#meta {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     flex-grow: 1;
+
+    #orderbook {
+        height: 300px;
+        overflow-y: scroll;
+    }
 }
 
-#orderbook {
+#trades {
     display: flex;
     flex-direction: column;
     overflow-y: scroll;
+    margin-right:60px;
 
     thead th {
-        top: 0;
-        position: sticky;
-    }
-}
-
-#orders,
-#trades {
-    overflow-y: scroll;
-    padding: 1rem;
-}
-
-#orders {
-    flex-grow: 1;
-
-    .menu {
-        top: 0;
-        position: sticky;
-    }
-}
-
-#trades {
-    width: 33%;
-    flex-grow: 0;
-
-    h3 {
         top: 0;
         position: sticky;
     }
@@ -70,13 +63,6 @@
     #chart-content {
         flex-grow: 1;
     }
-}
-
-#meta {
-    height: 30rem;
-    display: flex;
-    justify-content: space-around;
-    padding-right:60px;
 }
 
 body .toast-container .compact {
