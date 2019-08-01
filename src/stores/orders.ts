@@ -103,7 +103,7 @@ class Orders {
             price: new BigNumber(order.price),
             remaining_quantity: new BigNumber(order.remaining_quantity),
             status: order.status_reason.toLowerCase(),
-            creation_date: moment.unix(order.creation_date)
+            creation_date: moment(order.creation_date)
         });
     }
 }
