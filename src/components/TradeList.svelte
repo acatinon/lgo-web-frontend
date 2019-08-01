@@ -52,9 +52,9 @@
       <tbody>
         {#each $orders.filledOrders as order (order.id)}
           <tr>
-            <td class="right aligned">{order.quantity}</td>
+            <td class="right aligned">{order.quantity.toFormat(8)}</td>
             <td class="right aligned">
-              <span class="ui {color(order.side)} text">{order.price}</span>
+              <span class="ui {color(order.side)} text">{order.price.toFormat(4)}</span>
             </td>
             <td class="right aligned">
               <Date value={order.creation_date} />
