@@ -33,8 +33,19 @@
     flex-grow: 1;
 
     #orderbook {
-        height: 300px;
+        display: flex;
+        flex-direction: row;
+        height: 350px;
         overflow-y: scroll;
+
+        #bids,
+        #asks {
+            width: 45%
+        }
+
+        #book {
+            width: 10%
+        }
     }
 }
 

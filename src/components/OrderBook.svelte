@@ -37,7 +37,7 @@
         if (item.bid) {
           item.bidQuantity = $orderBook.bids.get(item.bid);
           item.bidValue = item.bid.multipliedBy(item.bidQuantity);
-          item.bidSum = bidSum = bidSum.plus(item.askValue);
+          item.bidSum = bidSum = bidSum.plus(item.bidValue);
         }
 
         comb.push(item);
@@ -47,35 +47,87 @@
   );
 </script>
 
-<table class="ui very compact very basic small table">
-  <thead>
-    <tr>
-      <th class="two wide right aligned">Sum</th>
-      <th class="two wide right aligned">Value</th>
-      <th class="one wide right aligned">Quantity</th>
-      <th class="one wide right aligned">Bid</th>
-      <th class="one wide">Ask</th>
-      <th class="one wide right aligned">Quantity</th>
-      <th class="two wide right aligned">Value</th>
-      <th class="two wide right aligned">Sum</th>
-    </tr>
-  </thead>
-  <tbody>
-    {#each $combined as c (c.index)}
+<div id="bids">
+  <table class="ui very compact very basic small five wide column table">
+    <thead>
       <tr>
-        <td class="right aligned">{c.bidSum || ''}</td>
-        <td class="right aligned">{c.bidValue || ''}</td>
-        <td class="right aligned">{c.bidQuantity || ''}</td>
-        <td class="right aligned">
-          <span class="ui {color('B')} text">{c.bid || ''}</span>
-        </td>
-        <td>
-          <span class="ui {color('S')} text">{c.ask || ''}</span>
-        </td>
-        <td class="right aligned">{c.askQuantity || ''}</td>
-        <td class="right aligned">{c.askValue || ''}</td>
-        <td class="right aligned">{c.askSum || ''}</td>
+        <th class="five wide right aligned">Sum</th>
+        <th class="five wide right aligned">Value</th>
+        <th class="five wide right aligned">Quantity</th>
+        <th class="one wide"></th>
       </tr>
-    {/each}
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      {#each $combined as c (c.index)}
+        <tr>
+          <td class="right aligned">
+            {c.bidSum ? c.bidSum.toFormat(2) : ' '}&nbsp;
+          </td>
+          <td class="right aligned">
+            {c.bidValue ? c.bidValue.toFormat(2) : ' '}
+          </td>
+          <td class="right aligned">
+            {c.bidQuantity ? c.bidQuantity.toFormat(8) : ' '}
+          </td>
+          <td></td>
+        </tr>
+      {/each}
+    </tbody>
+  </table>
+</div>
+<div id="book">
+  <table class="ui very compact very basic small two wide column table">
+    <thead>
+      <tr>
+        <th class="right aligned">Bid</th>
+        <th />
+        <th class="right aligned">Ask</th>
+      </tr>
+    </thead>
+    <tbody>
+      {#each $combined as c (c.index)}
+        <tr>
+          <td class="right aligned">
+            <span class="ui {color('B')} text">
+              {c.bid ? c.bid.toFormat(2) : ''}
+            </span>
+          </td>
+          <td />
+          <td class="right aligned">
+            <span class="ui {color('S')} text">
+              {c.ask ? c.ask.toFormat(2) : ''}
+            </span>
+          </td>
+        </tr>
+      {/each}
+    </tbody>
+  </table>
+</div>
+<div id="asks">
+  <table class="ui very compact very basic small five wide column table">
+    <thead>
+      <tr>
+        <th class="five wide right aligned">Quantity</th>
+        <th class="five wide right aligned">Value</th>
+        <th class="five wide right aligned">Sum</th>
+        <th class="one wide"></th>
+      </tr>
+    </thead>
+    <tbody>
+      {#each $combined as c (c.index)}
+        <tr>
+          <td class="right aligned">
+            {c.askQuantity ? c.askQuantity.toFormat(8) : ' '}
+          </td>
+          <td class="right aligned">
+            {c.askValue ? c.askValue.toFormat(2) : ' '}
+          </td>
+          <td class="right aligned">
+            {c.askSum ? c.askSum.toFormat(2) : ' '}&nbsp;
+          </td>
+          <td></td>
+        </tr>
+      {/each}
+    </tbody>
+  </table>
+</div>
