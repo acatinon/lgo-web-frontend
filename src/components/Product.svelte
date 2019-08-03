@@ -35,16 +35,16 @@
 </div>
 <h5 class="ui dividing header">Available balance</h5>
 <div class="ui list">
-  {#if $baseAmount}
-    <div class="item">
+  <div class="item">
+    <div class="content">
       <div class="ui basic blue horizontal label">BTC</div>
-      {$baseAmount.available.toFormat()}
+      {#if $baseAmount}{$baseAmount.available.toFormat()}{/if}
     </div>
-  {/if}
-  {#if $quoteAmount}
-    <div class="item">
+  </div>
+  <div class="item">
+    <div class="content">
       <div class="ui basic blue horizontal label">USD</div>
-      {$quoteAmount.available.toFormat()}
+      {#if $quoteAmount}{$quoteAmount.available.toFormat()}{/if}
     </div>
-  {/if}
+  </div>
 </div>

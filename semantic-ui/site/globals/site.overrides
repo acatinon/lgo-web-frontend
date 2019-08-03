@@ -83,3 +83,7 @@ body .toast-container .compact {
         font-size: 2em !important;
     }
 }
+
+body.dark {
+    background: @black;
+}
