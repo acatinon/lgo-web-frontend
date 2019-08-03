@@ -113,12 +113,12 @@
 	});*/
 </script>
 
-<div class="ui visible left very thin sidebar vertical menu">
-  <span class="item">1</span>
-  <span class="item">2</span>
-  <span class="item">3</span>
-</div>
-<div id="main" class="pusher">
+<div id="site">
+  <div id="menu" class="ui menu">
+    <span class="item">1</span>
+    <span class="item">2</span>
+    <span class="item">3</span>
+  </div>
   <div id="user">
     <Product />
     <PlaceOrder />

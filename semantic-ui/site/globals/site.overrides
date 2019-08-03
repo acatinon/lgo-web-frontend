@@ -2,18 +2,23 @@
          Site Overrides
 *******************************/
 
-#main {
+#site {
     display: flex;
-    justify-content: space-around;
+    flex-direction: row;
+    flex-wrap: wrap;
     height: 100vh;
+
+    #menu {
+        width: 100%;
+    }
 }
 
 #user,
-#chart,
-#orderbook,
+#meta,
 #trades {
     background: @offWhite;
     margin: 0 0 0.5rem 0.5rem;
+    height: calc(~"100vh - 4rem");
 }
 
 #user {
@@ -35,11 +40,28 @@
     flex-grow: 1;
     background: transparent;
 
+    #chart {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 2;
+        margin-bottom: 0.5rem;
+        background: @offWhite;
+
+        #chart-header {
+            flex-grow: 0;
+        }
+
+        #chart-content {
+            flex-grow: 1;
+        }
+    }
+
     #orderbook {
         display: flex;
         flex-direction: row;
         height: 350px;
         overflow-y: scroll;
+        background: @offWhite;
 
         #bids,
         #asks {
@@ -57,31 +79,11 @@
     flex-direction: column;
     overflow-y: scroll;
     width: 20rem;
-    margin-right:60px;
-
-    thead th {
-        top: 0;
-        position: sticky;
-    }
-}
-
-#chart {
-    display: flex;
-    flex-direction: column;
-    flex-grow: 2;
-
-    #chart-header {
-        flex-grow: 0;
-    }
-
-    #chart-content {
-        flex-grow: 1;
-    }
+    margin-right: 0.5rem;
 }
 
 body {
     background: darken(@offWhite, 4);
-    padding-right: 0.5rem;
 
     .toast-container .compact {
         width: 400px;
@@ -94,10 +96,12 @@ body {
 
 body.dark {
     background: lighten(@black, 8);
+
+
     #user,
     #trades,
-    #orderbook,
-    #chart {
+    #meta #orderbook,
+    #meta #chart {
         background: @black;
     }
 }
