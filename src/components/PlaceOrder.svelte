@@ -53,8 +53,9 @@
 <form class="ui form" on:submit|preventDefault={submitOrder}>
 
   <div class="field">
-    <div class="ui top attached tabular menu">
-      <span id="buy-tab" class="active item" on:click={selectBuy}>Buy</span>
+    <div class="ui pointing secondary menu">
+      <h5 class="item">Place an order</h5>
+      <span id="buy-tab" class="right active item" on:click={selectBuy}>Buy</span>
       <span id="sell-tab" class="item" on:click={selectSell}>Sell</span>
     </div>
   </div>

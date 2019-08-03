@@ -12,8 +12,9 @@
 </script>
 
 <div>
-  <div class="ui top attached tabular menu">
-    <span class="active item" data-tab="latest">Latest trades</span>
+  <div class="ui pointing secondary menu">
+    <h5 class="item">Trades</h5>
+    <span class="active right item" data-tab="latest">Latest</span>
     <span class="item" data-tab="my">My</span>
   </div>
   <div class="ui bottom attached active tab" data-tab="latest">
