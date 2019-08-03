@@ -9,16 +9,18 @@
 }
 
 #user,
+#chart,
+#orderbook,
 #trades {
-    width: 20rem;
-    padding: 1rem;
+    background: @offWhite;
+    margin: 0 0 0.5rem 0.5rem;
 }
 
 #user {
     display: flex;
     flex-direction: column;
     width: 20rem;
-    padding: 1rem;
+    padding: 0.5rem;
 
     #orders {
         flex-grow: 1;
@@ -31,6 +33,7 @@
     flex-direction: column;
     justify-content: space-around;
     flex-grow: 1;
+    background: transparent;
 
     #orderbook {
         display: flex;
@@ -53,6 +56,7 @@
     display: flex;
     flex-direction: column;
     overflow-y: scroll;
+    width: 20rem;
     margin-right:60px;
 
     thead th {
@@ -65,7 +69,6 @@
     display: flex;
     flex-direction: column;
     flex-grow: 2;
-    padding: 1rem;
 
     #chart-header {
         flex-grow: 0;
@@ -76,14 +79,25 @@
     }
 }
 
-body .toast-container .compact {
-    width: 400px;
+body {
+    background: darken(@offWhite, 4);
+    padding-right: 0.5rem;
 
-    i.small.icon {
-        font-size: 2em !important;
+    .toast-container .compact {
+        width: 400px;
+
+        i.small.icon {
+            font-size: 2em !important;
+        }
     }
 }
 
 body.dark {
-    background: @black;
+    background: lighten(@black, 8);
+    #user,
+    #trades,
+    #orderbook,
+    #chart {
+        background: @black;
+    }
 }
