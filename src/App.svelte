@@ -133,22 +133,8 @@
     <OrderList />
   </div>
   <div id="meta">
-    <div id="chart">
-      <Chart />
-      {#if isLedgerReady}
-        {#if publicKey}
-          <h1>Connected !</h1>
-          <pre>{publicKey}</pre>
-        {:else}
-          <h1>Waiting for device...</h1>
-        {/if}
-      {/if}
-    </div>
-    <div id="orderbook">
-      <OrderBook />
-    </div>
+    <Chart />
+    <OrderBook />
   </div>
-  <div id="trades">
-    <TradeList />
-  </div>
+  <TradeList />
 </div>

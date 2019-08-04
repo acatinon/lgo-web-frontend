@@ -26,8 +26,11 @@
   }
 </script>
 
-<div id="orders">
-  <h5 class="ui dividing header">Open orders</h5>
+<div id="orders" class="block">
+  <div class="ui basic segment">
+    <h5 class="ui header">Open orders</h5>
+  </div>
+  <div class="ui clearing divider"></div>
   <div class="content">
     <div class="ui middle aligned divided list">
       {#each $sortedOrders as order (order.id)}

@@ -3,4 +3,4 @@
 *******************************/
 
 @itemVerticalPadding: @relativeMini / 2;
-@tabularHorizontalPadding: @relativeMini;
+@secondaryPointingItemVerticalPadding: 0.5em;

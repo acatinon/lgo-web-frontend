@@ -50,14 +50,16 @@
   }
 </script>
 
-<div id="place-order">
+<div id="place-order" class="block">
   <div class="ui pointing secondary menu">
-    <h5 class="item">Place an order</h5>
+    <div class="ui basic segment">
+      <h5 class="item">Place an order</h5>
+    </div>
     <span id="buy-tab" class="right active item" on:click={selectBuy}>Buy</span>
     <span id="sell-tab" class="item" on:click={selectSell}>Sell</span>
   </div>
 
-  <form class="ui basic segment form" on:submit|preventDefault={submitOrder}>
+  <form class="ui basic segment form content" on:submit|preventDefault={submitOrder}>
 
     <div class="field">
       <div class="ui fluid buttons">

@@ -4,7 +4,12 @@
     granularity,
     Granularity
   } from "../stores/price_history";
-  import { initChart, feedChart, resetChart, applyOptions } from "../utils/chart";
+  import {
+    initChart,
+    feedChart,
+    resetChart,
+    applyOptions
+  } from "../utils/chart";
   import { onMount } from "svelte";
   import { get, writable } from "svelte/store";
 
@@ -64,16 +69,19 @@
       applyOptions({ height: newValue });
     });
   });
-
 </script>
 
-<div id="chart-header" class="ui basic clearing vertical segment">
-  <h5 class="ui dividing header">
-    Chart
-    <div id="granularity-selector" class="ui right floated compact selection dropdown">
-      <div class="text" />
-      <i class="dropdown icon" />
-    </div>
-  </h5>
+<div id="chart" class="block">
+  <div id="chart-header" class="ui basic clearing vertical segment">
+    <h5 class="ui dividing header">
+      Chart
+      <div
+        id="granularity-selector"
+        class="ui right floated compact selection dropdown">
+        <div class="text" />
+        <i class="dropdown icon" />
+      </div>
+    </h5>
+  </div>
+  <div id="chart-content" class="content" bind:clientWidth={$w} bind:clientHeight={$h} />
 </div>
-<div id="chart-content" bind:clientWidth={$w} bind:clientHeight={$h} />

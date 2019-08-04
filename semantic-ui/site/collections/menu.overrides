@@ -5,15 +5,14 @@
 .ui.secondary.pointing.menu {
 
     border-bottom-width: 1px;
+    margin-bottom: 1px;
 
     h5.item {
         font-weight: 700;
         padding: 0;
-        padding-bottom: @3px;
     }
 
     .item {
-        padding: 0 @secondaryPointingItemHorizontalPadding / 2;
-        padding-bottom: @3px;
+        padding-top: 0;
     }
 } 

@@ -35,7 +35,6 @@
     width: 20rem;
 
     #place-order {
-        background: @offWhite;
         margin-bottom: 0.5rem;
 
     }
@@ -44,7 +43,6 @@
         display: flex;
         flex-direction: column;
         flex-grow: 1;
-        background: @offWhite;
 
         .content {
             flex-grow: 1;
@@ -63,7 +61,6 @@
         flex-direction: column;
         flex-grow: 2;
         margin-bottom: 0.5rem;
-        background: @offWhite;
 
         #chart-header {
             flex-grow: 0;
@@ -76,8 +73,6 @@
 
     #orderbook 
     {
-        background: @offWhite;
-
         .inner {
             height: 350px;
             display: flex;
@@ -100,7 +95,6 @@
     flex-direction: column;
     width: 20rem;
     margin-right: 0.5rem;
-    background: @offWhite;
 }
 
 body {
@@ -124,5 +118,14 @@ body.dark {
     #meta #orderbook,
     #meta #chart {
         background: @black;
+    }
+}
+
+
+.block {
+    background: @white;
+
+    .content {
+        background: @offWhite !important;
     }
 }
