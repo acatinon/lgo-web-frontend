@@ -23,6 +23,7 @@
         <th class="right aligned">Quantity</th>
         <th class="right aligned">Price</th>
         <th class="right aligned">Time</th>
+        <th>&nbsp;&nbsp;&nbsp;</th>
       </tr>
     </thead>
     <tbody>
@@ -35,6 +36,7 @@
           <td class="right aligned">
             <Date value={trade.trade_creation_time} />
           </td>
+          <td></td>
         </tr>
       {/each}
     </tbody>
@@ -47,6 +49,7 @@
         <th class="right aligned">Quantity</th>
         <th class="right aligned">Price</th>
         <th class="right aligned">Time</th>
+        <th>&nbsp;&nbsp;&nbsp;</th>
       </tr>
     </thead>
     <tbody>
@@ -61,6 +64,7 @@
           <td class="right aligned">
             <Date value={order.creation_date} />
           </td>
+          <td></td>
         </tr>
       {/each}
     </tbody>

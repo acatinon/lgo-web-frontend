@@ -58,7 +58,6 @@ export const products = readable(internal,
                 }
 
                 set(internal);
-                console.log(internal[0].id);
                 currentProduct.set(internal[0].id);
             });
 

@@ -1,6 +1,8 @@
 <script>
   import "./css/main.less";
+  import './css/overlay-scrollbars.css';
   import "./js/semantic.js";
+  import "./js/jquery.overlay-scrollbars.js"
   import TransportU2F from "@ledgerhq/hw-transport-u2f";
   import Btc from "@ledgerhq/hw-app-btc";
   import { getPublicKey } from "./utils/path_finder";
@@ -53,6 +55,16 @@
 
   onMount(async () => {
     setUpToasts();
+
+    let settings = {
+      className: "os-theme-dark",
+      scrollbars: {
+        autoHide: "leave"
+      }
+    };
+
+    jQuery("#trades").overlayScrollbars(settings);
+    jQuery("#orderbook").overlayScrollbars(settings);
 
     currentProduct.subscribe(productId => {
       if (productId !== undefined) {

@@ -69,6 +69,10 @@ module.exports = {
 				}
 			},
 			{
+				test: /\.css$/,
+				use: ['style-loader', 'css-loader'],
+			},
+			{
 				test: /\.less$/,
 				use: [
 					{
@@ -123,7 +127,7 @@ module.exports = {
 			chunkFilename: '[id].css',
 		}),
 		new PurgecssPlugin({
-			paths: glob.sync(`${PATHS.src}/**/*`, { nodir: true }),
+			paths: glob.sync(`${PATHS.src}/**/*`, { nodir: true, ignore: [`${PATHS.src}/css/overlay-scrollbars.css`] }),
 			rejected: true
 		}),
 		new webpack.ProvidePlugin({

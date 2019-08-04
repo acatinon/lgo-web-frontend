@@ -65,20 +65,23 @@
         }
     }
 
-    #orderbook {
-        display: flex;
-        flex-direction: row;
+    #orderbook 
+    {
         height: 350px;
-        overflow-y: scroll;
         background: @offWhite;
 
-        #bids,
-        #asks {
-            width: 45%
-        }
+        .content {
+            display: flex;
+            flex-direction: row;
 
-        #book {
-            width: 10%
+            #bids,
+            #asks {
+                width: 45%
+            }
+
+            #book {
+                width: 10%
+            }
         }
     }
 }
