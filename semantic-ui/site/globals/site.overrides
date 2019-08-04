@@ -76,10 +76,10 @@
 
     #orderbook 
     {
-        height: 350px;
         background: @offWhite;
 
-        .content {
+        .inner {
+            height: 350px;
             display: flex;
             flex-direction: row;
 
