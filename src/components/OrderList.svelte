@@ -3,7 +3,7 @@
   import { orders } from "../stores/orders";
   import { currentProduct } from "../stores/products";
   import { cancelOrder } from "../services/orders";
-  import { color } from "../utils/ui";
+  import { color, getBase, getQuote } from "../utils/ui";
   import Side from "./Side.svelte";
   import FromNow from "./FromNow.svelte";
 
@@ -45,8 +45,8 @@
           </span>
           @ {order.price}
         </div>
-        {order.remaining_quantity} {currentProduct.getBase()} / {order.remaining_quantity.multipliedBy(order.price)}
-        {currentProduct.getQuote()}
+        {order.remaining_quantity} {getBase($currentProduct)} / {order.remaining_quantity.multipliedBy(order.price)}
+        {getQuote($currentProduct)}
         <div class="extra">
           <span class="ui small disabled text">
             <FromNow value={order.creation_date} />

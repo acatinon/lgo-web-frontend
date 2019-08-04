@@ -42,9 +42,7 @@ function createCurrentProduct() {
                 return value;
             });
         },
-        getPreviousValue: () => previousValue,
-        getBase: () => get(currentProduct).split("-")[0],
-        getQuote: () => get(currentProduct).split("-")[1],
+        getPreviousValue: () => previousValue
     }
 }
 
@@ -60,6 +58,7 @@ export const products = readable(internal,
                 }
 
                 set(internal);
+                console.log(internal[0].id);
                 currentProduct.set(internal[0].id);
             });
 

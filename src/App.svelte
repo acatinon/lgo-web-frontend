@@ -20,7 +20,7 @@
   import TradeList from "./components/TradeList.svelte";
   import OrderList from "./components/OrderList.svelte";
   import PlaceOrder from "./components/PlaceOrder.svelte";
-  import Product from "./components/Product.svelte";
+  import Menu from "./components/Menu.svelte";
   import OrderBook from "./components/OrderBook.svelte";
   import Chart from "./components/Chart.svelte";
 
@@ -114,13 +114,8 @@
 </script>
 
 <div id="site">
-  <div id="menu" class="ui menu">
-    <span class="item">1</span>
-    <span class="item">2</span>
-    <span class="item">3</span>
-  </div>
+  <Menu />
   <div id="user">
-    <Product />
     <PlaceOrder />
     <OrderList />
   </div>
