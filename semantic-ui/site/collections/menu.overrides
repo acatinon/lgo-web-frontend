@@ -15,4 +15,8 @@
     .item {
         padding-top: 0;
     }
-} 
+}
+
+.ui.secondary.menu {
+    margin-left: 0;
+}

@@ -8,16 +8,19 @@
     flex-wrap: wrap;
     height: 100vh;
 
+    .ui.menu .selection.dropdown {
+        padding-right: 2.2em;
+
+        > .dropdown.icon {
+            top: auto;
+        }
+    }
+
     #menu {
         width: 100%;
         
         .selection.dropdown {
             border:0;
-            padding-right: 2.2em;
-
-            > .dropdown.icon {
-                top: auto;
-            }
         }
     }
 }
@@ -62,11 +65,11 @@
         flex-grow: 2;
         margin-bottom: 0.5rem;
 
-        #chart-header {
-            flex-grow: 0;
+        .menu {
+            margin-bottom: 0;
         }
 
-        #chart-content {
+        .content {
             flex-grow: 1;
         }
     }

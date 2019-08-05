@@ -11,14 +11,17 @@ let lastCandle: BarData;
 let lastVolume: HistogramData;
 
 export function initChart(w: number, h: number) {
-    chart = createChart("chart-content", {
-        width: w - 60,
+    chart = createChart("chart-container", {
+        width: w,
         height: h,
         priceScale: {
             scaleMargins: {
                 top: 0.2,
                 bottom: 0.2
             }
+        },
+        layout: {
+            backgroundColor: '#f9fafb'
         }
     });
 

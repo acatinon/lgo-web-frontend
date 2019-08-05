@@ -62,7 +62,7 @@
     });
 
     w.subscribe(newValue => {
-      applyOptions({ width: newValue - 60 });
+      applyOptions({ width: newValue - 15 });
     });
 
     h.subscribe(newValue => {
@@ -72,16 +72,13 @@
 </script>
 
 <div id="chart" class="block">
-  <div id="chart-header" class="ui basic clearing vertical segment">
-    <h5 class="ui dividing header">
-      Chart
-      <div
-        id="granularity-selector"
-        class="ui right floated compact selection dropdown">
-        <div class="text" />
-        <i class="dropdown icon" />
-      </div>
-    </h5>
+  <div class="ui secondary menu">
+    <h5 class="ui header item">Chart</h5>
+    <div id="granularity-selector" class="ui compact selection dropdown right item">
+      <div class="text">Test</div>
+      <i class="dropdown icon" />
+    </div>
   </div>
-  <div id="chart-content" class="content" bind:clientWidth={$w} bind:clientHeight={$h} />
+  <div class="ui divider" />
+  <div id="chart-container" class="content" bind:clientWidth={$w} bind:clientHeight={$h} />
 </div>
