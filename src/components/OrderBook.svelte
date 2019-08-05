@@ -17,6 +17,13 @@
     Array.from($orderBook.bids.keys()).sort(sortNumberReverse)
   );
 
+  const minAsk = derived(orderBook, $orderBook =>
+    BigNumber.min(...$orderBook.asks.keys())
+  );
+  const maxBid = derived(orderBook, $orderBook =>
+    BigNumber.max(...$orderBook.bids.keys())
+  );
+
   const combined = derived(
     [sortedAsks, sortedBids],
     ([$sortedAsks, $sortedBids]) => {
@@ -49,7 +56,10 @@
 
 <div id="orderbook" class="block">
   <div class="ui right floated basic segment">
-    Spread: {$orderBook.maxBid.minus($orderBook.minAsk).toFormat(2)}
+    <span class="ui basic blue horizontal label">
+      Spread
+      <div class="detail">{$minAsk.minus($maxBid).toFormat(2)}</div>
+    </span>
   </div>
   <div class="ui basic segment">
     <h5 class="ui header">Order book</h5>

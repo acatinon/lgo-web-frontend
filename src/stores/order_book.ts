@@ -6,9 +6,6 @@ class OrderBook {
     bids = new Map<BigNumber, BigNumber>();
     asks = new Map<BigNumber, BigNumber>();
 
-    minAsk = new BigNumber(Infinity);
-    maxBid = new BigNumber(0);
-
     clear() {
         this.bids = new Map<BigNumber, BigNumber>();
         this.asks = new Map<BigNumber, BigNumber>();
@@ -28,17 +25,10 @@ export const orderBook = readable(internal,
 
                 for (let item of data.payload.bids) {
                     const price = update(internal.bids, item);
-                    if (price !== undefined) {
-                        internal.maxBid = BigNumber.max(price, internal.maxBid);
-                    }
                 }
 
                 for (let item of data.payload.asks) {
                     const price = update(internal.asks, item);
-                    if (price !== undefined) {
-                        internal.minAsk = BigNumber.min(price, internal.minAsk);
-                    }
-
                 }
 
                 set(internal);
