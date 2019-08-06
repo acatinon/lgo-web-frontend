@@ -112,23 +112,22 @@ body {
     }
 }
 
-body.dark {
-    background: lighten(@black, 8);
-
-
-    #user,
-    #trades,
-    #meta #orderbook,
-    #meta #chart {
-        background: @black;
-    }
-}
-
-
 .block {
     background: @white;
 
     .content {
         background: @offWhite !important;
+    }
+}
+
+body.dark {
+    background: lighten(@black, 8);
+
+    .block {
+        background: lighten(@fullBlack, 4);
+
+        .content {
+            background: @black !important;
+        }
     }
 }

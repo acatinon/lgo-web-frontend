@@ -6,8 +6,8 @@
       values: [
         {
           name: "Light",
-          value: "light",
-          selected: true
+          value: "light"/*,
+          selected: true*/
         },
         {
           name: "Dark",
