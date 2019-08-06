@@ -3,3 +3,5 @@
 *******************************/
 
 @selectionMinHeight: auto;
+@invertedSelectionBorder: none;
+@invertedSelectionBackground: transparent;
