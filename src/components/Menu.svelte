@@ -18,6 +18,10 @@
 
   onMount(async () => {
     jQuery("#product-selector").dropdown();
+
+    jQuery("#settings").click(async () => {
+      jQuery("#settings-modal").modal('show');
+    });
   });
 </script>
 
@@ -32,26 +36,41 @@
       {/each}
     </div>
   </div>
-  <span class="item">
+  <div class="item">
     Balance:
     <span class="ui basic purple horizontal label">
       {getBase($currentProduct)}
-      <div class="detail">{#if $baseAmount}{$baseAmount.available.toFormat()}{/if}</div>
+      <div class="detail">
+        {#if $baseAmount}{$baseAmount.available.toFormat()}{/if}
+      </div>
     </span>
     <span class="ui basic purple horizontal label">
       {getQuote($currentProduct)}
-      <div class="detail">{#if $quoteAmount}{$quoteAmount.available.toFormat()}{/if}</div>
+      <div class="detail">
+        {#if $quoteAmount}{$quoteAmount.available.toFormat()}{/if}
+      </div>
     </span>
-  </span>
-  <span class="item">
+  </div>
+  <div class="item">
     Available:
     <span class="ui basic teal horizontal label">
       {getBase($currentProduct)}
-      <div class="detail">{#if $baseAmount}{$baseAmount.available.minus($baseAmount.escrowed).toFormat()}{/if}</div>
+      <div class="detail">
+        {#if $baseAmount}
+          {$baseAmount.available.minus($baseAmount.escrowed).toFormat()}
+        {/if}
+      </div>
     </span>
     <span class="ui basic teal horizontal label">
       {getQuote($currentProduct)}
-      <div class="detail">{#if $quoteAmount}{$quoteAmount.available.minus($quoteAmount.escrowed).toFormat()}{/if}</div>
+      <div class="detail">
+        {#if $quoteAmount}
+          {$quoteAmount.available.minus($quoteAmount.escrowed).toFormat()}
+        {/if}
+      </div>
     </span>
-  </span>
+  </div>
+  <a id="settings" class="right item" href="#">
+    <i class="sliders horizontal icon" />
+  </a>
 </div>

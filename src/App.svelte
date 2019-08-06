@@ -25,6 +25,7 @@
   import Menu from "./components/Menu.svelte";
   import OrderBook from "./components/OrderBook.svelte";
   import Chart from "./components/Chart.svelte";
+  import Settings from "./components/Settings.svelte"
 
   function setUpToasts() {
     addListener(data => {
@@ -66,7 +67,7 @@
     jQuery("#trades").overlayScrollbars(settings);
     jQuery("#orderbook .content").overlayScrollbars(settings);
     jQuery("#orders .content").overlayScrollbars(settings);
-
+    
     currentProduct.subscribe(productId => {
       if (productId !== undefined) {
         if (isOpened()) {
@@ -138,3 +139,4 @@
   </div>
   <TradeList />
 </div>
+<Settings />
