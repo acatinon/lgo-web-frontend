@@ -23,7 +23,7 @@
   });
 </script>
 
-<div id="settings-modal" class="ui modal">
+<div id="settings-modal" class="ui modal block">
   <div class="header">Settings</div>
   <div class="content">
     <div class="ui form">
