@@ -4,14 +4,18 @@
     granularity,
     Granularity
   } from "../stores/price_history";
+  import { theme } from "../stores/settings";
   import {
     initChart,
     feedChart,
     resetChart,
-    applyOptions
+    applyOptions,
+    getLayout
   } from "../utils/chart";
   import { onMount } from "svelte";
   import { get, writable } from "svelte/store";
+
+  export let themeId;
 
   let w = writable();
   let h = writable();
@@ -50,7 +54,7 @@
       }
     });
 
-    initChart($w, $h);
+    initChart($w, $h, themeId);
 
     const candles = get(priceHistory);
 
@@ -68,17 +72,31 @@
     h.subscribe(newValue => {
       applyOptions({ height: newValue });
     });
+
+    theme.subscribe(value => {
+      if (value) {
+        applyOptions({
+          layout: getLayout(value)
+        });
+      }
+    });
   });
 </script>
 
 <div id="chart" class="block">
   <div class="ui secondary menu">
     <h5 class="ui header item">Chart</h5>
-    <div id="granularity-selector" class="ui compact selection dropdown right item">
+    <div
+      id="granularity-selector"
+      class="ui compact selection dropdown right item">
       <div class="text">Test</div>
       <i class="dropdown icon" />
     </div>
   </div>
   <div class="ui divider" />
-  <div id="chart-container" class="content" bind:clientWidth={$w} bind:clientHeight={$h} />
+  <div
+    id="chart-container"
+    class="content"
+    bind:clientWidth={$w}
+    bind:clientHeight={$h} />
 </div>

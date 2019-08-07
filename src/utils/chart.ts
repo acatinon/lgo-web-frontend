@@ -1,5 +1,5 @@
 import { Candle, granularity } from "../stores/price_history";
-import { createChart, ISeriesApi, IChartApi, BarData, HistogramData, UTCTimestamp, DeepPartial, ChartOptions } from "lightweight-charts";
+import { createChart, ISeriesApi, IChartApi, BarData, HistogramData, UTCTimestamp, DeepPartial, ChartOptions, LayoutOptions } from "lightweight-charts";
 import { addListener } from "../services/common";
 import { get } from "svelte/store";
 import moment from "moment";
@@ -10,7 +10,8 @@ let volumeSeries: ISeriesApi<"Histogram">;
 let lastCandle: BarData;
 let lastVolume: HistogramData;
 
-export function initChart(w: number, h: number) {
+export function initChart(w: number, h: number, themeId: string) {
+    
     chart = createChart("chart-container", {
         width: w,
         height: h,
@@ -20,9 +21,7 @@ export function initChart(w: number, h: number) {
                 bottom: 0.2
             }
         },
-        layout: {
-            backgroundColor: '#f9fafb'
-        }
+        layout:  getLayout(themeId)
     });
 
     /*
@@ -112,4 +111,18 @@ export function resetChart() {
 
 export function applyOptions(options: DeepPartial<ChartOptions>) {
     chart.applyOptions(options);
+}
+
+export function getLayout(themeId: string): DeepPartial<LayoutOptions> {
+    let bg = '#f9fafb';
+
+    switch (themeId) {
+        case "dark":
+            bg = '#1b1c1d';
+            break;
+    }
+
+    return {
+        backgroundColor: bg
+    }
 }

@@ -1,12 +1,14 @@
 <script>
   import "./css/main.less";
-  import './css/overlay-scrollbars.css';
+  import "./css/overlay-scrollbars.css";
   import "./js/semantic.js";
-  import "./js/jquery.overlay-scrollbars.js"
+  import "./js/jquery.overlay-scrollbars.js";
   import TransportU2F from "@ledgerhq/hw-transport-u2f";
   import Btc from "@ledgerhq/hw-app-btc";
+  import { theme } from "./stores/settings";
   import { getPublicKey } from "./utils/path_finder";
   import { addToast } from "./utils/toasts";
+  import { setTheme } from "./utils/ui";
   import { Observable } from "rxjs";
   import { onMount } from "svelte";
   import {
@@ -25,7 +27,7 @@
   import Menu from "./components/Menu.svelte";
   import OrderBook from "./components/OrderBook.svelte";
   import Chart from "./components/Chart.svelte";
-  import Settings from "./components/Settings.svelte"
+  import Settings from "./components/Settings.svelte";
 
   function setUpToasts() {
     addListener(data => {
@@ -54,6 +56,8 @@
     });
   }
 
+  export let themeId;
+
   onMount(async () => {
     setUpToasts();
 
@@ -64,8 +68,13 @@
       }
     };
 
-    jQuery("body").addClass("dark");
-    jQuery(".ui").addClass("inverted");
+    setTheme(themeId);
+
+    theme.subscribe(value => {
+      if (value) {
+        setTheme(value);
+      }
+    });
 
     jQuery("#trades").overlayScrollbars(settings);
     jQuery("#orderbook .content").overlayScrollbars(settings);
@@ -137,7 +146,7 @@
     <OrderList />
   </div>
   <div id="meta">
-    <Chart />
+    <Chart {themeId} />
     <OrderBook />
   </div>
   <TradeList />

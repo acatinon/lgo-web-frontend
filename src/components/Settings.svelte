@@ -1,5 +1,7 @@
 <script>
   import { onMount } from "svelte";
+  import { setTheme } from "../utils/ui";
+  import { theme } from "../stores/settings";
 
   onMount(async () => {
     jQuery("#theme-switcher").dropdown({
@@ -15,16 +17,7 @@
         }
       ],
       onChange: function(value, text) {
-        switch (value) {
-          case "light":
-            jQuery("body").removeClass("dark");
-            jQuery(".ui").removeClass("inverted");
-            break;
-          case "dark":
-            jQuery("body").addClass("dark");
-            jQuery(".ui").addClass("inverted");
-            break;
-        }
+        theme.set(value);
       }
     });
   });
