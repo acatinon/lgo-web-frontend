@@ -15,11 +15,11 @@ export function setTheme(id: string) {
     switch (id) {
         case "light":
             jQuery("body").removeClass("dark");
-            jQuery(".ui").removeClass("inverted");
+            jQuery(".ui").not(".dimmer").removeClass("inverted");
             break;
         case "dark":
             jQuery("body").addClass("dark");
-            jQuery(".ui").addClass("inverted");
+            jQuery(".ui").not(".dimmer").addClass("inverted");
             break;
     }
 }
