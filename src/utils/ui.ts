@@ -1,4 +1,17 @@
 import { Side } from "../domain/order";
+
+export const themes = [
+    {
+      name: "Light",
+      value: "light"
+    },
+    {
+      name: "Dark",
+      value: "dark"
+    }
+  ]
+
+
 export function color(side: Side) {
     return side === Side.Buy ? "green" : "red";
 }

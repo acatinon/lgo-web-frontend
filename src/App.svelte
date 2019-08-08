@@ -151,4 +151,4 @@
   </div>
   <TradeList />
 </div>
-<Settings />
+<Settings {themeId} />
