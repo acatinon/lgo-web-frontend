@@ -10,7 +10,7 @@
     feedChart,
     resetChart,
     applyOptions,
-    getLayout
+    getOptions
   } from "../utils/chart";
   import { onMount } from "svelte";
   import { get, writable } from "svelte/store";
@@ -75,9 +75,9 @@
 
     theme.subscribe(value => {
       if (value) {
-        applyOptions({
-          layout: getLayout(value)
-        });
+        applyOptions(
+          getOptions(value)
+        );
       }
     });
   });

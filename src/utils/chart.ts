@@ -11,18 +11,19 @@ let lastCandle: BarData;
 let lastVolume: HistogramData;
 
 export function initChart(w: number, h: number, themeId: string) {
-    
-    chart = createChart("chart-container", {
-        width: w,
-        height: h,
-        priceScale: {
-            scaleMargins: {
-                top: 0.2,
-                bottom: 0.2
-            }
-        },
-        layout:  getLayout(themeId)
-    });
+
+    const options = getOptions(themeId);
+
+    options.width = w;
+    options.height = h;
+    options.priceScale = {
+        scaleMargins: {
+            top: 0.2,
+            bottom: 0.2
+        }
+    };
+
+    chart = createChart("chart-container", options);
 
     /*
     addListener(data => {
@@ -65,7 +66,14 @@ export function initChart(w: number, h: number, themeId: string) {
 }
 
 export function feedChart(candles: Candle[]) {
-    candlestickSeries = chart.addCandlestickSeries();
+    candlestickSeries = chart.addCandlestickSeries({
+        upColor: "#21ba45",
+        borderUpColor: "#21ba45",
+        wickUpColor: "#21ba45",
+        downColor: "#db2828",
+        borderDownColor: "#db2828",
+        wickDownColor: "#db2828"
+    });
     volumeSeries = chart.addHistogramSeries({
         priceFormat: {
             type: "volume"
@@ -91,7 +99,8 @@ export function feedChart(candles: Candle[]) {
 
         volumes.push({
             time: candle.date.unix() as UTCTimestamp,
-            value: candle.volume
+            value: candle.volume,
+            color: candle.open > candle.close ? "#db2828" : "#21ba45" 
         });
     }
 
@@ -113,16 +122,19 @@ export function applyOptions(options: DeepPartial<ChartOptions>) {
     chart.applyOptions(options);
 }
 
-export function getLayout(themeId: string): DeepPartial<LayoutOptions> {
-    let bg = '#f9fafb';
-
-    switch (themeId) {
-        case "dark":
-            bg = '#1b1c1d';
-            break;
-    }
-
+export function getOptions(themeId: string): DeepPartial<ChartOptions> {
     return {
-        backgroundColor: bg
+        layout: {
+            backgroundColor: themeId === "light" ? '#f9fafb' : '#1b1c1d',
+            textColor: themeId === "light" ? '#191919' : '#D9D9D9'
+        },
+        grid: {
+			horzLines: {
+				color:  themeId === "light" ? '#dedede' : '#323334'
+            },
+            vertLines: {
+				color:  themeId === "light" ? '#dedede' : '#323334'
+			}
+		}
     }
 }
