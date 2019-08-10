@@ -3,5 +3,5 @@
 *******************************/
 
 @itemVerticalPadding: @relativeMini / 2;
-@secondaryPointingItemVerticalPadding: 0.5em;
+@secondaryPointingItemVerticalPadding: 0.3em;
 @secondaryItemPadding: 0.5em;
