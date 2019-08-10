@@ -28,11 +28,11 @@ export function setTheme(id: string) {
     switch (id) {
         case "light":
             jQuery("body").removeClass("dark");
-            jQuery(".ui").not(".dimmer").removeClass("inverted");
+            jQuery(".ui").not(".dimmer").not(".button").removeClass("inverted");
             break;
         case "dark":
             jQuery("body").addClass("dark");
-            jQuery(".ui").not(".dimmer").addClass("inverted");
+            jQuery(".ui").not(".dimmer").not(".button").addClass("inverted");
             break;
     }
 }
