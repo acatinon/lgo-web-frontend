@@ -30,7 +30,7 @@
   <div class="ui basic segment">
     <h5 class="ui header">Open orders</h5>
   </div>
-  <div class="ui clearing divider"></div>
+  <div class="ui clearing divider" />
   <div class="content">
     <div class="ui middle aligned divided list">
       {#each $sortedOrders as order (order.id)}
@@ -44,14 +44,17 @@
           </div>
           <div class="content">
             <div class="header">
-              {formatType(order.type)}
               <span class="ui {color(order.side)} text">
-                {formatSide(order.side)}
+                {formatType(order.type)} {formatSide(order.side)}
               </span>
-              @ {order.price}
+              <span class="ui grey text">@</span>
+              {order.price.toFormat()}
+              <span class="ui grey text">{getQuote($currentProduct)}</span>
             </div>
-            {order.remaining_quantity} {getBase($currentProduct)} / {order.remaining_quantity.multipliedBy(order.price)}
-            {getQuote($currentProduct)}
+            {order.remaining_quantity.toFormat()}
+            <span class="ui grey text">{getBase($currentProduct)}</span>
+            / {order.remaining_quantity.multipliedBy(order.price).toFormat()}
+            <span class="ui grey text">{getQuote($currentProduct)}</span>
             <div class="extra">
               <span class="ui small disabled text">
                 <FromNow value={order.creation_date} />
