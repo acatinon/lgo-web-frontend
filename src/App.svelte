@@ -76,10 +76,6 @@
       }
     });
 
-    jQuery("#trades").overlayScrollbars(settings);
-    jQuery("#orderbook .content").overlayScrollbars(settings);
-    jQuery("#orders .content").overlayScrollbars(settings);
-
     currentProduct.subscribe(productId => {
       if (productId !== undefined) {
         if (isOpened()) {

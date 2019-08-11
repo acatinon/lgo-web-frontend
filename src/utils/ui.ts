@@ -2,14 +2,14 @@ import { Side } from "../domain/order";
 
 export const themes = [
     {
-      name: "Light",
-      value: "light"
+        name: "Light",
+        value: "light"
     },
     {
-      name: "Dark",
-      value: "dark"
+        name: "Dark",
+        value: "dark"
     }
-  ]
+]
 
 
 export const colors = {
@@ -31,14 +31,27 @@ export function getQuote(productId: string) {
 }
 
 export function setTheme(id: string) {
+    const overlayScrollbarsSettings = {
+        className: undefined as string,
+        scrollbars: {
+            autoHide: "leave"
+        }
+    };
+
     switch (id) {
         case "light":
+            overlayScrollbarsSettings.className = "os-theme-dark";
             jQuery("body").removeClass("dark");
             jQuery(".ui").not(".dimmer").not(".button").not(".text").removeClass("inverted");
             break;
         case "dark":
+            overlayScrollbarsSettings.className = "os-theme-light";
             jQuery("body").addClass("dark");
             jQuery(".ui").not(".dimmer").not(".button").not(".text").addClass("inverted");
             break;
     }
+
+    jQuery("#trades").overlayScrollbars(overlayScrollbarsSettings);
+    jQuery("#orderbook .content").overlayScrollbars(overlayScrollbarsSettings);
+    jQuery("#orders .content").overlayScrollbars(overlayScrollbarsSettings);
 }
