@@ -130,4 +130,12 @@ body.dark {
             background: @black !important;
         }
     }
+
+    span.ui.green.text {
+        color: @lightGreen;
+    }
+
+    span.ui.red.text {
+        color: @lightRed;
+    }
 }

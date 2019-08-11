@@ -12,6 +12,12 @@ export const themes = [
   ]
 
 
+export const colors = {
+    green: "#159f49",
+    red: "#df4249"
+}
+
+
 export function color(side: Side) {
     return side === Side.Buy ? "green" : "red";
 }
@@ -28,11 +34,11 @@ export function setTheme(id: string) {
     switch (id) {
         case "light":
             jQuery("body").removeClass("dark");
-            jQuery(".ui").not(".dimmer").not(".button").removeClass("inverted");
+            jQuery(".ui").not(".dimmer").not(".button").not(".text").removeClass("inverted");
             break;
         case "dark":
             jQuery("body").addClass("dark");
-            jQuery(".ui").not(".dimmer").not(".button").addClass("inverted");
+            jQuery(".ui").not(".dimmer").not(".button").not(".text").addClass("inverted");
             break;
     }
 }

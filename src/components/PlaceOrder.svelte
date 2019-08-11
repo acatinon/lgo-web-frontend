@@ -11,8 +11,8 @@
     jQuery("#buy-tab").addClass("active");
     jQuery("#sell-tab").removeClass("active");
     jQuery("#submit-order")
-      .addClass("green")
-      .removeClass("red")
+      .addClass("positive")
+      .removeClass("negative")
       .text("Buy");
 
     side = Side.Buy;
@@ -22,8 +22,8 @@
     jQuery("#sell-tab").addClass("active");
     jQuery("#buy-tab").removeClass("active");
     jQuery("#submit-order")
-      .addClass("red")
-      .removeClass("green")
+      .addClass("negative")
+      .removeClass("positive")
       .text("Sell");
 
     side = Side.Sell;
@@ -98,7 +98,7 @@
       </div>
 
     </div>
-    <button id="submit-order" class="ui fluid green button" type="submit">
+    <button id="submit-order" class="ui fluid positive button" type="submit">
       Buy
     </button>
   </form>

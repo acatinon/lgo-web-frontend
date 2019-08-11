@@ -1,8 +1,6 @@
 import { Candle, granularity } from "../stores/price_history";
-import { createChart, ISeriesApi, IChartApi, BarData, HistogramData, UTCTimestamp, DeepPartial, ChartOptions, LayoutOptions } from "lightweight-charts";
-import { addListener } from "../services/common";
-import { get } from "svelte/store";
-import moment from "moment";
+import { createChart, ISeriesApi, IChartApi, BarData, HistogramData, UTCTimestamp, DeepPartial, ChartOptions, } from "lightweight-charts";
+import { colors } from "../utils/ui";
 
 let chart: IChartApi;
 let candlestickSeries: ISeriesApi<"Candlestick">;
@@ -67,12 +65,12 @@ export function initChart(w: number, h: number, themeId: string) {
 
 export function feedChart(candles: Candle[]) {
     candlestickSeries = chart.addCandlestickSeries({
-        upColor: "#21ba45",
-        borderUpColor: "#21ba45",
-        wickUpColor: "#21ba45",
-        downColor: "#db2828",
-        borderDownColor: "#db2828",
-        wickDownColor: "#db2828"
+        upColor: colors.green,
+        borderUpColor: colors.green,
+        wickUpColor: colors.green,
+        downColor: colors.red,
+        borderDownColor: colors.red,
+        wickDownColor: colors.red
     });
     volumeSeries = chart.addHistogramSeries({
         priceFormat: {
@@ -100,7 +98,7 @@ export function feedChart(candles: Candle[]) {
         volumes.push({
             time: candle.date.unix() as UTCTimestamp,
             value: candle.volume,
-            color: candle.open > candle.close ? "#db2828" : "#21ba45" 
+            color: candle.open > candle.close ? colors.green : colors.red
         });
     }
 
