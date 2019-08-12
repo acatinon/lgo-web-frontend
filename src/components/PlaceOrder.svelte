@@ -1,6 +1,10 @@
 <script>
+  import Inputmask from "inputmask";
+  import "jquery.inputmask";
+  import "inputmask.numeric.extensions";
   import { placeOrder } from "../services/orders";
   import { Side, OrderType } from "../domain/order";
+  import { onMount } from "svelte";
 
   let side = Side.Buy;
   let type = OrderType.Limit;
@@ -48,6 +52,13 @@
   function submitOrder() {
     placeOrder("BTC-USD", type, side, quantity, price);
   }
+
+  onMount(async () => {
+    jQuery("#place-order input").inputmask("numeric", {
+      groupSeparator: ",",
+      allowMinus: false
+    });
+  });
 </script>
 
 <div id="place-order" class="block">
@@ -59,7 +70,9 @@
     <span id="sell-tab" class="item" on:click={selectSell}>Sell</span>
   </div>
 
-  <form class="ui basic segment form content" on:submit|preventDefault={submitOrder}>
+  <form
+    class="ui basic segment form content"
+    on:submit|preventDefault={submitOrder}>
 
     <div class="field">
       <div class="ui fluid buttons">
@@ -84,7 +97,7 @@
         <div class="ui basic label">
           <span class="ui grey text">BTC</span>
         </div>
-        <input name="quantity" type="number" min="0" bind:value={quantity} />
+        <input name="quantity" type="text" bind:value={quantity} />
       </div>
     </div>
 
@@ -94,7 +107,7 @@
         <div class="ui basic label">
           <span class="ui grey text">USD</span>
         </div>
-        <input name="price" type="number" min="0" bind:value={price} />
+        <input name="price" type="text" bind:value={price} />
       </div>
 
     </div>

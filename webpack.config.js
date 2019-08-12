@@ -22,7 +22,9 @@ module.exports = {
 		extensions: ['.mjs', '.js', '.ts', '.svelte'],
 		alias: {
 			"../../theme.config$": path.join(__dirname, "/semantic-ui/theme.config"),
-			"../semantic-ui/site": path.join(__dirname, "/semantic-ui/site")
+			"../semantic-ui/site": path.join(__dirname, "/semantic-ui/site"),
+			'jquery.inputmask': path.join(__dirname, "/src/js/jquery.inputmask"),
+			'inputmask.numeric.extensions': path.join(__dirname, "/src/js/inputmask.numeric.extensions"),
 		}
 	},
 	devServer: {

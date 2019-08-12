@@ -40,6 +40,9 @@
     #place-order {
         margin-bottom: 0.5rem;
 
+        .content {
+            padding: 1em;
+        }
     }
 
     #orders {
