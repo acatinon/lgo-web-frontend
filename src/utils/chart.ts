@@ -21,6 +21,10 @@ export function initChart(w: number, h: number, themeId: string) {
         }
     };
 
+    options.timeScale = {
+        timeVisible: true
+    };
+
     chart = createChart("chart-container", options);
 
     /*

@@ -31,7 +31,7 @@
         </tr>
       </thead>
       <tbody>
-        {#each $trades as trade (trade.trade_id)}
+        {#each $trades as trade (trade.id)}
           <tr>
             <td class="right aligned"><FocusedNumber value={trade.quantity.toFormat()} /></td>
             <td class="right aligned">
