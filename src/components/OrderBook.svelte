@@ -3,6 +3,7 @@
   import { derived } from "svelte/store";
   import { color } from "../utils/ui";
   import BigNumber from "bignumber.js";
+  import FocusedNumber from "./FocusedNumber.svelte";
 
   let a = new BigNumber(12);
   let b = new BigNumber(12);
@@ -87,7 +88,7 @@
                   {c.bidValue ? c.bidValue.toFormat(2) : ' '}
                 </td>
                 <td class="right aligned">
-                  {c.bidQuantity ? c.bidQuantity.toFormat(8) : ' '}
+                  {#if c.bidQuantity}<FocusedNumber value="{c.bidQuantity.toFormat()}" />{:else}&nbsp;{/if}
                 </td>
                 <td />
               </tr>
@@ -137,7 +138,7 @@
             {#each $combined as c (c.index)}
               <tr>
                 <td class="right aligned">
-                  {c.askQuantity ? c.askQuantity.toFormat(8) : ' '}
+                  {#if c.askQuantity}<FocusedNumber value={c.askQuantity.toFormat()} />{:else}&nbsp;{/if}
                 </td>
                 <td class="right aligned">
                   {c.askValue ? c.askValue.toFormat(2) : ' '}
