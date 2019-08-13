@@ -2,13 +2,15 @@
 import { readable } from 'svelte/store';
 import { addListener } from "../services/common";
 import { Side } from "../domain/order";
+import BigNumber from "bignumber.js"
+import moment from "moment";
 
 interface Trade {
-    trade_id: string;
+    id: string;
     side: Side
-    quantity: string;
-    price: string;
-    trade_creation_time: string
+    quantity: BigNumber;
+    price: BigNumber;
+    creation_date: moment.Moment
 }
 
 const internal: Trade[] = [];
@@ -22,7 +24,13 @@ export const trades = readable(internal,
                 }
 
                 for (let trade of data.payload) {
-                    internal.unshift(trade);
+                    internal.unshift({
+                        id: trade.trade_id,
+                        side: trade.side,
+                        quantity: new BigNumber(trade.quantity),
+                        price: new BigNumber(trade.price),
+                        creation_date: moment(trade.trade_creation_time)
+                    });
                 }
 
                 if (internal.length > 200)

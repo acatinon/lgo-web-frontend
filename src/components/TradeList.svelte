@@ -5,6 +5,7 @@
   import { color } from "../utils/ui";
   import Date from "./Date.svelte";
   import Side from "./Side.svelte";
+  import FocusedNumber from "./FocusedNumber.svelte";
 
   onMount(async () => {
     jQuery("#trades .menu .item").tab();
@@ -32,12 +33,12 @@
       <tbody>
         {#each $trades as trade (trade.trade_id)}
           <tr>
-            <td class="right aligned">{trade.quantity}</td>
+            <td class="right aligned"><FocusedNumber value={trade.quantity.toFormat()} /></td>
             <td class="right aligned">
-              <span class="ui {color(trade.side)} text">{trade.price}</span>
+              <span class="ui {color(trade.side)} text">{trade.price.toFormat(2)}</span>
             </td>
             <td class="right aligned">
-              <Date value={trade.trade_creation_time} />
+              <Date value={trade.creation_date} />
             </td>
             <td />
           </tr>
@@ -58,10 +59,10 @@
       <tbody>
         {#each $orders.filledOrders as order (order.id)}
           <tr>
-            <td class="right aligned">{order.quantity.toFormat(8)}</td>
+            <td class="right aligned"><FocusedNumber value={order.quantity.toFormat()} /></td>
             <td class="right aligned">
               <span class="ui {color(order.side)} text">
-                {order.price.toFormat(4)}
+                {order.price.toFormat(2)}
               </span>
             </td>
             <td class="right aligned">
