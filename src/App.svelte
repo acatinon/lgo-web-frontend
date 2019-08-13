@@ -1,5 +1,5 @@
 <script>
-  import "./css/main.less";
+  import "fomantic-ui-less/semantic.less";
   import "./css/overlay-scrollbars.css";
   import "./js/semantic.js";
   import "./js/jquery.overlay-scrollbars.js";
