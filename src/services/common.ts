@@ -2,7 +2,7 @@ import WebSocketAsPromised from 'websocket-as-promised';
 
 const ws = new WebSocketAsPromised('ws://localhost:3002', {
   packMessage: data => JSON.stringify(data),
-  unpackMessage: data => JSON.parse(data)
+  unpackMessage: data => JSON.parse(data as string)
 });
 
 
