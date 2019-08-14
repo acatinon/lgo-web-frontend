@@ -1,8 +1,8 @@
 
 import 'babel-polyfill';
-import App from './App.svelte';
+import Exchange from './Exchange.svelte';
 
-const app = new App({
+const app = new Exchange({
 	target: document.body,
 	props: {
 		themeId: "dark"

@@ -8,7 +8,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const PurgecssPlugin = require('purgecss-webpack-plugin')
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 
 const PATHS = {
 	src: path.join(__dirname, 'src')
@@ -16,7 +16,8 @@ const PATHS = {
 
 module.exports = {
 	entry: {
-		bundle: ["babel-polyfill", './src/main.js']
+		exchange: ['./src/exchange.js'],
+		index: ['./src/index.js']
 	},
 	resolve: {
 		extensions: ['.mjs', '.js', '.ts', '.svelte'],
@@ -118,7 +119,14 @@ module.exports = {
 		]
 	},
 	plugins: [
-		new HtmlWebpackPlugin(),
+		new HtmlWebpackPlugin({
+			template: 'src/index.ejs',
+			chunks: ['index']
+		}),
+		new HtmlWebpackPlugin({
+			filename: 'exchange.html',
+			chunks: ['exchange']
+		}),
 		new CleanWebpackPlugin({
 			cleanOnceBeforeBuildPatterns: ['**/*', "!CNAME"]
 		}),
