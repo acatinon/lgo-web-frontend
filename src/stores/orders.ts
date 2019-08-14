@@ -49,6 +49,8 @@ class Orders {
                 this.openOrders.push(newPendingOrder);
                 break;
             case "invalid":
+                const index = this.find(this.openOrders, order.order_id);
+                this.openOrders.splice(index, 1);
                 break;
             case "open":
                 {

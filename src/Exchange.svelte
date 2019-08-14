@@ -39,7 +39,8 @@
                 case "canceled":
                   addToast(
                     "Order canceled",
-                    "Your order has been successfully canceled"
+                    "Your order has been successfully canceled",
+                    "small green check"
                   );
                   break;
               }
@@ -47,7 +48,15 @@
             case "open":
               addToast(
                 "Order created",
-                "Your order has been successfully created"
+                "Your order has been successfully created",
+                "small green check"
+              );
+              break;
+            case "invalid":
+              addToast(
+                "Order invalid",
+                `The order ${p.order_id} is invalid`,
+                "small red exclamation"
               );
               break;
           }

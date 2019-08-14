@@ -1,6 +1,6 @@
-export function addToast(title: string, message: string) {
+export function addToast(title: string, message: string, icon: string) {
     jQuery("body").toast({
-        showIcon: "small green check",
+        showIcon: icon,
         class: "",
         className: {
           toast: "ui floating message"
