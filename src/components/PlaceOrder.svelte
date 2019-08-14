@@ -73,6 +73,7 @@
 
   <form
     class="ui basic segment form content"
+    autocomplete="off"
     on:submit|preventDefault={submitOrder}>
 
     <div class="field">
