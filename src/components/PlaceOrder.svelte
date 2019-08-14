@@ -5,11 +5,10 @@
   import { placeOrder } from "../services/orders";
   import { Side, OrderType } from "../domain/order";
   import { onMount } from "svelte";
+  import BigNumber from "bignumber.js";
 
   let side = Side.Buy;
   let type = OrderType.Limit;
-  let quantity;
-  let price;
 
   function selectBuy() {
     jQuery("#buy-tab").addClass("active");
@@ -50,6 +49,8 @@
   }
 
   function submitOrder() {
+    let quantity = new BigNumber(jQuery("#quantity-field input").inputmask('unmaskedvalue'));
+    let price = new BigNumber(jQuery("#price-field input").inputmask('unmaskedvalue'));
     placeOrder("BTC-USD", type, side, quantity, price);
   }
 
@@ -97,17 +98,17 @@
         <div class="ui basic label">
           <span class="ui grey text">BTC</span>
         </div>
-        <input name="quantity" type="text" bind:value={quantity} />
+        <input name="quantity" />
       </div>
     </div>
 
-    <div class="field">
+    <div id="price-field" class="field">
       <label>Price</label>
       <div class="ui fluid labeled input">
         <div class="ui basic label">
           <span class="ui grey text">USD</span>
         </div>
-        <input name="price" type="text" bind:value={price} />
+        <input name="price" />
       </div>
 
     </div>

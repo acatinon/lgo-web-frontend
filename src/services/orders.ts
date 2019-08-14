@@ -1,8 +1,9 @@
 import superAgent from 'superagent';
 import { OrderType, Side } from "../domain/order"
 import { BaseUrl } from "../utils/constants";
+import BigNumber from 'bignumber.js';
 
-export function placeOrder(productId: string, type: OrderType, side: Side, quantity: number, price: number) {
+export function placeOrder(productId: string, type: OrderType, side: Side, quantity: BigNumber, price: BigNumber) {
     superAgent
         .post(BaseUrl + "/orders")
         .set('Content-Type', 'application/json')
