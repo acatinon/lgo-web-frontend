@@ -55,13 +55,6 @@
       return comb;
     }
   );
-
-  combined.subscribe(value  => {
-    if (!isFloatTheadInitialized && value.length > 0) {
-      jQuery("#orderbook table").floatThead();
-      isFloatTheadInitialized = true;
-    }
-  });
 </script>
 
 <div id="orderbook" class="block">
@@ -76,54 +69,76 @@
   </div>
   <div class="ui clearing divider" />
   <div class="content">
-    <div class="inner">
-      <div id="bids">
-        <table class="ui very compact very basic small five wide column table">
-          <thead>
-            <tr>
-              <th class="five wide right aligned">Sum</th>
-              <th class="five wide right aligned">Value</th>
-              <th class="five wide right aligned">Quantity</th>
-              <th class="one wide" />
-            </tr>
-          </thead>
+    <div class="book-header">
+      <table
+        class="book-bids ui very compact very basic small column table">
+        <thead>
+          <tr>
+            <th class="five wide right aligned">Sum</th>
+            <th class="five wide right aligned">Value</th>
+            <th class="five wide right aligned">Quantity</th>
+            <th class="one wide" />
+          </tr>
+        </thead>
+      </table>
+      <table
+        class="book-amounts ui very compact very basic small column
+        table">
+        <thead>
+          <tr>
+            <th class="seven wide right aligned">Bid</th>
+            <th class="two wide" />
+            <th class="seven wide right aligned">Ask</th>
+          </tr>
+        </thead>
+      </table>
+      <table
+        class="book-asks ui very compact very basic small column table">
+        <thead>
+          <tr>
+            <th class="five wide right aligned">Quantity</th>
+            <th class="five wide right aligned">Value</th>
+            <th class="five wide right aligned">Sum</th>
+            <th class="one wide" />
+          </tr>
+        </thead>
+      </table>
+    </div>
+    <div class="content">
+      <div class="book-content">
+        <table
+          class="book-bids ui very compact very basic small column
+          table">
           <tbody>
             {#each $combined as c (c.index)}
               <tr>
-                <td class="right aligned">
+                <td class="five wide right aligned">
                   {c.bidSum ? c.bidSum.toFormat(2) : ' '}&nbsp;
                 </td>
-                <td class="right aligned">
+                <td class="five wide right aligned">
                   {c.bidValue ? c.bidValue.toFormat(2) : ' '}
                 </td>
-                <td class="right aligned">
+                <td class="five wide right aligned">
                   <FocusedNumber value={c.bidQuantity} />
                 </td>
-                <td />
+                <td class="one wide" />
               </tr>
             {/each}
           </tbody>
         </table>
-      </div>
-      <div id="book">
-        <table class="ui very compact very basic small two wide column table">
-          <thead>
-            <tr>
-              <th class="right aligned">Bid</th>
-              <th />
-              <th class="right aligned">Ask</th>
-            </tr>
-          </thead>
+        <table
+          class="book-amounts ui very compact very basic small column
+          table">
           <tbody>
             {#each $combined as c (c.index)}
               <tr>
-                <td class="right aligned">
+                <td class="seven wide right aligned">
                   <span class="ui {color('B')} text">
                     {c.bid ? c.bid.toFormat(2) : ''}
                   </span>
                 </td>
-                <td />
-                <td class="right aligned">
+                <td class="two wide" />
+                <td class="seven wide right aligned">
                   <span class="ui {color('S')} text">
                     {c.ask ? c.ask.toFormat(2) : ''}
                   </span>
@@ -132,30 +147,22 @@
             {/each}
           </tbody>
         </table>
-      </div>
-      <div id="asks">
-        <table class="ui very compact very basic small five wide column table">
-          <thead>
-            <tr>
-              <th class="five wide right aligned">Quantity</th>
-              <th class="five wide right aligned">Value</th>
-              <th class="five wide right aligned">Sum</th>
-              <th class="one wide" />
-            </tr>
-          </thead>
+        <table
+          class="book-asks ui very compact very basic small column
+          table">
           <tbody>
             {#each $combined as c (c.index)}
               <tr>
-                <td class="right aligned">
+                <td class="five wide right aligned">
                   <FocusedNumber value={c.askQuantity} />
                 </td>
-                <td class="right aligned">
+                <td class="five wide right aligned">
                   {c.askValue ? c.askValue.toFormat(2) : ' '}
                 </td>
-                <td class="right aligned">
+                <td class="five wide right aligned">
                   {c.askSum ? c.askSum.toFormat(2) : ' '}&nbsp;
                 </td>
-                <td />
+                <td class="one wide" />
               </tr>
             {/each}
           </tbody>

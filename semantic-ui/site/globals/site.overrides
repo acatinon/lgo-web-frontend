@@ -79,19 +79,24 @@
 
     #orderbook 
     {
-        .inner {
+        .book-header {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .book-content {
             height: 350px;
             display: flex;
             flex-direction: row;
+        }
 
-            #bids,
-            #asks {
-                width: 45%
-            }
+        .book-bids,
+        .book-asks {
+            width: 45%
+        }
 
-            #book {
-                width: 10%
-            }
+        .book-amounts {
+            width: 10%
         }
     }
 }

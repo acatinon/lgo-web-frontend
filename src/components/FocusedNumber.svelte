@@ -15,6 +15,5 @@
 </script>
 
 {#if value}
-  {intValue}.{decValue}
-  <span class="ui disabled text">{disabledValue}</span>
+  {intValue}.{decValue}<span class="ui disabled text">{disabledValue}</span>
 {/if}
