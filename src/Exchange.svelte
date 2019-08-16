@@ -3,6 +3,7 @@
   import "./css/overlay-scrollbars.css";
   import "./js/semantic.js";
   import "./js/jquery.overlay-scrollbars.js";
+  import "./js/jquery.floatThead.js";
   import TransportU2F from "@ledgerhq/hw-transport-u2f";
   import Btc from "@ledgerhq/hw-app-btc";
   import { theme } from "./stores/settings";
@@ -69,14 +70,6 @@
 
   onMount(async () => {
     setUpToasts();
-
-    let settings = {
-      className: "os-theme-dark",
-      scrollbars: {
-        autoHide: "leave"
-      }
-    };
-
     setTheme(themeId);
 
     theme.subscribe(value => {

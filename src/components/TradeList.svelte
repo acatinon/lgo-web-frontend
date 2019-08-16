@@ -9,6 +9,7 @@
 
   onMount(async () => {
     jQuery("#trades .menu .item").tab();
+    jQuery("#trades table").floatThead();
   });
 </script>
 

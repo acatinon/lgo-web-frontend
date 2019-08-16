@@ -1,5 +1,6 @@
 <script>
   import { orderBook } from "../stores/order_book";
+  import { onMount } from "svelte";
   import { derived } from "svelte/store";
   import { color } from "../utils/ui";
   import BigNumber from "bignumber.js";
@@ -7,6 +8,7 @@
 
   let a = new BigNumber(12);
   let b = new BigNumber(12);
+  let isFloatTheadInitialized = false;
 
   const sortNumber = (a, b) => a.comparedTo(b);
   const sortNumberReverse = (a, b) => b.comparedTo(a);
@@ -53,6 +55,13 @@
       return comb;
     }
   );
+
+  combined.subscribe(value  => {
+    if (!isFloatTheadInitialized && value.length > 0) {
+      jQuery("#orderbook table").floatThead();
+      isFloatTheadInitialized = true;
+    }
+  });
 </script>
 
 <div id="orderbook" class="block">
@@ -138,7 +147,7 @@
             {#each $combined as c (c.index)}
               <tr>
                 <td class="right aligned">
-                  {#if c.askQuantity}{c.askQuantity.toFormat()}{:else}&nbsp;{/if}
+                  <FocusedNumber value={c.askQuantity} />
                 </td>
                 <td class="right aligned">
                   {c.askValue ? c.askValue.toFormat(2) : ' '}
