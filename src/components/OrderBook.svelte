@@ -68,106 +68,94 @@
     <h5 class="ui header">Order book</h5>
   </div>
   <div class="ui clearing divider" />
+  <div class="book-header">
+    <table class="book-bids ui very compact very basic small column table">
+      <thead>
+        <tr>
+          <th class="five wide right aligned">Sum</th>
+          <th class="five wide right aligned">Value</th>
+          <th class="five wide right aligned">Quantity</th>
+          <th class="one wide" />
+        </tr>
+      </thead>
+    </table>
+    <table class="book-amounts ui very compact very basic small column table">
+      <thead>
+        <tr>
+          <th class="seven wide right aligned">Bid</th>
+          <th class="two wide" />
+          <th class="seven wide right aligned">Ask</th>
+        </tr>
+      </thead>
+    </table>
+    <table class="book-asks ui very compact very basic small column table">
+      <thead>
+        <tr>
+          <th class="five wide right aligned">Quantity</th>
+          <th class="five wide right aligned">Value</th>
+          <th class="five wide right aligned">Sum</th>
+          <th class="one wide" />
+        </tr>
+      </thead>
+    </table>
+  </div>
   <div class="content">
-    <div class="book-header">
-      <table
-        class="book-bids ui very compact very basic small column table">
-        <thead>
-          <tr>
-            <th class="five wide right aligned">Sum</th>
-            <th class="five wide right aligned">Value</th>
-            <th class="five wide right aligned">Quantity</th>
-            <th class="one wide" />
-          </tr>
-        </thead>
+    <div class="book-content">
+      <table class="book-bids ui very compact very basic small column table">
+        <tbody>
+          {#each $combined as c (c.index)}
+            <tr>
+              <td class="five wide right aligned">
+                {c.bidSum ? c.bidSum.toFormat(2) : ' '}&nbsp;
+              </td>
+              <td class="five wide right aligned">
+                {c.bidValue ? c.bidValue.toFormat(2) : ' '}
+              </td>
+              <td class="five wide right aligned">
+                <FocusedNumber value={c.bidQuantity} />
+              </td>
+              <td class="one wide" />
+            </tr>
+          {/each}
+        </tbody>
       </table>
-      <table
-        class="book-amounts ui very compact very basic small column
-        table">
-        <thead>
-          <tr>
-            <th class="seven wide right aligned">Bid</th>
-            <th class="two wide" />
-            <th class="seven wide right aligned">Ask</th>
-          </tr>
-        </thead>
+      <table class="book-amounts ui very compact very basic small column table">
+        <tbody>
+          {#each $combined as c (c.index)}
+            <tr>
+              <td class="seven wide right aligned">
+                <span class="ui {color('B')} text">
+                  {c.bid ? c.bid.toFormat(2) : ''}
+                </span>
+              </td>
+              <td class="two wide" />
+              <td class="seven wide right aligned">
+                <span class="ui {color('S')} text">
+                  {c.ask ? c.ask.toFormat(2) : ''}
+                </span>
+              </td>
+            </tr>
+          {/each}
+        </tbody>
       </table>
-      <table
-        class="book-asks ui very compact very basic small column table">
-        <thead>
-          <tr>
-            <th class="five wide right aligned">Quantity</th>
-            <th class="five wide right aligned">Value</th>
-            <th class="five wide right aligned">Sum</th>
-            <th class="one wide" />
-          </tr>
-        </thead>
+      <table class="book-asks ui very compact very basic small column table">
+        <tbody>
+          {#each $combined as c (c.index)}
+            <tr>
+              <td class="five wide right aligned">
+                <FocusedNumber value={c.askQuantity} />
+              </td>
+              <td class="five wide right aligned">
+                {c.askValue ? c.askValue.toFormat(2) : ' '}
+              </td>
+              <td class="five wide right aligned">
+                {c.askSum ? c.askSum.toFormat(2) : ' '}&nbsp;
+              </td>
+              <td class="one wide" />
+            </tr>
+          {/each}
+        </tbody>
       </table>
-    </div>
-    <div class="content">
-      <div class="book-content">
-        <table
-          class="book-bids ui very compact very basic small column
-          table">
-          <tbody>
-            {#each $combined as c (c.index)}
-              <tr>
-                <td class="five wide right aligned">
-                  {c.bidSum ? c.bidSum.toFormat(2) : ' '}&nbsp;
-                </td>
-                <td class="five wide right aligned">
-                  {c.bidValue ? c.bidValue.toFormat(2) : ' '}
-                </td>
-                <td class="five wide right aligned">
-                  <FocusedNumber value={c.bidQuantity} />
-                </td>
-                <td class="one wide" />
-              </tr>
-            {/each}
-          </tbody>
-        </table>
-        <table
-          class="book-amounts ui very compact very basic small column
-          table">
-          <tbody>
-            {#each $combined as c (c.index)}
-              <tr>
-                <td class="seven wide right aligned">
-                  <span class="ui {color('B')} text">
-                    {c.bid ? c.bid.toFormat(2) : ''}
-                  </span>
-                </td>
-                <td class="two wide" />
-                <td class="seven wide right aligned">
-                  <span class="ui {color('S')} text">
-                    {c.ask ? c.ask.toFormat(2) : ''}
-                  </span>
-                </td>
-              </tr>
-            {/each}
-          </tbody>
-        </table>
-        <table
-          class="book-asks ui very compact very basic small column
-          table">
-          <tbody>
-            {#each $combined as c (c.index)}
-              <tr>
-                <td class="five wide right aligned">
-                  <FocusedNumber value={c.askQuantity} />
-                </td>
-                <td class="five wide right aligned">
-                  {c.askValue ? c.askValue.toFormat(2) : ' '}
-                </td>
-                <td class="five wide right aligned">
-                  {c.askSum ? c.askSum.toFormat(2) : ' '}&nbsp;
-                </td>
-                <td class="one wide" />
-              </tr>
-            {/each}
-          </tbody>
-        </table>
-      </div>
     </div>
   </div>
 </div>

@@ -106,6 +106,10 @@
     flex-direction: column;
     width: 20rem;
     margin-right: 0.5rem;
+
+    .content {
+        flex-grow: 1;
+    }
 }
 
 body {
