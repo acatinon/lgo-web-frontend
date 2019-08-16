@@ -33,7 +33,7 @@
       <tbody>
         {#each $trades as trade (trade.id)}
           <tr>
-            <td class="right aligned"><FocusedNumber value={trade.quantity.toFormat()} /></td>
+            <td class="right aligned"><FocusedNumber value={trade.quantity} /></td>
             <td class="right aligned">
               <span class="ui {color(trade.side)} text">{trade.price.toFormat(2)}</span>
             </td>
@@ -59,7 +59,7 @@
       <tbody>
         {#each $orders.filledOrders as order (order.id)}
           <tr>
-            <td class="right aligned"><FocusedNumber value={order.quantity.toFormat()} /></td>
+            <td class="right aligned"><FocusedNumber value={order.quantity} /></td>
             <td class="right aligned">
               <span class="ui {color(order.side)} text">
                 {order.price.toFormat(2)}

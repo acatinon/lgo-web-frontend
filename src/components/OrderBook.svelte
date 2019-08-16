@@ -88,7 +88,7 @@
                   {c.bidValue ? c.bidValue.toFormat(2) : ' '}
                 </td>
                 <td class="right aligned">
-                  {#if c.bidQuantity}<FocusedNumber value="{c.bidQuantity.toFormat()}" />{:else}&nbsp;{/if}
+                  <FocusedNumber value={c.bidQuantity} />
                 </td>
                 <td />
               </tr>
@@ -138,7 +138,7 @@
             {#each $combined as c (c.index)}
               <tr>
                 <td class="right aligned">
-                  {#if c.askQuantity}<FocusedNumber value={c.askQuantity.toFormat()} />{:else}&nbsp;{/if}
+                  {#if c.askQuantity}{c.askQuantity.toFormat()}{:else}&nbsp;{/if}
                 </td>
                 <td class="right aligned">
                   {c.askValue ? c.askValue.toFormat(2) : ' '}
