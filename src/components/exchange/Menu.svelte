@@ -70,8 +70,10 @@
       </div>
     </span>
   </div>
-  <div class="right menu">
-    <a class="item" href="account.html">Account</a>
+  <div class="ui right secondary menu">
+    <a class="item" href="wallets.html">Wallets</a>
+    <a class="item" href="history.html">History</a>
+    <a class="active item" href="exchange.html">Exchange</a>
     <a id="settings" class="item" href="#">
       <i class="sliders horizontal icon" />
     </a>
