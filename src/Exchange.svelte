@@ -21,12 +21,12 @@
   } from "./services/common";
   import { currentProduct } from "./stores/products";
 
-  import TradeList from "./components/TradeList.svelte";
-  import OrderList from "./components/OrderList.svelte";
-  import PlaceOrder from "./components/PlaceOrder.svelte";
-  import Menu from "./components/Menu.svelte";
-  import OrderBook from "./components/OrderBook.svelte";
-  import Chart from "./components/Chart.svelte";
+  import TradeList from "./components/exchange/TradeList.svelte";
+  import OrderList from "./components/exchange/OrderList.svelte";
+  import PlaceOrder from "./components/exchange/PlaceOrder.svelte";
+  import Menu from "./components/exchange/Menu.svelte";
+  import OrderBook from "./components/exchange/OrderBook.svelte";
+  import Chart from "./components/exchange/Chart.svelte";
   import Settings from "./components/Settings.svelte";
 
   function setUpToasts() {
