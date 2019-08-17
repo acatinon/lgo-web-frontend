@@ -2,8 +2,8 @@
   import Inputmask from "inputmask";
   import "jquery.inputmask";
   import "inputmask.numeric.extensions";
-  import { placeOrder } from "../services/orders";
-  import { Side, OrderType } from "../domain/order";
+  import { placeOrder } from "../../services/orders";
+  import { Side, OrderType } from "../../domain/order";
   import { onMount } from "svelte";
   import BigNumber from "bignumber.js";
 

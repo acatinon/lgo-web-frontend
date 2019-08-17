@@ -1,11 +1,11 @@
 <script>
-  import { trades } from "../stores/trades";
-  import { orders } from "../stores/orders";
+  import { trades } from "../../stores/trades";
+  import { orders } from "../../stores/orders";
   import { onMount } from "svelte";
-  import { color } from "../utils/ui";
-  import Date from "./Date.svelte";
-  import Side from "./Side.svelte";
-  import FocusedNumber from "./FocusedNumber.svelte";
+  import { color } from "../../utils/ui";
+  import Date from "../Date.svelte";
+  import Side from "../Side.svelte";
+  import FocusedNumber from "../FocusedNumber.svelte";
 
   onMount(async () => {
     jQuery("#trades .menu .item").tab();

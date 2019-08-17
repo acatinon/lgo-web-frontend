@@ -1,7 +1,7 @@
 <script>
-  import { products, currentProduct } from "../stores/products";
-  import { balances } from "../stores/balances";
-  import { getBase, getQuote } from "../utils/ui";
+  import { products, currentProduct } from "../../stores/products";
+  import { balances } from "../../stores/balances";
+  import { getBase, getQuote } from "../../utils/ui";
   import { derived } from "svelte/store";
   import { onMount } from "svelte";
 

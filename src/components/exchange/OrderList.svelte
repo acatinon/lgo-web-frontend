@@ -1,11 +1,11 @@
 <script>
   import { derived } from "svelte/store";
-  import { orders } from "../stores/orders";
-  import { currentProduct } from "../stores/products";
-  import { cancelOrder } from "../services/orders";
-  import { color, getBase, getQuote } from "../utils/ui";
-  import Side from "./Side.svelte";
-  import FromNow from "./FromNow.svelte";
+  import { orders } from "../../stores/orders";
+  import { currentProduct } from "../../stores/products";
+  import { cancelOrder } from "../../services/orders";
+  import { color, getBase, getQuote } from "../../utils/ui";
+  import Side from "../Side.svelte";
+  import FromNow from "../FromNow.svelte";
 
   const sortbyCreationDate = (a, b) => b.creation_date.diff(a.creation_date);
 

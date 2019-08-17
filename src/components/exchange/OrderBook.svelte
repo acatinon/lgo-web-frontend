@@ -1,10 +1,10 @@
 <script>
-  import { orderBook } from "../stores/order_book";
+  import { orderBook } from "../../stores/order_book";
   import { onMount } from "svelte";
   import { derived } from "svelte/store";
-  import { color } from "../utils/ui";
+  import { color } from "../../utils/ui";
   import BigNumber from "bignumber.js";
-  import FocusedNumber from "./FocusedNumber.svelte";
+  import FocusedNumber from "../FocusedNumber.svelte";
 
   let a = new BigNumber(12);
   let b = new BigNumber(12);

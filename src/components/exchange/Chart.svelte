@@ -3,15 +3,15 @@
     priceHistory,
     granularity,
     Granularity
-  } from "../stores/price_history";
-  import { theme } from "../stores/settings";
+  } from "../../stores/price_history";
+  import { theme } from "../../stores/settings";
   import {
     initChart,
     feedChart,
     resetChart,
     applyOptions,
     getOptions
-  } from "../utils/chart";
+  } from "../../utils/chart";
   import { onMount } from "svelte";
   import { get, writable } from "svelte/store";
 
