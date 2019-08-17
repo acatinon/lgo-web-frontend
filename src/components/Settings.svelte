@@ -3,8 +3,6 @@
   import { setTheme, themes } from "../utils/ui";
   import { theme } from "../stores/settings";
 
-  export let themeId;
-
   onMount(async () => {
     jQuery("#settings-modal").modal({
       autofocus: false
@@ -12,7 +10,7 @@
 
     jQuery("#theme-switcher").dropdown({
       values: themes.map(t => {
-        return { name: t.name, value: t.value, selected: t.value === themeId };
+        return { name: t.name, value: t.value, selected: t.value === $theme };
       }),
       onChange: function(value, text) {
         theme.set(value);

@@ -65,11 +65,9 @@
     });
   }
 
-  export let themeId;
-
   onMount(async () => {
     setUpToasts();
-    setTheme(themeId);
+    setTheme($theme);
 
     theme.subscribe(value => {
       if (value) {
@@ -143,9 +141,9 @@
     <OrderList />
   </div>
   <div id="meta">
-    <Chart {themeId} />
+    <Chart />
     <OrderBook />
   </div>
   <TradeList />
 </div>
-<Settings {themeId} />
+<Settings />

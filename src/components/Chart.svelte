@@ -15,8 +15,6 @@
   import { onMount } from "svelte";
   import { get, writable } from "svelte/store";
 
-  export let themeId;
-
   let w = writable();
   let h = writable();
 
@@ -54,7 +52,7 @@
       }
     });
 
-    initChart($w, $h, themeId);
+    initChart($w, $h, $theme);
 
     const candles = get(priceHistory);
 

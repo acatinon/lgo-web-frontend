@@ -4,9 +4,7 @@ import Exchange from './Exchange.svelte';
 
 const app = new Exchange({
 	target: document.body,
-	props: {
-		themeId: "dark"
-	}
+	props: {}
 });
 
 export default app;
