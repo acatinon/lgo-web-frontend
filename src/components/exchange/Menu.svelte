@@ -4,6 +4,7 @@
   import { getBase, getQuote } from "../../utils/ui";
   import { derived } from "svelte/store";
   import { onMount } from "svelte";
+  import Menu from "../Menu.svelte";
 
   const baseAmount = derived(
     [currentProduct, balances],
@@ -18,14 +19,10 @@
 
   onMount(async () => {
     jQuery("#product-selector").dropdown();
-
-    jQuery("#settings").click(async () => {
-      jQuery("#settings-modal").modal('show');
-    });
   });
 </script>
 
-<div id="menu" class="ui menu">
+<Menu>
   <div id="product-selector" class="ui compact selection dropdown item">
     <input type="hidden" name="product" bind:value={$currentProduct} />
     <i class="dropdown icon" />
@@ -70,12 +67,4 @@
       </div>
     </span>
   </div>
-  <div class="ui right secondary menu">
-    <a class="item" href="wallets.html">Wallets</a>
-    <a class="item" href="history.html">History</a>
-    <a class="active item" href="exchange.html">Exchange</a>
-    <a id="settings" class="item" href="#">
-      <i class="sliders horizontal icon" />
-    </a>
-  </div>
-</div>
+</Menu>
