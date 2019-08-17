@@ -70,7 +70,10 @@
       </div>
     </span>
   </div>
-  <a id="settings" class="right item" href="#">
-    <i class="sliders horizontal icon" />
-  </a>
+  <div class="right menu">
+    <a class="item" href="account.html">Account</a>
+    <a id="settings" class="item" href="#">
+      <i class="sliders horizontal icon" />
+    </a>
+  </div>
 </div>

@@ -16,8 +16,10 @@ const PATHS = {
 
 module.exports = {
 	entry: {
-		exchange: ['./src/exchange.js'],
-		index: ['./src/index.js']
+		index: ['./src/index.js'],
+		account: ['./src/account.js'],
+		exchange: ['./src/exchange.js']
+		
 	},
 	resolve: {
 		extensions: ['.mjs', '.js', '.ts', '.svelte'],
@@ -122,6 +124,10 @@ module.exports = {
 		new HtmlWebpackPlugin({
 			template: 'src/index.ejs',
 			chunks: ['index']
+		}),
+		new HtmlWebpackPlugin({
+			filename: 'account.html',
+			chunks: ['account']
 		}),
 		new HtmlWebpackPlugin({
 			filename: 'exchange.html',
