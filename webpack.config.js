@@ -17,7 +17,8 @@ const PATHS = {
 module.exports = {
 	entry: {
 		index: ['./src/index.js'],
-		account: ['./src/account.js'],
+		wallets: ['./src/wallets.js'],
+		history: ['./src/history.js'],
 		exchange: ['./src/exchange.js']
 		
 	},
@@ -126,8 +127,12 @@ module.exports = {
 			chunks: ['index']
 		}),
 		new HtmlWebpackPlugin({
-			filename: 'account.html',
-			chunks: ['account']
+			filename: 'wallets.html',
+			chunks: ['wallets']
+		}),
+		new HtmlWebpackPlugin({
+			filename: 'history.html',
+			chunks: ['history']
 		}),
 		new HtmlWebpackPlugin({
 			filename: 'exchange.html',

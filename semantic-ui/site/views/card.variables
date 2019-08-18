@@ -1,3 +1,7 @@
 /*******************************
     User Variable Overrides
 *******************************/
+
+@invertedBackground: @black;
+@contentPadding: 0.5em;
+@margin: 0.5em 0;

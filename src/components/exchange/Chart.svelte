@@ -73,15 +73,13 @@
 
     theme.subscribe(value => {
       if (value) {
-        applyOptions(
-          getOptions(value)
-        );
+        applyOptions(getOptions(value));
       }
     });
   });
 </script>
 
-<div id="chart" class="block">
+<div id="chart" class="ui fluid card">
   <div class="ui secondary menu">
     <h5 class="ui header item">Chart</h5>
     <div
@@ -91,10 +89,9 @@
       <i class="dropdown icon" />
     </div>
   </div>
-  <div class="ui divider" />
   <div
     id="chart-container"
-    class="content"
+    class="filled content"
     bind:clientWidth={$w}
     bind:clientHeight={$h} />
 </div>

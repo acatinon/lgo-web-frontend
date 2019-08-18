@@ -2,24 +2,15 @@
          Site Overrides
 *******************************/
 
-.block {
-    .ui.secondary.pointing.menu {
+.ui.secondary.pointing.menu {
 
-        border-bottom-width: 1px;
-        margin-bottom: 0;
+    border-bottom: none;
+    margin-bottom: 0;
 
-        h5.item {
-            font-weight: 700;
-            padding: 0;
-            border: 0;
-        }
-
-        .item {
-            margin: 0;
-        }
+    .item {
+        padding-bottom: 0.4em;
     }
 }
-
 
 .ui.secondary.menu {
     margin-left: 0;

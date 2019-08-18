@@ -13,26 +13,28 @@
   });
 </script>
 
-<div id="trades" class="block">
-  <div class="ui pointing secondary menu">
-    <div class="ui basic segment">
-      <h5 class="item">Trades</h5>
+<div id="trades" class="ui fluid card">
+  <div class="ui secondary menu">
+    <h5 class="ui header item">Trades</h5>
+    <div class="right filled item">
+      <div class="ui pointing secondary menu">
+        <span class="active right item" data-tab="latest">Latest</span>
+        <span class="item" data-tab="my">My</span>
+      </div>
     </div>
-    <span class="active right item" data-tab="latest">Latest</span>
-    <span class="item" data-tab="my">My</span>
   </div>
-  <table class="ui very compact very basic small table">
+  <table class="ui very compact very basic small filled content table">
     <thead>
       <tr>
         <th class="five wide right aligned">Quantity</th>
         <th class="five wide right aligned">Price</th>
         <th class="five wide right aligned">Time</th>
-        <th class="one wide">&nbsp;&nbsp;&nbsp;</th>
+        <th class="one wide">&nbsp;</th>
       </tr>
     </thead>
   </table>
-  <div class="content">
-    <div class="ui bottom attached active tab" data-tab="latest">
+  <div class="filled scrollable content">
+    <div class="ui active tab" data-tab="latest">
       <table class="ui very compact very basic small table">
         <tbody>
           {#each $trades as trade (trade.id)}
@@ -54,7 +56,7 @@
         </tbody>
       </table>
     </div>
-    <div class="ui bottom attached tab content" data-tab="my">
+    <div class="ui tab" data-tab="my">
       <table class="ui very compact very basic small table">
         <tbody>
           {#each $orders.filledOrders as order (order.id)}

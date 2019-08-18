@@ -1,11 +1,3 @@
 /*******************************
          Site Overrides
 *******************************/
-
-.ui.primary.inverted.segment {
-    background-color: @primaryColor;
-}
-
-.ui.dark.inverted.segment {
-    background-color: @darkColor;
-}

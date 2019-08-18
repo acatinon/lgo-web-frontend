@@ -7,5 +7,4 @@
 @horizontalPadding: 0.5em;
 @verticalMargin: 0;
 @horizontalMargin: 0;
-@floatedDistance: 0;
 @invertedBackground: none transparent;

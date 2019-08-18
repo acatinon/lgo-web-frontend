@@ -51,7 +51,7 @@ export function setTheme(id: string) {
             break;
     }
 
-    jQuery("#trades .content").overlayScrollbars(overlayScrollbarsSettings);
-    jQuery("#orderbook .content").overlayScrollbars(overlayScrollbarsSettings);
-    jQuery("#orders .content").overlayScrollbars(overlayScrollbarsSettings);
+    jQuery("#trades .scrollable").overlayScrollbars(overlayScrollbarsSettings);
+    jQuery("#orderbook .scrollable").overlayScrollbars(overlayScrollbarsSettings);
+    jQuery("#orders .scrollable").overlayScrollbars(overlayScrollbarsSettings);
 }

@@ -34,9 +34,7 @@
     width: 20rem;
 
     #place-order {
-        margin-bottom: 0.5rem;
-
-        .content {
+        .form.content {
             padding: 1em;
         }
     }
@@ -46,7 +44,7 @@
         flex-direction: column;
         flex-grow: 1;
 
-        .content {
+        .scrollable {
             flex-grow: 1;
         }
     }
@@ -64,11 +62,7 @@
         flex-grow: 2;
         margin-bottom: 0.5rem;
 
-        .menu {
-            margin-bottom: 0;
-        }
-
-        .content {
+        .filled.content {
             flex-grow: 1;
         }
     }
@@ -80,8 +74,11 @@
             flex-direction: row;
         }
 
-        .book-content {
+        .scrollable {
             height: 350px;
+        }
+
+        .book-content {
             display: flex;
             flex-direction: row;
         }
@@ -98,12 +95,10 @@
 }
 
 #trades {
-    display: flex;
-    flex-direction: column;
     width: 20rem;
     margin-right: 0.5rem;
 
-    .content {
-        flex-grow: 1;
+    .scrollable.content {
+        flex-grow: 2;
     }
 }

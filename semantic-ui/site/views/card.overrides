@@ -1,3 +1,40 @@
 /*******************************
     User Variable Overrides
 *******************************/
+
+
+.ui.card {
+    .title.content,
+    .secondary.menu {
+        flex-shrink: 0;
+        flex-grow: 0;
+    }
+
+    .secondary.menu {
+        margin-bottom: 0;
+    }
+
+    .navigation.content {
+        padding-bottom: 0;
+
+        .pointing.menu {
+            margin-bottom: 1px;
+            border-bottom: none;
+
+            .item {
+                padding-top: 0;
+            }
+        }
+    }
+
+    .filled {
+        padding: 0 !important;
+    }
+
+    &.inverted {
+        .title.content,
+        .secondary.menu  {
+            background-color: darken(@black, 4);
+        }
+    }
+}

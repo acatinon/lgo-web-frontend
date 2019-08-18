@@ -57,18 +57,17 @@
   );
 </script>
 
-<div id="orderbook" class="block">
-  <div class="ui right floated basic segment">
-    <span class="ui basic blue horizontal label">
-      Spread
-      <div class="detail">{$minAsk.minus($maxBid).toFormat(2)}</div>
-    </span>
-  </div>
-  <div class="ui basic segment">
+<div id="orderbook" class="ui fluid card">
+  <div class="title content">
+    <div class="right floated">
+      <span class="ui basic blue horizontal label">
+        Spread
+        <div class="detail">{$minAsk.minus($maxBid).toFormat(2)}</div>
+      </span>
+    </div>
     <h5 class="ui header">Order book</h5>
   </div>
-  <div class="ui clearing divider" />
-  <div class="book-header">
+  <div class="filled book-header content">
     <table class="book-bids ui very compact very basic small column table">
       <thead>
         <tr>
@@ -99,7 +98,7 @@
       </thead>
     </table>
   </div>
-  <div class="content">
+  <div class="filled scrollable content">
     <div class="book-content">
       <table class="book-bids ui very compact very basic small column table">
         <tbody>

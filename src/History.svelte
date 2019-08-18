@@ -2,4 +2,6 @@
   import "fomantic-ui-less/semantic.less";
   import "./js/semantic.js";
 </script>
-<h1>History</h1>
+<div id="site">
+    <h1>History</h1>
+</div>

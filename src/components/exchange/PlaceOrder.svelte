@@ -49,8 +49,12 @@
   }
 
   function submitOrder() {
-    let quantity = new BigNumber(jQuery("#quantity-field input").inputmask('unmaskedvalue'));
-    let price = new BigNumber(jQuery("#price-field input").inputmask('unmaskedvalue'));
+    let quantity = new BigNumber(
+      jQuery("#quantity-field input").inputmask("unmaskedvalue")
+    );
+    let price = new BigNumber(
+      jQuery("#price-field input").inputmask("unmaskedvalue")
+    );
     placeOrder("BTC-USD", type, side, quantity, price);
   }
 
@@ -62,15 +66,18 @@
   });
 </script>
 
-<div id="place-order" class="block">
-  <div class="ui pointing secondary menu">
-    <div class="ui basic segment">
-      <h5 class="item">Place an order</h5>
+<div id="place-order" class="ui fluid card">
+  <div class="ui secondary menu">
+    <h5 class="ui header item">Place an order</h5>
+    <div class="right filled item">
+      <div class="ui pointing secondary menu">
+        <span id="buy-tab" class="right active item" on:click={selectBuy}>
+          Buy
+        </span>
+        <span id="sell-tab" class="item" on:click={selectSell}>Sell</span>
+      </div>
     </div>
-    <span id="buy-tab" class="right active item" on:click={selectBuy}>Buy</span>
-    <span id="sell-tab" class="item" on:click={selectSell}>Sell</span>
   </div>
-
   <form
     class="ui basic segment form content"
     autocomplete="off"
