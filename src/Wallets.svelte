@@ -13,7 +13,7 @@
 </script>
 
 <div id="site">
-  <Menu>
+  <Menu activePage="wallets">
     <span class="item">Wallets</span>
   </Menu>
   <div class="ui container">

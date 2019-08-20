@@ -22,7 +22,7 @@
   });
 </script>
 
-<Menu>
+<Menu activePage="exchange">
   <div id="product-selector" class="ui compact selection dropdown item">
     <input type="hidden" name="product" bind:value={$currentProduct} />
     <i class="dropdown icon" />
