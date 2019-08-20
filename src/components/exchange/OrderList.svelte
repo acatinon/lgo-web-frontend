@@ -10,7 +10,7 @@
   const sortbyCreationDate = (a, b) => b.creation_date.diff(a.creation_date);
 
   const sortedOrders = derived(orders, $orders =>
-    $orders.openOrders.sort(sortbyCreationDate)
+    $orders.sort(sortbyCreationDate)
   );
 
   function submitOrderCancellation(orderId) {
