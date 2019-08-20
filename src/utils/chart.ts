@@ -102,7 +102,7 @@ export function feedChart(candles: Candle[]) {
         volumes.push({
             time: candle.date.unix() as UTCTimestamp,
             value: candle.volume,
-            color: candle.open > candle.close ? colors.green : colors.red
+            color: candle.open < candle.close ? colors.green : colors.red
         });
     }
 
