@@ -12,6 +12,16 @@
   <div class="ui secondary menu">
     <h5 class="ui header item">Latest trades</h5>
   </div>
+  <table class="ui very compact very basic small filled content table">
+    <thead>
+      <tr>
+        <th class="five wide right aligned">Quantity</th>
+        <th class="five wide right aligned">Price</th>
+        <th class="five wide right aligned">Time</th>
+        <th class="one wide">&nbsp;</th>
+      </tr>
+    </thead>
+  </table>
   <div class="filled scrollable content">
     <table class="ui very compact very basic small table">
       <tbody>

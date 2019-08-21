@@ -1,3 +1,19 @@
 /*******************************
         Site Overrides
 *******************************/
+
+.ui.icon.floating.message {
+  box-shadow: @greyBoxFloatingShadow;
+}
+
+each(@colors, {
+  @color: replace(@key, '@', '');
+  @isVeryDark: @colors[@@color][isVeryDark];
+
+  .ui.@{color}.message:not(.inverted) {
+    & when not (@isVeryDark) {
+      background-color: @white;
+      color: @black;
+    }
+  }
+})

@@ -8,7 +8,7 @@
   import Btc from "@ledgerhq/hw-app-btc";
   import { theme } from "./stores/settings";
   import { getPublicKey } from "./utils/path_finder";
-  import { addToast } from "./utils/toasts";
+  import { addToast, MessageType } from "./utils/toasts";
   import { setTheme } from "./utils/ui";
   import { Observable } from "rxjs";
   import { onMount } from "svelte";
@@ -41,7 +41,7 @@
                   addToast(
                     "Order canceled",
                     "Your order has been successfully canceled",
-                    "small green check"
+                    MessageType.Success
                   );
                   break;
               }
@@ -50,14 +50,14 @@
               addToast(
                 "Order created",
                 "Your order has been successfully created",
-                "small green check"
+                MessageType.Success
               );
               break;
             case "invalid":
               addToast(
                 "Order invalid",
                 `The order ${p.order_id} is invalid`,
-                "small red exclamation"
+                MessageType.Error
               );
               break;
           }
