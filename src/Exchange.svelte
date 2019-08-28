@@ -9,7 +9,7 @@
   import { theme } from "./stores/settings";
   import { getPublicKey } from "./utils/path_finder";
   import { addToast, MessageType } from "./utils/toasts";
-  import { setTheme } from "./utils/ui";
+  import { setTheme, Page } from "./utils/ui";
   import { Observable } from "rxjs";
   import { onMount } from "svelte";
   import {
@@ -68,11 +68,11 @@
 
   onMount(async () => {
     setUpToasts();
-    setTheme($theme);
+    setTheme($theme, Page.Exchange);
 
     theme.subscribe(value => {
       if (value) {
-        setTheme(value);
+        setTheme(value, Page.Exchange);
       }
     });
 

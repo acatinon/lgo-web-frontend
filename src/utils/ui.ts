@@ -11,6 +11,9 @@ export const themes = [
     }
 ]
 
+export enum Page {
+    Exchange
+}
 
 export const colors = {
     green: "#159f49",
@@ -30,7 +33,7 @@ export function getQuote(productId: string) {
     return productId ? productId.split("-")[1] : "";
 }
 
-export function setTheme(id: string) {
+export function setTheme(id: string, page: Page) {
     const overlayScrollbarsSettings = {
         className: undefined as string,
         scrollbars: {
@@ -51,7 +54,11 @@ export function setTheme(id: string) {
             break;
     }
 
-    jQuery("#trades .scrollable").overlayScrollbars(overlayScrollbarsSettings);
-    jQuery("#orderbook .scrollable").overlayScrollbars(overlayScrollbarsSettings);
-    jQuery("#orders .scrollable").overlayScrollbars(overlayScrollbarsSettings);
+    switch (page) {
+        case Page.Exchange:
+            jQuery("#trades .scrollable").overlayScrollbars(overlayScrollbarsSettings);
+            jQuery("#orderbook .scrollable").overlayScrollbars(overlayScrollbarsSettings);
+            jQuery("#orders .scrollable").overlayScrollbars(overlayScrollbarsSettings);
+            break;
+    }
 }
