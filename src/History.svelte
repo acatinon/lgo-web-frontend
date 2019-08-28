@@ -108,7 +108,7 @@
                     </span>
                   </td>
                   <td class="right aligned">
-                    <Date value={trade.creation_date} />
+                    <Date value={trade.creation_date} format="ll LT" />
                   </td>
                 </tr>
               {/each}
