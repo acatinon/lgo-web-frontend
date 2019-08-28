@@ -8,11 +8,15 @@
   import { theme } from "./stores/settings";
   import Menu from "./components/Menu.svelte";
   import { color } from "./utils/ui";
+  import BigNumber from "bignumber.js"
+  import moment from "moment";
   import Date from "./components/Date.svelte";
   import Side from "./components/Side.svelte";
   import FocusedNumber from "./components/FocusedNumber.svelte";
-  
+
   let trades = [];
+  let nextPage;
+  let previousPages = [];
 
   onMount(async () => {
     setTheme($theme);
@@ -21,12 +25,37 @@
       onLoad: async tabPath => {
         switch (tabPath) {
           case "trades":
-            trades = await getTrades("BTC-USD");
+            queryTrades();
             break;
         }
       }
     });
   });
+
+  async function queryTrades() {
+    const response = await getTrades("BTC-USD", nextPage);
+    trades = [];
+
+    for (let t of response.body.result.trades) {
+      trades.push({
+        id: t.id,
+        product_id: t.product_id,
+        quantity: new BigNumber(t.quantity),
+        price: new BigNumber(t.price),
+        fees: new BigNumber(t.fees),
+        creation_date: moment(t.creation_date),
+        side: t.side,
+        order_id: t.order_id,
+        liquidity: t.liquidity
+      });
+    }
+
+    nextPage = response.body.next_page;
+  }
+
+  function goToNextPage() {
+    queryTrades();
+  }
 </script>
 
 <div id="site">
@@ -61,15 +90,9 @@
             <tbody>
               {#each trades as trade (trade.id)}
                 <tr>
-                  <td>
-                    {trade.id}
-                  </td>
-                  <td>
-                    {trade.product_id}
-                  </td>
-                  <td>
-                    {trade.order_id}
-                  </td>
+                  <td>{trade.id}</td>
+                  <td>{trade.product_id}</td>
+                  <td>{trade.order_id}</td>
                   <td>
                     <Side value={trade.side} />
                   </td>
@@ -91,6 +114,7 @@
               {/each}
             </tbody>
           </table>
+          <button on:click={goToNextPage}>Next</button>
         </div>
       </div>
     </div>
