@@ -12,7 +12,8 @@ export const themes = [
 ]
 
 export enum Page {
-    Exchange
+    Exchange,
+    History
 }
 
 export const colors = {
@@ -38,7 +39,8 @@ export function setTheme(id: string, page: Page) {
         className: undefined as string,
         scrollbars: {
             autoHide: "leave"
-        }
+        },
+        callbacks: undefined as any
     };
 
     switch (id) {
@@ -59,6 +61,9 @@ export function setTheme(id: string, page: Page) {
             jQuery("#trades .scrollable").overlayScrollbars(overlayScrollbarsSettings);
             jQuery("#orderbook .scrollable").overlayScrollbars(overlayScrollbarsSettings);
             jQuery("#orders .scrollable").overlayScrollbars(overlayScrollbarsSettings);
+            break;
+        case Page.History:
+            jQuery("#history .scrollable").overlayScrollbars(overlayScrollbarsSettings);
             break;
     }
 }

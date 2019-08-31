@@ -5,7 +5,7 @@ export function getTrades(productId: string, page: string): Promise<Response> {
     return new Promise((resolve, reject) => {
         superAgent
             .get(BaseUrl + "/trades")
-            .query({ product_id: productId, page: page, max_results: 20 })
+            .query({ product_id: productId, page: page })
             .then(res => resolve(res));
     });
 }
