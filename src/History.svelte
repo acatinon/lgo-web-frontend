@@ -6,6 +6,7 @@
   import "./js/jquery.overlay-scrollbars.js";
   import { onMount } from "svelte";
   import { setTheme, Page } from "./utils/ui";
+  import { getOrders } from "./services/orders";
   import { Trade } from "./domain/trade";
   import { getTrades } from "./services/trades";
   import { theme } from "./stores/settings";
@@ -17,16 +18,20 @@
   import Side from "./components/Side.svelte";
   import FocusedNumber from "./components/FocusedNumber.svelte";
 
+  let orders = [];
   let trades = [];
   let nextPage;
-  let previousPages = [];
 
   onMount(async () => {
     setTheme($theme, Page.History);
 
     jQuery(".menu .item").tab({
       onLoad: async tabPath => {
+        nextPage = undefined;
         switch (tabPath) {
+          case "orders":
+            queryOrders();
+            break;
           case "trades":
             queryTrades();
             break;
@@ -34,42 +39,80 @@
       }
     });
 
-    jQuery("#history .scrollable").overlayScrollbars().options({
-      callbacks: {
-        onScrollStop: function() {
-          const state = this.scroll();
-          if (state.max.y - state.position.y < 100) {
-            queryTrades();
+    jQuery("#trade-list .scrollable")
+      .overlayScrollbars()
+      .options({
+        callbacks: {
+          onScrollStop: function() {
+            const state = this.scroll();
+            if (state.max.y - state.position.y < 100) {
+              queryTrades();
+            }
           }
         }
-      }
-    });
+      });
+
+    jQuery("#order-list .scrollable")
+      .overlayScrollbars()
+      .options({
+        callbacks: {
+          onScrollStop: function() {
+            const state = this.scroll();
+            if (state.max.y - state.position.y < 100) {
+              queryOrders();
+            }
+          }
+        }
+      });
+
+      queryOrders();
   });
+
+  async function queryOrders() {
+    const response = await getOrders("BTC-USD", nextPage);
+
+    for (let o of response.body.result.orders) {
+      const newOrder = {
+        id: o.id,
+        product_id: o.product_id,
+        type: o.type,
+        quantity: new BigNumber(o.quantity),
+        price: new BigNumber(o.price),
+        remaining_quantity: new BigNumber(o.remaining_quantity),
+        status: o.status,
+        side: o.side,
+        batch_id: o.batch_id,
+        creation_date: moment(o.creation_date),
+        done_date: moment(o.done_date),
+        status_reason: o.status_reason
+      };
+
+      orders = [...orders, newOrder];
+    }
+
+    nextPage = response.body.next_page;
+  }
 
   async function queryTrades() {
     const response = await getTrades("BTC-USD", nextPage);
 
-    for (let t of response.body.result.trades) {
+    for (let o of response.body.result.trades) {
       const newTrade = {
-        id: t.id,
-        product_id: t.product_id,
-        quantity: new BigNumber(t.quantity),
-        price: new BigNumber(t.price),
-        fees: new BigNumber(t.fees),
-        creation_date: moment(t.creation_date),
-        side: t.side,
-        order_id: t.order_id,
-        liquidity: t.liquidity
+        id: o.id,
+        product_id: o.product_id,
+        quantity: new BigNumber(o.quantity),
+        price: new BigNumber(o.price),
+        fees: new BigNumber(o.fees),
+        creation_date: moment(o.creation_date),
+        side: o.side,
+        order_id: o.order_id,
+        liquidity: o.liquidity
       };
 
       trades = [...trades, newTrade];
     }
 
     nextPage = response.body.next_page;
-  }
-
-  function goToNextPage() {
-    queryTrades();
   }
 </script>
 
@@ -87,8 +130,60 @@
           <a class="active item" data-tab="orders">Orders</a>
           <a class="item" data-tab="trades">Trades</a>
         </div>
-        <div class="ui active tab segment" data-tab="orders">First</div>
-        <div class="ui tab segment" data-tab="trades">
+        <div id="order-list" class="ui active tab segment" data-tab="orders">
+          <table class="ui compact basic fixed table">
+            <thead>
+              <tr>
+                <th class="three wide">Id</th>
+                <th class="two wide">Product</th>
+                <th class="one wide">Side</th>
+                <th class="one wide">Type</th>
+                <th class="two wide right aligned">Price</th>
+                <th class="two wide right aligned">Quantity</th>
+                <th class="two wide right aligned">Remaining</th>
+                <th class="one wide right aligned">Status</th>
+                <th class="three wide right aligned">Date</th>
+              </tr>
+            </thead>
+          </table>
+          <div class="scrollable content">
+            <table class="ui compact basic fixed table">
+              <tbody>
+                {#each orders as order (order.id)}
+                  <tr>
+                    <td class="three wide">{order.id}</td>
+                    <td class="two wide">{order.product_id}</td>
+                    <td class="one wide">
+                      <Side value={order.side} />
+                    </td>
+                    <td class="one wide">{order.type}</td>
+                    <td class="two wide right aligned">
+                      <span class="ui {color(order.side)} text">
+                        {order.price.toFormat(2)}
+                      </span>
+                    </td>
+                    <td class="two wide right aligned">
+                      <FocusedNumber value={order.quantity} />
+                    </td>
+                    <td class="two wide right aligned">
+                      <FocusedNumber value={order.remaining_quantity} />
+                    </td>
+                    <td class="one wide">
+                      {order.status}
+                    </td>
+                    <td class="three wide right aligned">
+                      <Date value={order.creation_date} format="ll LT" />
+                    </td>
+                  </tr>
+                {/each}
+              </tbody>
+            </table>
+            <div class="ui very padded segment">
+              <div class="ui active centered inline loader" />
+            </div>
+          </div>
+        </div>
+        <div id="trade-list" class="ui tab segment" data-tab="trades">
           <table class="ui compact basic fixed table">
             <thead>
               <tr>

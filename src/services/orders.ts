@@ -1,4 +1,4 @@
-import superAgent from 'superagent';
+import superAgent, { Response } from 'superagent';
 import { OrderType, Side } from "../domain/order"
 import { BaseUrl } from "../utils/constants";
 import BigNumber from 'bignumber.js';
@@ -21,4 +21,13 @@ export function cancelOrder(orderId: string) {
     superAgent
         .delete(BaseUrl + "/orders/" + orderId)
         .end();
+}
+
+export function getOrders(productId: string, page: string): Promise<Response> {
+    return new Promise((resolve, reject) => {
+        superAgent
+            .get(BaseUrl + "/orders")
+            .query({ product_id: productId, page: page })
+            .then(res => resolve(res));
+    });
 }

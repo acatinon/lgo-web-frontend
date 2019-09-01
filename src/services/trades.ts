@@ -1,4 +1,4 @@
-import superAgent, { SuperAgentRequest, Response } from 'superagent';
+import superAgent, { Response } from 'superagent';
 import { BaseUrl } from "../utils/constants";
 
 export function getTrades(productId: string, page: string): Promise<Response> {
