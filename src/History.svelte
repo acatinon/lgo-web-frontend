@@ -65,7 +65,7 @@
         }
       });
 
-      queryOrders();
+    queryOrders();
   });
 
   async function queryOrders() {
@@ -126,109 +126,111 @@
         <h3 class="header">History</h3>
       </div>
       <div class="content">
-        <div class="ui top secondary pointing menu">
-          <a class="active item" data-tab="orders">Orders</a>
-          <a class="item" data-tab="trades">Trades</a>
-        </div>
-        <div id="order-list" class="ui active tab segment" data-tab="orders">
-          <table class="ui compact basic fixed table">
-            <thead>
-              <tr>
-                <th class="three wide">Id</th>
-                <th class="two wide">Product</th>
-                <th class="one wide">Side</th>
-                <th class="one wide">Type</th>
-                <th class="two wide right aligned">Price</th>
-                <th class="two wide right aligned">Quantity</th>
-                <th class="two wide right aligned">Remaining</th>
-                <th class="one wide right aligned">Status</th>
-                <th class="three wide right aligned">Date</th>
-              </tr>
-            </thead>
-          </table>
-          <div class="scrollable content">
-            <table class="ui compact basic fixed table">
-              <tbody>
-                {#each orders as order (order.id)}
-                  <tr>
-                    <td class="three wide">{order.id}</td>
-                    <td class="two wide">{order.product_id}</td>
-                    <td class="one wide">
-                      <Side value={order.side} />
-                    </td>
-                    <td class="one wide">{order.type}</td>
-                    <td class="two wide right aligned">
-                      <span class="ui {color(order.side)} text">
-                        {order.price.toFormat(2)}
-                      </span>
-                    </td>
-                    <td class="two wide right aligned">
-                      <FocusedNumber value={order.quantity} />
-                    </td>
-                    <td class="two wide right aligned">
-                      <FocusedNumber value={order.remaining_quantity} />
-                    </td>
-                    <td class="one wide">
-                      {order.status}
-                    </td>
-                    <td class="three wide right aligned">
-                      <Date value={order.creation_date} format="ll LT" />
-                    </td>
-                  </tr>
-                {/each}
-              </tbody>
-            </table>
-            <div class="ui very padded segment">
-              <div class="ui active centered inline loader" />
-            </div>
+        <div class="header">
+          <div class="ui compact pointing menu">
+            <a class="active item" data-tab="orders">Orders</a>
+            <a class="item" data-tab="trades">Trades</a>
           </div>
         </div>
-        <div id="trade-list" class="ui tab segment" data-tab="trades">
-          <table class="ui compact basic fixed table">
-            <thead>
-              <tr>
-                <th class="two wide">Id</th>
-                <th class="two wide">Product</th>
-                <th class="three wide">Order Id</th>
-                <th class="one wide">Side</th>
-                <th class="two wide right aligned">Quantity</th>
-                <th class="two wide right aligned">Fees</th>
-                <th class="two wide right aligned">Price</th>
-                <th class="three wide right aligned">Date</th>
-              </tr>
-            </thead>
-          </table>
-          <div class="scrollable content">
+        <div class="description">
+          <div id="order-list" class="ui active tab" data-tab="orders">
             <table class="ui compact basic fixed table">
-              <tbody>
-                {#each trades as trade (trade.id)}
-                  <tr>
-                    <td class="two wide">{trade.id}</td>
-                    <td class="two wide">{trade.product_id}</td>
-                    <td class="three wide">{trade.order_id}</td>
-                    <td class="one wide">
-                      <Side value={trade.side} />
-                    </td>
-                    <td class="two wide right aligned">
-                      <FocusedNumber value={trade.quantity} />
-                    </td>
-                    <td class="two wide right aligned">
-                      <FocusedNumber value={trade.fees} />
-                    </td>
-                    <td class="two wide right aligned">
-                      <span class="ui {color(trade.side)} text">
-                        {trade.price.toFormat(2)}
-                      </span>
-                    </td>
-                    <td class="three wide right aligned">
-                      <Date value={trade.creation_date} format="ll LT" />
-                    </td>
-                  </tr>
-                {/each}
-              </tbody>
+              <thead>
+                <tr>
+                  <th class="three wide">Id</th>
+                  <th class="two wide">Product</th>
+                  <th class="one wide">Side</th>
+                  <th class="one wide">Type</th>
+                  <th class="two wide right aligned">Price</th>
+                  <th class="two wide right aligned">Quantity</th>
+                  <th class="two wide right aligned">Remaining</th>
+                  <th class="one wide right aligned">Status</th>
+                  <th class="three wide right aligned">Date</th>
+                </tr>
+              </thead>
             </table>
-            <div class="ui very padded segment">
-              <div class="ui active centered inline loader" />
+            <div class="scrollable content">
+              <table class="ui compact basic fixed table">
+                <tbody>
+                  {#each orders as order (order.id)}
+                    <tr>
+                      <td class="three wide">{order.id}</td>
+                      <td class="two wide">{order.product_id}</td>
+                      <td class="one wide">
+                        <Side value={order.side} />
+                      </td>
+                      <td class="one wide">{order.type}</td>
+                      <td class="two wide right aligned">
+                        <span class="ui {color(order.side)} text">
+                          {order.price.toFormat(2)}
+                        </span>
+                      </td>
+                      <td class="two wide right aligned">
+                        <FocusedNumber value={order.quantity} />
+                      </td>
+                      <td class="two wide right aligned">
+                        <FocusedNumber value={order.remaining_quantity} />
+                      </td>
+                      <td class="one wide">{order.status}</td>
+                      <td class="three wide right aligned">
+                        <Date value={order.creation_date} format="ll LT" />
+                      </td>
+                    </tr>
+                  {/each}
+                </tbody>
+              </table>
+              <div class="ui very padded segment">
+                <div class="ui active centered inline loader" />
+              </div>
+            </div>
+          </div>
+          <div id="trade-list" class="ui tab" data-tab="trades">
+            <table class="ui compact basic fixed table">
+              <thead>
+                <tr>
+                  <th class="two wide">Id</th>
+                  <th class="two wide">Product</th>
+                  <th class="three wide">Order Id</th>
+                  <th class="one wide">Side</th>
+                  <th class="two wide right aligned">Quantity</th>
+                  <th class="two wide right aligned">Fees</th>
+                  <th class="two wide right aligned">Price</th>
+                  <th class="three wide right aligned">Date</th>
+                </tr>
+              </thead>
+            </table>
+            <div class="scrollable content">
+              <table class="ui compact basic fixed table">
+                <tbody>
+                  {#each trades as trade (trade.id)}
+                    <tr>
+                      <td class="two wide">{trade.id}</td>
+                      <td class="two wide">{trade.product_id}</td>
+                      <td class="three wide">{trade.order_id}</td>
+                      <td class="one wide">
+                        <Side value={trade.side} />
+                      </td>
+                      <td class="two wide right aligned">
+                        <FocusedNumber value={trade.quantity} />
+                      </td>
+                      <td class="two wide right aligned">
+                        <FocusedNumber value={trade.fees} />
+                      </td>
+                      <td class="two wide right aligned">
+                        <span class="ui {color(trade.side)} text">
+                          {trade.price.toFormat(2)}
+                        </span>
+                      </td>
+                      <td class="three wide right aligned">
+                        <Date value={trade.creation_date} format="ll LT" />
+                      </td>
+                    </tr>
+                  {/each}
+                </tbody>
+              </table>
+              <div class="ui very padded segment">
+                <div class="ui active centered inline loader" />
+              </div>
             </div>
           </div>
         </div>

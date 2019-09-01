@@ -80,7 +80,7 @@
 </script>
 
 <div id="chart" class="ui fluid card">
-  <div class="ui secondary menu">
+  <div class="ui title secondary menu">
     <h5 class="ui header item">Chart</h5>
     <div
       id="granularity-selector"

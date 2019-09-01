@@ -67,7 +67,7 @@
 </script>
 
 <div id="place-order" class="ui fluid card">
-  <div class="ui secondary menu">
+  <div class="ui title secondary menu">
     <h5 class="ui header item">Place an order</h5>
     <div class="right filled item">
       <div class="ui pointing secondary menu">

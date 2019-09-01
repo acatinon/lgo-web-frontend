@@ -27,7 +27,7 @@
 </script>
 
 <div id="orders" class="ui fluid card">
-  <div class="ui secondary menu">
+  <div class="ui title secondary menu">
     <h5 class="ui header item">Open orders</h5>
   </div>
   <div class="scrollable filled content">

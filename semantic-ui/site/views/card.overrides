@@ -32,8 +32,7 @@
     }
 
     &.inverted {
-        .title.content,
-        .secondary.menu  {
+        .title {
             background-color: darken(@black, 4);
         }
     }

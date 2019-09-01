@@ -9,7 +9,7 @@
 </script>
 
 <div id="trades" class="ui fluid card">
-  <div class="ui secondary menu">
+  <div class="ui title secondary menu">
     <h5 class="ui header item">Latest trades</h5>
   </div>
   <table class="ui very compact very basic small filled content table">
