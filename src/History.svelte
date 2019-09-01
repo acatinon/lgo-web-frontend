@@ -20,56 +20,67 @@
 
   let orders = [];
   let trades = [];
-  let nextPage;
+  let ordersNextPage;
+  let tradesNextPage;
 
   onMount(async () => {
     setTheme($theme, Page.History);
 
     jQuery(".menu .item").tab({
       onLoad: async tabPath => {
-        nextPage = undefined;
         switch (tabPath) {
           case "orders":
+            ordersNextPage = undefined;
             queryOrders();
             break;
           case "trades":
+            tradesNextPage = undefined;
             queryTrades();
             break;
         }
       }
     });
 
-    jQuery("#trade-list .scrollable")
-      .overlayScrollbars()
-      .options({
-        callbacks: {
-          onScrollStop: function() {
-            const state = this.scroll();
-            if (state.max.y - state.position.y < 100) {
-              queryTrades();
-            }
-          }
-        }
-      });
+    let scrollableOrderList = jQuery(
+      "#order-list .scrollable"
+    ).overlayScrollbars();
+    let scrollableTradeList = jQuery(
+      "#trade-list .scrollable"
+    ).overlayScrollbars();
 
-    jQuery("#order-list .scrollable")
-      .overlayScrollbars()
-      .options({
-        callbacks: {
-          onScrollStop: function() {
-            const state = this.scroll();
+    scrollableOrderList.options({
+      callbacks: {
+        onScrollStop: function() {
+          const elements = this.getElements();
+          const state = this.scroll();
+          if (jQuery(elements.content).find(".loader").length > 0) {
             if (state.max.y - state.position.y < 100) {
               queryOrders();
             }
           }
         }
-      });
+      }
+    });
+
+    scrollableTradeList.options({
+      callbacks: {
+        onScrollStop: function() {
+          const elements = this.getElements();
+          const state = this.scroll();
+          if (jQuery(elements.content).find(".loader").length > 0) {
+            if (state.max.y - state.position.y < 100) {
+              queryTrades();
+            }
+          }
+        }
+      }
+    });
 
     queryOrders();
   });
 
   async function queryOrders() {
-    const response = await getOrders("BTC-USD", nextPage);
+    const response = await getOrders("BTC-USD", ordersNextPage);
 
     for (let o of response.body.result.orders) {
       const newOrder = {
@@ -90,11 +101,15 @@
       orders = [...orders, newOrder];
     }
 
-    nextPage = response.body.next_page;
+    ordersNextPage = response.body.next_page;
+
+    if (ordersNextPage === "") {
+      jQuery("#order-list .content .segment").remove();
+    }
   }
 
   async function queryTrades() {
-    const response = await getTrades("BTC-USD", nextPage);
+    const response = await getTrades("BTC-USD", tradesNextPage);
 
     for (let o of response.body.result.trades) {
       const newTrade = {
@@ -112,7 +127,11 @@
       trades = [...trades, newTrade];
     }
 
-    nextPage = response.body.next_page;
+    tradesNextPage = response.body.next_page;
+
+    if (tradesNextPage === "") {
+      jQuery("#trade-list .content .segment").remove();
+    }
   }
 </script>
 
