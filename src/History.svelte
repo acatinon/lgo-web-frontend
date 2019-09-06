@@ -17,6 +17,7 @@
   import Date from "./components/Date.svelte";
   import Side from "./components/Side.svelte";
   import FocusedNumber from "./components/FocusedNumber.svelte";
+  import Settings from "./components/Settings.svelte";
 
   let orders = [];
   let trades = [];
@@ -25,6 +26,12 @@
 
   onMount(async () => {
     setTheme($theme, Page.History);
+
+    theme.subscribe(value => {
+      if (value) {
+        setTheme(value, Page.History);
+      }
+    });
 
     jQuery(".menu .item").tab({
       onLoad: async tabPath => {
@@ -349,3 +356,4 @@
     </div>
   </div>
 </div>
+<Settings />
