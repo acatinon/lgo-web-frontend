@@ -1,7 +1,4 @@
 #site {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
     height: 100vh;
 
     .ui.menu .selection.dropdown {
@@ -13,12 +10,16 @@
     }
 
     #menu {
-        width: 100%;
-        
         .selection.dropdown {
             border:0;
         }
     }
+
+    #panes {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }    
 }
 
 #user,

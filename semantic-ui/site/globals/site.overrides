@@ -5,6 +5,10 @@
 body {
     background: darken(@offWhite, 4);
 
+    #menu .menu.segment {
+        background: transparent;
+    }
+
     .toast-container .compact {
         width: 400px;
 

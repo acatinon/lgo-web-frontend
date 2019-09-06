@@ -137,14 +137,16 @@
 
 <div id="site">
   <Menu />
-  <div id="user">
-    <PlaceOrder />
-    <OrderList />
+  <div id="panes">
+    <div id="user">
+      <PlaceOrder />
+      <OrderList />
+    </div>
+    <div id="meta">
+      <Chart />
+      <OrderBook />
+    </div>
+    <TradeList />
   </div>
-  <div id="meta">
-    <Chart />
-    <OrderBook />
-  </div>
-  <TradeList />
 </div>
 <Settings />

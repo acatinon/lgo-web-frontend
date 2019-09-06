@@ -12,7 +12,7 @@
 
 <div id="menu" class="ui menu">
   <slot></slot>
-  <div class="ui right secondary menu">
+  <div class="ui right secondary menu segment">
     <a class="item" class:active="{activePage === 'wallets'}" href="wallets.html">Wallets</a>
     <a class="item" class:active="{activePage === 'history'}" href="history.html">History</a>
     <a class="item" class:active="{activePage === 'exchange'}" href="exchange.html">Exchange</a>
