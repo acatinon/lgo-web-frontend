@@ -8,4 +8,4 @@ const color = value === "B" ? "green" : "red";
 
 </script>
 
-<span class:inverted="{$theme === "dark"}" class="ui horizontal {color} label">{formatted}</span>
+<span class:inverted={$theme === "dark"} class="ui horizontal {color} label">{formatted}</span>

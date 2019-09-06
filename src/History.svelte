@@ -95,7 +95,8 @@
         batch_id: o.batch_id,
         creation_date: moment(o.creation_date),
         done_date: moment(o.done_date),
-        status_reason: o.status_reason
+        status_reason: o.status_reason,
+        status_details: computeStatusDetails(o.status_reason)
       };
 
       orders = [...orders, newOrder];
@@ -133,6 +134,76 @@
       jQuery("#trade-list .content .segment").remove();
     }
   }
+
+  function computeStatusLabel(status, status_reason) {
+    switch (status) {
+      case "PENDING":
+        return "Pending";
+      case "OPEN":
+        return "Open";
+      case "DONE":
+        switch (status_reason) {
+          case "Filled":
+          case "Rejected":
+            return status_reason;
+          case "CanceledBySelfTradePrevention":
+          case "CanceledByOwner":
+          case "CanceledByAdministrator":
+            return "Canceled";
+        }
+      case "INVALID":
+        return "Invalid";
+    }
+  }
+
+  function computeStatusDetails(status_reason) {
+    switch (status_reason) {
+      case "CanceledBySelfTradePrevention":
+        return "Canceled by self trade prevention";
+      case "CanceledByOwner":
+        return "Canceled by owner";
+      case "CanceledByAdministrator":
+        return "Canceled by administrator";
+      case "InvalidQuantity":
+        return "Invalid quantity";
+      case "InvalidPrice":
+        return "Invalid price";
+      case "InvalidAmount":
+        return "Invalid amount";
+      case "InvalidPriceIncrement":
+        return "Invalid price increment";
+      case "InvalidProduct":
+        return "Invalid product";
+      case "InsufficientFunds":
+        return "Insufficient funds";
+      default:
+        return undefined;
+    }
+  }
+
+  function computeColor(status_reason) {
+    switch (status_reason) {
+      case "Pending":
+        return "grey";
+      case "Filled":
+        return "green";
+      case "CanceledBySelfTradePrevention":
+      case "CanceledByOwner":
+      case "CanceledByAdministrator":
+        return "olive";
+      case "Rejected":
+        return "orange";
+      case "InvalidQuantity":
+      case "InvalidPrice":
+      case "InvalidAmount":
+      case "InvalidPriceIncrement":
+      case "InvalidProduct":
+      case "InsufficientFunds":
+        return "red";
+      default:
+        return "blue";
+    }
+  }
 </script>
 
 <div id="site">
@@ -146,7 +217,7 @@
       </div>
       <div class="content">
         <div class="header">
-          <div class="ui compact pointing menu">
+          <div class="ui compact secondary menu">
             <a class="active item" data-tab="orders">Orders</a>
             <a class="item" data-tab="trades">Trades</a>
           </div>
@@ -163,7 +234,7 @@
                   <th class="two wide right aligned">Price</th>
                   <th class="two wide right aligned">Quantity</th>
                   <th class="two wide right aligned">Remaining</th>
-                  <th class="one wide right aligned">Status</th>
+                  <th class="two wide">Status</th>
                   <th class="three wide right aligned">Date</th>
                 </tr>
               </thead>
@@ -178,7 +249,13 @@
                       <td class="one wide">
                         <Side value={order.side} />
                       </td>
-                      <td class="one wide">{order.type}</td>
+                      <td class="one wide">
+                        <span
+                          class:inverted={$theme === 'dark'}
+                          class="ui horizontal blue label">
+                          {#if (order.type = 'L')}Limit{:else}Market{/if}
+                        </span>
+                      </td>
                       <td class="two wide right aligned">
                         <span class="ui {color(order.side)} text">
                           {order.price.toFormat(2)}
@@ -190,7 +267,22 @@
                       <td class="two wide right aligned">
                         <FocusedNumber value={order.remaining_quantity} />
                       </td>
-                      <td class="one wide">{order.status}</td>
+                      <td
+                        class="two wide"
+                        data-tooltip="Test"
+                        data-position="right center">
+                        <span
+                          class:inverted={$theme === 'dark'}
+                          class="ui {computeColor(order.status_reason)}
+                          horizontal label">
+                          {computeStatusLabel(order.status, order.status_reason)}
+                        </span>
+                        {#if order.status_details}
+                          <i
+                            title={order.status_details}
+                            class="question circle outline icon" />
+                        {/if}
+                      </td>
                       <td class="three wide right aligned">
                         <Date value={order.creation_date} format="ll LT" />
                       </td>
