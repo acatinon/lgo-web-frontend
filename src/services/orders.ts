@@ -31,3 +31,28 @@ export function getOrders(productId: string, page: string): Promise<Response> {
             .then(res => resolve(res));
     });
 }
+
+export function computeStatusDetails(status_reason: string) {
+    switch (status_reason) {
+      case "CanceledBySelfTradePrevention":
+        return "Canceled by self trade prevention";
+      case "CanceledByOwner":
+        return "Canceled by owner";
+      case "CanceledByAdministrator":
+        return "Canceled by administrator";
+      case "InvalidQuantity":
+        return "Invalid quantity";
+      case "InvalidPrice":
+        return "Invalid price";
+      case "InvalidAmount":
+        return "Invalid amount";
+      case "InvalidPriceIncrement":
+        return "Invalid price increment";
+      case "InvalidProduct":
+        return "Invalid product";
+      case "InsufficientFunds":
+        return "Insufficient funds";
+      default:
+        return undefined;
+    }
+  }

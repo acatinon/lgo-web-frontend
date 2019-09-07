@@ -6,7 +6,7 @@
   import "./js/jquery.overlay-scrollbars.js";
   import { onMount } from "svelte";
   import { setTheme, Page } from "./utils/ui";
-  import { getOrders } from "./services/orders";
+  import { getOrders, computeStatusDetails } from "./services/orders";
   import { Trade } from "./domain/trade";
   import { getTrades } from "./services/trades";
   import { theme } from "./stores/settings";
@@ -160,31 +160,6 @@
         }
       case "INVALID":
         return "Invalid";
-    }
-  }
-
-  function computeStatusDetails(status_reason) {
-    switch (status_reason) {
-      case "CanceledBySelfTradePrevention":
-        return "Canceled by self trade prevention";
-      case "CanceledByOwner":
-        return "Canceled by owner";
-      case "CanceledByAdministrator":
-        return "Canceled by administrator";
-      case "InvalidQuantity":
-        return "Invalid quantity";
-      case "InvalidPrice":
-        return "Invalid price";
-      case "InvalidAmount":
-        return "Invalid amount";
-      case "InvalidPriceIncrement":
-        return "Invalid price increment";
-      case "InvalidProduct":
-        return "Invalid product";
-      case "InsufficientFunds":
-        return "Insufficient funds";
-      default:
-        return undefined;
     }
   }
 

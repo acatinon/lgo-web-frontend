@@ -23,10 +23,14 @@ export function addToast(title: string, message: string, type: MessageType) {
       break;
   }
 
+  if (jQuery("body").hasClass("dark")) {
+    borderColor = "inverted " + borderColor;
+  }
+
   jQuery("body").toast({
     showIcon: icon,
     displayTime: 50000,
-    class: jQuery("body").hasClass("dark") ? "inverted green" : "green",
+    class: borderColor,
     className: {
       toast: "ui floating message"
     },

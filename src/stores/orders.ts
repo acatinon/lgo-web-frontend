@@ -19,7 +19,6 @@ interface Order {
 }
 
 function update(order: any) {
-    console.log(JSON.stringify(order));
     switch (order.type) {
         case "pending":
             let newPendingOrder: Order = {
