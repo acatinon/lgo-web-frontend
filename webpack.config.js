@@ -124,19 +124,23 @@ module.exports = {
 	plugins: [
 		new HtmlWebpackPlugin({
 			template: 'src/index.ejs',
-			chunks: ['index']
+			chunks: ['index'],
+			title: "LGO web frontend"
 		}),
 		new HtmlWebpackPlugin({
 			filename: 'wallets.html',
-			chunks: ['wallets']
+			chunks: ['wallets'],
+			title: "LGO web frontend"
 		}),
 		new HtmlWebpackPlugin({
 			filename: 'history.html',
-			chunks: ['history']
+			chunks: ['history'],
+			title: "LGO web frontend"
 		}),
 		new HtmlWebpackPlugin({
 			filename: 'exchange.html',
-			chunks: ['exchange']
+			chunks: ['exchange'],
+			title: "LGO web frontend"
 		}),
 		new CleanWebpackPlugin({
 			cleanOnceBeforeBuildPatterns: ['**/*', "!CNAME"]
