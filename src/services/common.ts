@@ -18,47 +18,8 @@ export function  isOpening() {
   return ws.isOpening;
 }
 
-export function subscribe(productId: string) {
-  ws.sendPacked({
-    type: "subscribe",
-    channels: [
-      {
-        name: "balance"
-      },
-      {
-        name: "user",
-        product_id: productId
-      },
-      {
-        name: "trades",
-        product_id: productId
-      },
-      {
-        name: "level2",
-        product_id: productId
-      }
-    ]
-  });
-}
-
-export function unsubscribe(productId: string) {
-  ws.sendPacked({
-    type: "unsubscribe",
-    channels: [
-      {
-        name: "user",
-        product_id: productId
-      },
-      {
-        name: "trades",
-        product_id: productId
-      },
-      {
-        name: "level2",
-        product_id: productId
-      }
-    ]
-  });
+export function send(data: any) {
+  ws.sendPacked(data);
 }
 
 export function addListener(callback: (...args: any[]) => any) {

@@ -16,8 +16,7 @@
     open,
     isOpened,
     isOpening,
-    subscribe,
-    unsubscribe,
+    send,
     addListener
   } from "./services/common";
   import { currentProduct } from "./stores/products";
@@ -63,6 +62,52 @@
           }
         }
       }
+    });
+  }
+
+  function subscribe(productId) {
+    send({
+      type: "subscribe",
+      channels: [
+        {
+          name: "balance"
+        },
+        {
+          name: "user",
+          product_id: productId
+        },
+        {
+          name: "trades",
+          product_id: productId
+        },
+        {
+          name: "level2",
+          product_id: productId
+        }
+      ]
+    });
+  }
+
+  function unsubscribe(productId) {
+    send({
+      type: "unsubscribe",
+      channels: [
+        {
+          name: "balance"
+        },
+        {
+          name: "user",
+          product_id: productId
+        },
+        {
+          name: "trades",
+          product_id: productId
+        },
+        {
+          name: "level2",
+          product_id: productId
+        }
+      ]
     });
   }
 
