@@ -13,7 +13,8 @@ export const themes = [
 
 export enum Page {
     Exchange,
-    History
+    History,
+    Wallets
 }
 
 export const colors = {
@@ -64,6 +65,9 @@ export function setTheme(id: string, page: Page) {
             break;
         case Page.History:
             jQuery("#history .scrollable").overlayScrollbars(overlayScrollbarsSettings);
+            break;
+        case Page.Wallets:
+            //jQuery("#wallets .scrollable").overlayScrollbars(overlayScrollbarsSettings);
             break;
     }
 }

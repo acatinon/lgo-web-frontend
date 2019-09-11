@@ -2,9 +2,10 @@
   import "fomantic-ui-less/semantic.less";
   import "./css/wallets.less";
   import "./js/semantic.js";
+  import "./js/jquery.overlay-scrollbars.js";
   import { onMount, afterUpdate } from "svelte";
   import { derived } from "svelte/store";
-  import { setTheme } from "./utils/ui";
+  import { setTheme, Page } from "./utils/ui";
   import { theme } from "./stores/settings";
   import Menu from "./components/Menu.svelte";
   import { Operation } from "./domain/operation";
@@ -21,6 +22,7 @@
   import moment from "moment";
   import Date from "./components/Date.svelte";
   import FocusedNumber from "./components/FocusedNumber.svelte";
+  import Settings from "./components/Settings.svelte";
 
   const currencies = derived(balances, $balances => Object.keys($balances));
   let operations = [];
@@ -44,6 +46,12 @@
 
   onMount(async () => {
     setTheme($theme);
+
+    theme.subscribe(value => {
+      if (value) {
+        setTheme(value, Page.Wallets);
+      }
+    });
 
     jQuery("#operations").hide();
 
@@ -139,3 +147,4 @@
     </div>
   </div>
 </div>
+<Settings />
