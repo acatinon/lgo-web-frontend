@@ -109,7 +109,7 @@
           </div>
           <div class="twelve wide stretched column">
             <div id="operations">
-              <table class="ui compact basic four column fixed table">
+              <table class="ui compact very basic four column fixed table">
                 <thead>
                   <tr>
                     <th>Date</th>
@@ -120,7 +120,7 @@
                 </thead>
               </table>
               <div class="scrollable content">
-                <table class="ui compact basic four column fixed table">
+                <table class="ui compact very basic four column fixed table">
                   <tbody>
                     {#each operations as operation (operation.id)}
                       <tr>

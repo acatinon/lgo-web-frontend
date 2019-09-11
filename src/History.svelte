@@ -206,7 +206,7 @@
         </div>
         <div class="description">
           <div id="order-list" class="ui active tab" data-tab="orders">
-            <table class="ui compact basic fixed table">
+            <table class="ui compact very basic fixed table">
               <thead>
                 <tr>
                   <th class="three wide">Id</th>
@@ -222,7 +222,7 @@
               </thead>
             </table>
             <div class="scrollable content">
-              <table class="ui compact basic fixed table">
+              <table class="ui compact very basic fixed table">
                 <tbody>
                   {#each orders as order (order.id)}
                     <tr>
@@ -278,7 +278,7 @@
             </div>
           </div>
           <div id="trade-list" class="ui tab" data-tab="trades">
-            <table class="ui compact basic fixed table">
+            <table class="ui compact very basic fixed table">
               <thead>
                 <tr>
                   <th class="two wide">Id</th>
@@ -293,7 +293,7 @@
               </thead>
             </table>
             <div class="scrollable content">
-              <table class="ui compact basic fixed table">
+              <table class="ui compact very basic fixed table">
                 <tbody>
                   {#each trades as trade (trade.id)}
                     <tr>
