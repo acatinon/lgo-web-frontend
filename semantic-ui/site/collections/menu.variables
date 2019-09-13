@@ -3,6 +3,6 @@
 *******************************/
 
 @itemVerticalPadding: @relativeMini / 2;
-@secondaryPointingItemVerticalPadding: 0;
 @secondaryItemPadding: 0.5em;
-@secondaryItemSpacing: 0;
+@secondaryPointingBorderColor: transparent;
+@secondaryPointingInvertedBorderColor: transparent;

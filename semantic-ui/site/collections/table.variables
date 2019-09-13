@@ -6,5 +6,5 @@
 @headerVerticalPadding: 0;
 @veryCompactVerticalPadding: 0.1em;
 @veryCompactHorizontalPadding: 0.1em;
-@basicTableHeaderBackground: darken(@white, 1);
-@invertedHeaderBackground: darken(@black, 4);
+@basicTableHeaderBackground: transparent;
+@invertedHeaderBackground: transparent;

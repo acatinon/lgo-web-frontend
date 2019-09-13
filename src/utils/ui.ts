@@ -64,7 +64,7 @@ export function setTheme(id: string, page: Page) {
             jQuery("#orders .scrollable").overlayScrollbars(overlayScrollbarsSettings);
             break;
         case Page.History:
-            jQuery("#history .scrollable").overlayScrollbars(overlayScrollbarsSettings);
+            jQuery(".scrollable").overlayScrollbars(overlayScrollbarsSettings);
             break;
         case Page.Wallets:
             //jQuery("#wallets .scrollable").overlayScrollbars(overlayScrollbarsSettings);

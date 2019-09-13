@@ -29,7 +29,7 @@
   let operationsNextPage;
 
   afterUpdate(() => {
-    jQuery("#wallets .menu .item").click(async event => {
+    jQuery(".grid .menu .item").click(async event => {
       const target = jQuery(event.target);
       const currency = target.attr("data-tab");
       await queryOperations(currency);
@@ -39,7 +39,7 @@
       }
 
       jQuery("#operations").show();
-      jQuery("#wallets .menu .item").removeClass("active");
+      jQuery(".grid .menu .item").removeClass("active");
       target.addClass("active");
     });
   });
@@ -90,56 +90,48 @@
 </script>
 
 <div id="site">
-  <Menu activePage="wallets">
-    <span class="item">Wallets</span>
-  </Menu>
+  <Menu activePage="wallets" />
   <div class="ui container">
-    <div class="ui fluid card">
-      <div class="title content">
-        <h3 class="header">Wallets</h3>
+    <h1 class="ui header">Wallets</h1>
+    <div class="ui grid">
+      <div class="four wide column">
+        <div class="ui vertical secondary fluid menu">
+          {#each $currencies as c}
+            <a class="item" data-tab={c}>{c}</a>
+          {/each}
+        </div>
       </div>
-      <div id="wallets" class="content">
-        <div class="ui grid">
-          <div class="four wide column">
-            <div class="ui vertical secondary fluid menu">
-              {#each $currencies as c}
-                <a class="item" data-tab={c}>{c}</a>
-              {/each}
-            </div>
-          </div>
-          <div class="twelve wide stretched column">
-            <div id="operations">
-              <table class="ui compact very basic four column fixed table">
-                <thead>
+      <div class="twelve wide stretched column">
+        <div id="operations">
+          <table class="ui compact very basic four column fixed table">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Type</th>
+                <th class="right aligned">Quantity</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+          </table>
+          <div class="scrollable content">
+            <table class="ui compact very basic four column fixed table">
+              <tbody>
+                {#each operations as operation (operation.id)}
                   <tr>
-                    <th>Date</th>
-                    <th>Type</th>
-                    <th class="right aligned">Quantity</th>
-                    <th>Status</th>
+                    <td>
+                      <Date value={operation.created_at} format="ll LT" />
+                    </td>
+                    <td>{operation.type}</td>
+                    <td class="right aligned">
+                      <FocusedNumber value={operation.quantity} />
+                    </td>
+                    <td>{operation.status}</td>
                   </tr>
-                </thead>
-              </table>
-              <div class="scrollable content">
-                <table class="ui compact very basic four column fixed table">
-                  <tbody>
-                    {#each operations as operation (operation.id)}
-                      <tr>
-                        <td>
-                          <Date value={operation.created_at} format="ll LT" />
-                        </td>
-                        <td>{operation.type}</td>
-                        <td class="right aligned">
-                          <FocusedNumber value={operation.quantity} />
-                        </td>
-                        <td>{operation.status}</td>
-                      </tr>
-                    {/each}
-                  </tbody>
-                </table>
-                <div id="loader" class="ui very padded segment">
-                  <div class="ui active centered inline loader" />
-                </div>
-              </div>
+                {/each}
+              </tbody>
+            </table>
+            <div id="loader" class="ui very padded segment">
+              <div class="ui active centered inline loader" />
             </div>
           </div>
         </div>

@@ -189,143 +189,131 @@
 </script>
 
 <div id="site">
-  <Menu activePage="history">
-    <span class="item">History</span>
-  </Menu>
+  <Menu activePage="history" />
   <div class="ui container">
-    <div id="history" class="ui fluid card">
-      <div class="title content">
-        <h3 class="header">History</h3>
-      </div>
-      <div class="content">
-        <div class="header">
-          <div class="ui compact secondary menu">
-            <a class="active item" data-tab="orders">Orders</a>
-            <a class="item" data-tab="trades">Trades</a>
-          </div>
+    <div class="ui right floated secondary pointing menu">
+        <a class="active item" data-tab="orders">Orders</a>
+        <a class="item" data-tab="trades">Trades</a>
+    </div>
+    <h1 class="ui header">History</h1>
+    <div id="order-list" class="ui active tab" data-tab="orders">
+      <table class="ui compact very basic fixed table">
+        <thead>
+          <tr>
+            <th class="three wide">Id</th>
+            <th class="two wide">Product</th>
+            <th class="one wide">Side</th>
+            <th class="one wide">Type</th>
+            <th class="two wide right aligned">Price</th>
+            <th class="two wide right aligned">Quantity</th>
+            <th class="two wide right aligned">Remaining</th>
+            <th class="two wide">Status</th>
+            <th class="three wide right aligned">Date</th>
+          </tr>
+        </thead>
+      </table>
+      <div class="scrollable content">
+        <table class="ui compact very basic fixed table">
+          <tbody>
+            {#each orders as order (order.id)}
+              <tr>
+                <td class="three wide">{order.id}</td>
+                <td class="two wide">{order.product_id}</td>
+                <td class="one wide">
+                  <Side value={order.side} />
+                </td>
+                <td class="one wide">
+                  <span
+                    class:inverted={$theme === 'dark'}
+                    class="ui horizontal blue label">
+                    {#if (order.type = 'L')}Limit{:else}Market{/if}
+                  </span>
+                </td>
+                <td class="two wide right aligned">
+                  <span class="ui {color(order.side)} text">
+                    {order.price.toFormat(2)}
+                  </span>
+                </td>
+                <td class="two wide right aligned">
+                  <FocusedNumber value={order.quantity} />
+                </td>
+                <td class="two wide right aligned">
+                  <FocusedNumber value={order.remaining_quantity} />
+                </td>
+                <td
+                  class="two wide"
+                  data-tooltip="Test"
+                  data-position="right center">
+                  <span
+                    class:inverted={$theme === 'dark'}
+                    class="ui {computeColor(order.status_reason)} horizontal
+                    label">
+                    {computeStatusLabel(order.status, order.status_reason)}
+                  </span>
+                  {#if order.status_details}
+                    <i
+                      title={order.status_details}
+                      class="question circle outline icon" />
+                  {/if}
+                </td>
+                <td class="three wide right aligned">
+                  <Date value={order.creation_date} format="ll LT" />
+                </td>
+              </tr>
+            {/each}
+          </tbody>
+        </table>
+        <div class="ui very padded segment">
+          <div class="ui active centered inline loader" />
         </div>
-        <div class="description">
-          <div id="order-list" class="ui active tab" data-tab="orders">
-            <table class="ui compact very basic fixed table">
-              <thead>
-                <tr>
-                  <th class="three wide">Id</th>
-                  <th class="two wide">Product</th>
-                  <th class="one wide">Side</th>
-                  <th class="one wide">Type</th>
-                  <th class="two wide right aligned">Price</th>
-                  <th class="two wide right aligned">Quantity</th>
-                  <th class="two wide right aligned">Remaining</th>
-                  <th class="two wide">Status</th>
-                  <th class="three wide right aligned">Date</th>
-                </tr>
-              </thead>
-            </table>
-            <div class="scrollable content">
-              <table class="ui compact very basic fixed table">
-                <tbody>
-                  {#each orders as order (order.id)}
-                    <tr>
-                      <td class="three wide">{order.id}</td>
-                      <td class="two wide">{order.product_id}</td>
-                      <td class="one wide">
-                        <Side value={order.side} />
-                      </td>
-                      <td class="one wide">
-                        <span
-                          class:inverted={$theme === 'dark'}
-                          class="ui horizontal blue label">
-                          {#if (order.type = 'L')}Limit{:else}Market{/if}
-                        </span>
-                      </td>
-                      <td class="two wide right aligned">
-                        <span class="ui {color(order.side)} text">
-                          {order.price.toFormat(2)}
-                        </span>
-                      </td>
-                      <td class="two wide right aligned">
-                        <FocusedNumber value={order.quantity} />
-                      </td>
-                      <td class="two wide right aligned">
-                        <FocusedNumber value={order.remaining_quantity} />
-                      </td>
-                      <td
-                        class="two wide"
-                        data-tooltip="Test"
-                        data-position="right center">
-                        <span
-                          class:inverted={$theme === 'dark'}
-                          class="ui {computeColor(order.status_reason)}
-                          horizontal label">
-                          {computeStatusLabel(order.status, order.status_reason)}
-                        </span>
-                        {#if order.status_details}
-                          <i
-                            title={order.status_details}
-                            class="question circle outline icon" />
-                        {/if}
-                      </td>
-                      <td class="three wide right aligned">
-                        <Date value={order.creation_date} format="ll LT" />
-                      </td>
-                    </tr>
-                  {/each}
-                </tbody>
-              </table>
-              <div class="ui very padded segment">
-                <div class="ui active centered inline loader" />
-              </div>
-            </div>
-          </div>
-          <div id="trade-list" class="ui tab" data-tab="trades">
-            <table class="ui compact very basic fixed table">
-              <thead>
-                <tr>
-                  <th class="two wide">Id</th>
-                  <th class="two wide">Product</th>
-                  <th class="three wide">Order Id</th>
-                  <th class="one wide">Side</th>
-                  <th class="two wide right aligned">Quantity</th>
-                  <th class="two wide right aligned">Fees</th>
-                  <th class="two wide right aligned">Price</th>
-                  <th class="three wide right aligned">Date</th>
-                </tr>
-              </thead>
-            </table>
-            <div class="scrollable content">
-              <table class="ui compact very basic fixed table">
-                <tbody>
-                  {#each trades as trade (trade.id)}
-                    <tr>
-                      <td class="two wide">{trade.id}</td>
-                      <td class="two wide">{trade.product_id}</td>
-                      <td class="three wide">{trade.order_id}</td>
-                      <td class="one wide">
-                        <Side value={trade.side} />
-                      </td>
-                      <td class="two wide right aligned">
-                        <FocusedNumber value={trade.quantity} />
-                      </td>
-                      <td class="two wide right aligned">
-                        <FocusedNumber value={trade.fees} />
-                      </td>
-                      <td class="two wide right aligned">
-                        <span class="ui {color(trade.side)} text">
-                          {trade.price.toFormat(2)}
-                        </span>
-                      </td>
-                      <td class="three wide right aligned">
-                        <Date value={trade.creation_date} format="ll LT" />
-                      </td>
-                    </tr>
-                  {/each}
-                </tbody>
-              </table>
-              <div class="ui very padded segment">
-                <div class="ui active centered inline loader" />
-              </div>
-            </div>
-          </div>
+      </div>
+    </div>
+    <div id="trade-list" class="ui tab" data-tab="trades">
+      <table class="ui compact very basic fixed table">
+        <thead>
+          <tr>
+            <th class="two wide">Id</th>
+            <th class="two wide">Product</th>
+            <th class="three wide">Order Id</th>
+            <th class="one wide">Side</th>
+            <th class="two wide right aligned">Quantity</th>
+            <th class="two wide right aligned">Fees</th>
+            <th class="two wide right aligned">Price</th>
+            <th class="three wide right aligned">Date</th>
+          </tr>
+        </thead>
+      </table>
+      <div class="scrollable content">
+        <table class="ui compact very basic fixed table">
+          <tbody>
+            {#each trades as trade (trade.id)}
+              <tr>
+                <td class="two wide">{trade.id}</td>
+                <td class="two wide">{trade.product_id}</td>
+                <td class="three wide">{trade.order_id}</td>
+                <td class="one wide">
+                  <Side value={trade.side} />
+                </td>
+                <td class="two wide right aligned">
+                  <FocusedNumber value={trade.quantity} />
+                </td>
+                <td class="two wide right aligned">
+                  <FocusedNumber value={trade.fees} />
+                </td>
+                <td class="two wide right aligned">
+                  <span class="ui {color(trade.side)} text">
+                    {trade.price.toFormat(2)}
+                  </span>
+                </td>
+                <td class="three wide right aligned">
+                  <Date value={trade.creation_date} format="ll LT" />
+                </td>
+              </tr>
+            {/each}
+          </tbody>
+        </table>
+        <div class="ui very padded segment">
+          <div class="ui active centered inline loader" />
         </div>
       </div>
     </div>
