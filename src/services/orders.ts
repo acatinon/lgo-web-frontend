@@ -1,10 +1,10 @@
-import superAgent, { Response } from 'superagent';
+import superAgent, { Response, SuperAgentRequest } from 'superagent';
 import { OrderType, Side } from "../domain/order"
 import { BaseUrl } from "../utils/constants";
 import BigNumber from 'bignumber.js';
 
-export function placeOrder(productId: string, type: OrderType, side: Side, quantity: BigNumber, price: BigNumber) {
-    superAgent
+export function placeOrder(productId: string, type: OrderType, side: Side, quantity: BigNumber, price: BigNumber): SuperAgentRequest {
+    return superAgent
         .post(BaseUrl + "/orders")
         .set('Content-Type', 'application/json')
         .send({
@@ -13,8 +13,7 @@ export function placeOrder(productId: string, type: OrderType, side: Side, quant
             product_id: productId,
             quantity: quantity.toString(),
             price: price.toString()
-        })
-        .end();
+        });
 }
 
 export function cancelOrder(orderId: string) {

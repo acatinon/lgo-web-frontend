@@ -4,6 +4,7 @@
   import "inputmask.numeric.extensions";
   import { placeOrder } from "../../services/orders";
   import { Side, OrderType } from "../../domain/order";
+  import { addToast, MessageType } from "../../utils/toasts";
   import { onMount } from "svelte";
   import BigNumber from "bignumber.js";
 
@@ -55,7 +56,12 @@
     let price = new BigNumber(
       jQuery("#price-field input").inputmask("unmaskedvalue")
     );
-    placeOrder("BTC-USD", type, side, quantity, price);
+    const request = placeOrder("BTC-USD", type, side, quantity, price);
+
+    request.catch(err => {
+      addToast("Order submission failed", err.message, MessageType.Error);
+      console.error(err);
+    });
   }
 
   onMount(async () => {
