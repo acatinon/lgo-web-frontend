@@ -209,6 +209,7 @@
             <th class="two wide right aligned">Remaining</th>
             <th class="two wide">Status</th>
             <th class="three wide right aligned">Date</th>
+            <th></th>
           </tr>
         </thead>
       </table>
@@ -259,6 +260,7 @@
                 <td class="three wide right aligned">
                   <Date value={order.creation_date} format="ll LT" />
                 </td>
+                <td></td>
               </tr>
             {/each}
           </tbody>
@@ -280,6 +282,7 @@
             <th class="two wide right aligned">Fees</th>
             <th class="two wide right aligned">Price</th>
             <th class="three wide right aligned">Date</th>
+            <th></th>
           </tr>
         </thead>
       </table>
@@ -308,6 +311,7 @@
                 <td class="three wide right aligned">
                   <Date value={trade.creation_date} format="ll LT" />
                 </td>
+                <td></td>
               </tr>
             {/each}
           </tbody>
