@@ -58,14 +58,12 @@
 </script>
 
 <div id="orderbook" class="ui fluid card">
-  <div class="title content">
-    <div class="right floated">
-      <span class="ui basic blue horizontal label">
-        Spread
-        <div class="detail">{$minAsk.minus($maxBid).toFormat(2)}</div>
-      </span>
-    </div>
-    <h5 class="ui header">Order book</h5>
+  <div class="ui title secondary menu">
+    <h5 class="ui header item">Order book</h5>
+    <span class="right item">
+      <span class="ui disabled text">Spread:</span>
+      &nbsp;{$minAsk.minus($maxBid).toFormat(2)}
+    </span>
   </div>
   <div class="filled book-header content">
     <table class="book-bids ui very compact very basic small column table">
