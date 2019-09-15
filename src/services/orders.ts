@@ -6,7 +6,6 @@ import BigNumber from 'bignumber.js';
 export function placeOrder(productId: string, type: OrderType, side: Side, quantity: BigNumber, price: BigNumber): SuperAgentRequest {
     return superAgent
         .post(BaseUrl + "/orders")
-        .set('Content-Type', 'application/json')
         .send({
             type: type,
             side: side,
