@@ -20,7 +20,7 @@ module.exports = {
 		wallets: ['./src/wallets.js'],
 		history: ['./src/history.js'],
 		exchange: ['./src/exchange.js']
-		
+
 	},
 	resolve: {
 		extensions: ['.mjs', '.js', '.ts', '.svelte'],
@@ -49,6 +49,12 @@ module.exports = {
 	},
 	module: {
 		rules: [
+			{
+				test: /\.(html)$/,
+				use: {
+					loader: 'html-loader'
+				}
+			},
 			{
 				test: /\.m?js$/,
 				exclude: /(node_modules)/,
@@ -123,7 +129,7 @@ module.exports = {
 	},
 	plugins: [
 		new HtmlWebpackPlugin({
-			template: 'src/index.ejs',
+			template: 'src/index.html',
 			chunks: ['index'],
 			title: "LGO web frontend"
 		}),

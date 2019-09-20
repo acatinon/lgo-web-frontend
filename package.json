@@ -10,6 +10,7 @@
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-regenerator": "^6.26.0",
     "bip32": "^2.0.3",
+    "html-loader": "^0.5.5",
     "style-loader": "^0.23.1",
     "svelte": "^3.4.2",
     "svelte-loader": "^2.13.4",

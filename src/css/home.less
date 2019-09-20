@@ -24,7 +24,22 @@
 #content {
     margin-top: 2em;
 
-    p {
+    p, li, code {
         font-size: 1.2em;
+    }
+
+    h4 {
+        font-size: 1.2em;
+    }
+}
+
+#setup {
+    counter-reset: setupCounter;
+    
+    h3 {
+        &:before {
+            content: counter(setupCounter) ".\0000a0\0000a0";
+            counter-increment: setupCounter;
+        }
     }
 }
