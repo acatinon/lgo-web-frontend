@@ -18,6 +18,7 @@ module.exports = {
 	entry: {
 		index: ['./src/index.js'],
 		setup: ['./src/setup.js'],
+		faq: ['./src/faq.js'],
 		wallets: ['./src/wallets.js'],
 		history: ['./src/history.js'],
 		exchange: ['./src/exchange.js']
@@ -137,6 +138,12 @@ module.exports = {
 			filename: 'setup.html',
 			template: 'src/setup.html',
 			chunks: ['setup'],
+			title: "LGO web frontend"
+		}),
+		new HtmlWebpackPlugin({
+			filename: 'faq.html',
+			template: 'src/faq.html',
+			chunks: ['faq'],
 			title: "LGO web frontend"
 		}),
 		new HtmlWebpackPlugin({
