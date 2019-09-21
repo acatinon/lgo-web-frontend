@@ -17,10 +17,10 @@ const PATHS = {
 module.exports = {
 	entry: {
 		index: ['./src/index.js'],
+		setup: ['./src/setup.js'],
 		wallets: ['./src/wallets.js'],
 		history: ['./src/history.js'],
 		exchange: ['./src/exchange.js']
-
 	},
 	resolve: {
 		extensions: ['.mjs', '.js', '.ts', '.svelte'],
@@ -131,6 +131,12 @@ module.exports = {
 		new HtmlWebpackPlugin({
 			template: 'src/index.html',
 			chunks: ['index'],
+			title: "LGO web frontend"
+		}),
+		new HtmlWebpackPlugin({
+			filename: 'setup.html',
+			template: 'src/setup.html',
+			chunks: ['setup'],
 			title: "LGO web frontend"
 		}),
 		new HtmlWebpackPlugin({

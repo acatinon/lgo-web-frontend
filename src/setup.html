@@ -1,0 +1,63 @@
+<!doctype html>
+<html>
+
+<head>
+	<title>LGO web frontend</title>
+</head>
+
+<body id="setup">
+	<div class="ui text container">
+		<div class="ui secondary pointing menu segment">
+			<a class="right item" href="/">Home</a>
+			<span class="active item" href="/setup.html">Set up</span>
+			<a class="item" href="#security">Security</a>
+			<a class="item" href="#faq">FAQ</a>
+			<div class="item">
+				<button class="ui primary button">Sign in</button>
+			</div>
+		</div>
+		<div class="ui basic segment">
+			<a name="setup"></a>
+			<h2 class="ui header">Set up</h2>
+			<h3 class="ui header">Prerequisites</h3>
+			<p>Before starting the set up process, you have to:</p>
+			<ul>
+				<li>Be fully onboarded on LGO</li>
+				<li>Have the desktop app installed on your computer</li>
+			</ul>
+			<h3>Install the LGO proxy</h3>
+			<h4>Install the proxy using the fork</h4>
+			<p>Clone the <a href="https://github.com/acatinon/lgo-proxy">lgo-proxy repository</a> and
+				follow the instruction in the README to install it. Then initialize the proxy by
+				following the "Initialize" section.</p>
+			<h4>Get an access key</h4>
+			<p>When you initialized the LGO proxy, the "init" command should have returned a public
+				key. If you have not saved this key, you can retrieve it with this command:</p>
+			<div class="ui secondary segment">
+				<code>
+                <pre>node ./lib/main info \
+  --signer-library-path &lt;softhsm_library_path&gt; \
+  --signer-pin &lt;your_pin&gt;</pre>
+              </code>
+			</div>
+			<p>Open the LGO desktop app, go to the settings and copy Copy this public key to
+				the corresponding field:</p>
+			<p><img class="ui rounded bordered fluid image" src="./img/set-accesskey.png" /></p>
+			<p>After submitting, write down the given access key.</p>
+			<h3>Run the LGO proxy</h3>
+			<p>Run the following command:</p>
+			<div class="ui secondary segment">
+				<code>
+                <pre>node ./lib/main start \
+  --signer-library-path &lt;softhsm_library_path&gt; \
+  --signer-pin &lt;your_pin&gt; \
+  --access-key &lt;your_access_key&gt;</pre>
+              </code>
+			</div>
+			<p>And you are done! Each time you want to use the web app, you have to have
+				the LGO proxy running.</p>
+		</div>
+	</div>
+</body>
+
+</html>
