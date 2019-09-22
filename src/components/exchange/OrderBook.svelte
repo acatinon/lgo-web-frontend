@@ -112,7 +112,9 @@
                 {c.bidValue ? c.bidValue.toFormat($currentQuote.scale) : ' '}
               </td>
               <td class="five wide right aligned">
-                <FocusedNumber value={c.bidQuantity} scale={$currentBase.scale} />
+                <FocusedNumber
+                  value={c.bidQuantity}
+                  scale={$currentBase.scale} />
               </td>
               <td class="one wide" />
             </tr>
@@ -125,13 +127,17 @@
             <tr>
               <td class="seven wide right aligned">
                 <span class="ui {color('B')} text">
-                  {c.bid ? c.bid.toFormat($currentQuote.scale) : ''}
+                  {#if c.bid}
+                    <FocusedNumber value={c.bid} scale={$currentQuote.scale} />
+                  {/if}
                 </span>
               </td>
               <td class="two wide" />
               <td class="seven wide right aligned">
                 <span class="ui {color('S')} text">
-                  {c.ask ? c.ask.toFormat($currentQuote.scale) : ''}
+                  {#if c.ask}
+                    <FocusedNumber value={c.ask} scale={$currentQuote.scale} />
+                  {/if}
                 </span>
               </td>
             </tr>
@@ -143,7 +149,9 @@
           {#each $combined as c (c.index)}
             <tr>
               <td class="five wide right aligned">
-                <FocusedNumber value={c.askQuantity} scale={$currentBase.scale} />
+                <FocusedNumber
+                  value={c.askQuantity}
+                  scale={$currentBase.scale} />
               </td>
               <td class="five wide right aligned">
                 {c.askValue ? c.askValue.toFormat($currentQuote.scale) : ' '}

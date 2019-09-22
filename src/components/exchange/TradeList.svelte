@@ -1,7 +1,7 @@
 <script>
   import { trades } from "../../stores/trades";
   import { orders } from "../../stores/orders";
-  import { currentBase } from "../../stores/currencies";
+  import { currentBase, currentQuote } from "../../stores/currencies";
   import { onMount } from "svelte";
   import { color } from "../../utils/ui";
   import Date from "../Date.svelte";
@@ -33,7 +33,7 @@
             </td>
             <td class="five wide right aligned">
               <span class="ui {color(trade.side)} text">
-                {trade.price.toFormat(2)}
+                <FocusedNumber value={trade.price} scale={$currentQuote.scale} />
               </span>
             </td>
             <td class="five wide right aligned">
