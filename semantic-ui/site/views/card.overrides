@@ -4,6 +4,7 @@
 
 
 .ui.card {
+
     .title.content,
     .secondary.menu {
         flex-shrink: 0;
@@ -32,6 +33,8 @@
     }
 
     &.inverted {
+        box-shadow: none;
+
         .title {
             background-color: darken(@black, 4);
         }
