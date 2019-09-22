@@ -1,8 +1,6 @@
-import superAgent, { SuperAgentRequest } from 'superagent';
 import { readable } from 'svelte/store';
 import { addListener } from "../services/common";
 import { OrderType, OrderStatus, Side } from "../domain/order";
-import { BaseUrl } from "../utils/constants";
 import BigNumber from "bignumber.js"
 import moment from "moment";
 
@@ -75,12 +73,6 @@ function update(order: any) {
 
             internal.push(newOpenOrder);
     }
-}
-
-function getOrders(productId: string): SuperAgentRequest {
-    return superAgent
-        .get(BaseUrl + "/orders")
-        .query({ product_id: productId });
 }
 
 const internal: Order[] = [];

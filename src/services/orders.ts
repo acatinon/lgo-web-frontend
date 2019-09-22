@@ -5,7 +5,7 @@ import BigNumber from 'bignumber.js';
 
 export function placeOrder(productId: string, type: OrderType, side: Side, quantity: BigNumber, price: BigNumber): SuperAgentRequest {
     return superAgent
-        .post(BaseUrl + "/orders")
+        .post(BaseUrl + "/v1/live/orders")
         .send({
             type: type,
             side: side,
@@ -17,14 +17,14 @@ export function placeOrder(productId: string, type: OrderType, side: Side, quant
 
 export function cancelOrder(orderId: string) {
     superAgent
-        .delete(BaseUrl + "/orders/" + orderId)
+        .delete(BaseUrl + "/v1/live/orders/" + orderId)
         .end();
 }
 
 export function getOrders(productId: string, page: string): Promise<Response> {
     return new Promise((resolve, reject) => {
         superAgent
-            .get(BaseUrl + "/orders")
+            .get(BaseUrl + "/v1/history/orders")
             .query({ product_id: productId, page: page })
             .then(res => resolve(res));
     });

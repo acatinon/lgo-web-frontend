@@ -24,7 +24,7 @@ export enum Granularity {
 
 function getPriceHistory(productId: string, start: moment.Moment, end: moment.Moment, granularity: Granularity): SuperAgentRequest {
     return superAgent
-        .get(BaseUrl + "/products/" + productId + "/candles")
+        .get(BaseUrl + "/v1/history/products/" + productId + "/candles")
         .query({ start: start.toISOString(), end: end.toISOString(), granularity: granularity });
 }
 

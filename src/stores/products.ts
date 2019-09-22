@@ -4,7 +4,7 @@ import { BaseUrl } from "../utils/constants";
 
 export function getProducts(): SuperAgentRequest {
     return superAgent
-        .get(BaseUrl + "/products");
+        .get(BaseUrl + "/v1/live/products");
 }
 
 class Product {
