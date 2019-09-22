@@ -31,7 +31,7 @@
     <h5 class="ui header item">Open orders</h5>
   </div>
   <div class="scrollable filled content">
-    <div class="ui middle aligned divided list">
+    <div class="ui middle aligned divided small list">
       {#each $sortedOrders as order (order.id)}
         <div class="item">
           <div class="right floated content">

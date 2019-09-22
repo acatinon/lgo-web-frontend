@@ -29,7 +29,6 @@ export function addToast(title: string, message: string, type: MessageType) {
 
   jQuery("body").toast({
     showIcon: icon,
-    displayTime: 50000,
     class: borderColor,
     className: {
       toast: "ui floating message"
