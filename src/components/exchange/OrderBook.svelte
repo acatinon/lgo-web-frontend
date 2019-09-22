@@ -1,5 +1,6 @@
 <script>
   import { orderBook } from "../../stores/order_book";
+  import { currentBase, currentQuote } from "../../stores/currencies";
   import { onMount } from "svelte";
   import { derived } from "svelte/store";
   import { color } from "../../utils/ui";
@@ -55,6 +56,8 @@
       return comb;
     }
   );
+
+  console.log(JSON.stringify($currentBase));
 </script>
 
 <div id="orderbook" class="ui fluid card">
@@ -62,7 +65,7 @@
     <h5 class="ui header item">Order book</h5>
     <span class="right item">
       <span class="ui disabled text">Spread:</span>
-      &nbsp;{$minAsk.minus($maxBid).toFormat(2)}
+      &nbsp;{$minAsk.minus($maxBid).toFormat(currentQuote.scale)}
     </span>
   </div>
   <div class="filled book-header content">
@@ -103,13 +106,13 @@
           {#each $combined as c (c.index)}
             <tr>
               <td class="five wide right aligned">
-                {c.bidSum ? c.bidSum.toFormat(2) : ' '}&nbsp;
+                {c.bidSum ? c.bidSum.toFormat($currentQuote.scale) : ' '}&nbsp;
               </td>
               <td class="five wide right aligned">
-                {c.bidValue ? c.bidValue.toFormat(2) : ' '}
+                {c.bidValue ? c.bidValue.toFormat($currentQuote.scale) : ' '}
               </td>
               <td class="five wide right aligned">
-                <FocusedNumber value={c.bidQuantity} />
+                <FocusedNumber value={c.bidQuantity} scale={$currentBase.scale} />
               </td>
               <td class="one wide" />
             </tr>
@@ -122,13 +125,13 @@
             <tr>
               <td class="seven wide right aligned">
                 <span class="ui {color('B')} text">
-                  {c.bid ? c.bid.toFormat(2) : ''}
+                  {c.bid ? c.bid.toFormat($currentQuote.scale) : ''}
                 </span>
               </td>
               <td class="two wide" />
               <td class="seven wide right aligned">
                 <span class="ui {color('S')} text">
-                  {c.ask ? c.ask.toFormat(2) : ''}
+                  {c.ask ? c.ask.toFormat($currentQuote.scale) : ''}
                 </span>
               </td>
             </tr>
@@ -140,13 +143,13 @@
           {#each $combined as c (c.index)}
             <tr>
               <td class="five wide right aligned">
-                <FocusedNumber value={c.askQuantity} />
+                <FocusedNumber value={c.askQuantity} scale={$currentBase.scale} />
               </td>
               <td class="five wide right aligned">
-                {c.askValue ? c.askValue.toFormat(2) : ' '}
+                {c.askValue ? c.askValue.toFormat($currentQuote.scale) : ' '}
               </td>
               <td class="five wide right aligned">
-                {c.askSum ? c.askSum.toFormat(2) : ' '}&nbsp;
+                {c.askSum ? c.askSum.toFormat($currentQuote.scale) : ' '}&nbsp;
               </td>
               <td class="one wide" />
             </tr>

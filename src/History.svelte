@@ -236,10 +236,10 @@
                   </span>
                 </td>
                 <td class="two wide right aligned">
-                  <FocusedNumber value={order.quantity} />
+                  <FocusedNumber value={order.quantity} scale={8} />
                 </td>
                 <td class="two wide right aligned">
-                  <FocusedNumber value={order.remaining_quantity} />
+                  <FocusedNumber value={order.remaining_quantity} scale={8} />
                 </td>
                 <td
                   class="two wide"
@@ -298,10 +298,10 @@
                   <Side value={trade.side} />
                 </td>
                 <td class="two wide right aligned">
-                  <FocusedNumber value={trade.quantity} />
+                  <FocusedNumber value={trade.quantity} scale={8} />
                 </td>
                 <td class="two wide right aligned">
-                  <FocusedNumber value={trade.fees} />
+                  <FocusedNumber value={trade.fees} scale={8} />
                 </td>
                 <td class="two wide right aligned">
                   <span class="ui {color(trade.side)} text">

@@ -123,7 +123,7 @@
                     </td>
                     <td>{operation.type}</td>
                     <td class="right aligned">
-                      <FocusedNumber value={operation.quantity} />
+                      <FocusedNumber value={operation.quantity} scale={8} />
                     </td>
                     <td>{operation.status}</td>
                   </tr>

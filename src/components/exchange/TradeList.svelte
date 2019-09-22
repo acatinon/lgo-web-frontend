@@ -1,6 +1,7 @@
 <script>
   import { trades } from "../../stores/trades";
   import { orders } from "../../stores/orders";
+  import { currentBase } from "../../stores/currencies";
   import { onMount } from "svelte";
   import { color } from "../../utils/ui";
   import Date from "../Date.svelte";
@@ -28,7 +29,7 @@
         {#each $trades as trade (trade.id)}
           <tr>
             <td class="five wide right aligned">
-              <FocusedNumber value={trade.quantity} />
+              <FocusedNumber value={trade.quantity} scale={$currentBase.scale} />
             </td>
             <td class="five wide right aligned">
               <span class="ui {color(trade.side)} text">

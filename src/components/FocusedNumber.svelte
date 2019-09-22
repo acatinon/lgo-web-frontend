@@ -1,5 +1,6 @@
 <script>
   export let value;
+  export let scale;
 
   let parts;
   let intValue;
@@ -10,7 +11,7 @@
     parts = value.toFormat().split(".");
     intValue = parts[0];
     decValue = parts[1] || "";
-    disabledValue = "00000000".substring(0, 8 - decValue.length);
+    disabledValue = Array(scale).join("0").substring(0, scale - decValue.length);
   }
 </script>
 

@@ -1,5 +1,5 @@
 import superAgent, { SuperAgentRequest } from 'superagent';
-import { readable, writable, get } from 'svelte/store';
+import { readable, writable, derived } from 'svelte/store';
 import { BaseUrl } from "../utils/constants";
 
 export function getProducts(): SuperAgentRequest {
@@ -29,6 +29,16 @@ class Limits {
 }
 
 export const currentProduct = createCurrentProduct();
+
+export const currentBase = derived(
+    currentProduct,
+    $currentProduct => $currentProduct ? $currentProduct.split('-')[0] : undefined
+);
+
+export const currentQuote = derived(
+    currentProduct,
+    $currentProduct => $currentProduct ? $currentProduct.split('-')[1] : undefined
+);
 
 function createCurrentProduct() {
     const { subscribe, update } = writable(undefined);
